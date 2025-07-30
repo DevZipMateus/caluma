@@ -126,20 +126,23 @@ const Services = () => {
 
         {/* Category Tabs */}
         <div className="flex flex-wrap justify-center gap-4 mb-12 sm:mb-16">
-          {Object.entries(categories).map(([key, category]) => (
-            <button
-              key={key}
-              onClick={() => setActiveCategory(key)}
-              className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
-                activeCategory === key
-                  ? 'bg-primary text-primary-foreground shadow-lg'
-                  : 'bg-white text-primary hover:bg-primary/10 border border-primary/20'
-              }`}
-            >
-              <category.icon size={20} />
-              <span className="hidden sm:inline">{category.title}</span>
-            </button>
-          ))}
+          {Object.entries(categories).map(([key, category]) => {
+            const IconComponent = category.icon;
+            return (
+              <button
+                key={key}
+                onClick={() => setActiveCategory(key)}
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+                  activeCategory === key
+                    ? 'bg-primary text-primary-foreground shadow-lg'
+                    : 'bg-white text-primary hover:bg-primary/10 border border-primary/20'
+                }`}
+              >
+                <IconComponent size={20} />
+                <span className="hidden sm:inline">{category.title}</span>
+              </button>
+            );
+          })}
         </div>
 
         {/* Active Category Content */}
@@ -147,7 +150,10 @@ const Services = () => {
           <div className="bg-white rounded-2xl p-8 sm:p-12 shadow-sm border border-accent/10 mb-8 sm:mb-12">
             <div className="flex items-center gap-4 mb-6">
               <div className="bg-primary/10 p-3 rounded-full">
-                <categories[activeCategory].icon className="text-primary" size={32} />
+                {React.createElement(categories[activeCategory].icon, { 
+                  className: "text-primary", 
+                  size: 32 
+                })}
               </div>
               <div>
                 <h3 className="text-2xl sm:text-3xl font-bold text-primary mb-2">
