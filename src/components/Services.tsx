@@ -1,77 +1,232 @@
 
-import React from 'react';
-import { Shield, HardHat, Eye, ArrowRight } from 'lucide-react';
-
-const services = [
-  {
-    id: 1,
-    title: 'Proteção da Cabeça',
-    description: 'Capacetes de segurança, toucas e protetores auriculares para proteção completa da cabeça em ambientes industriais.',
-    icon: HardHat,
-    delay: '0s'
-  },
-  {
-    id: 2,
-    title: 'Proteção Visual e Respiratória',
-    description: 'Óculos de proteção, máscaras, respiradores e filtros para ambientes com riscos químicos e particulados.',
-    icon: Eye,
-    delay: '0.1s'
-  },
-  {
-    id: 3,
-    title: 'Proteção Corporal Completa',
-    description: 'Luvas, calçados de segurança, cintos de segurança e vestimentas para proteção integral do trabalhador.',
-    icon: Shield,
-    delay: '0.2s'
-  }
-];
+import React, { useState } from 'react';
+import { Shirt, Briefcase, Palette, ShoppingBag, ArrowRight, Sparkles } from 'lucide-react';
 
 const Services = () => {
+  const [activeCategory, setActiveCategory] = useState('camisas');
+
+  const categories = {
+    camisas: {
+      title: 'Camisas',
+      icon: Shirt,
+      description: 'Camisetas personalizadas para todos os gostos e ocasiões',
+      items: [
+        'Body Infantil',
+        'Camisa Polo Masculina 50% Alg. 50% Poli.',
+        'Camisa Polo Masculina Dryfit',
+        'Camisa Polo Feminina',
+        'Camisa Polo Feminina Dry',
+        'Feminina Poliéster Branco',
+        'Feminina Poliéster Colorida',
+        'Masculina Poliéster Branco',
+        'Masculina Poliéster Colorida',
+        'Feminina Algodão Branco',
+        'Feminina Algodão Colorida',
+        'Masculina Algodão Branco',
+        'Masculino Algodão Colorido',
+        'Dry Branco',
+        'Dry Colorido',
+        'Regata Feminina Branco',
+        'Regata Feminina Colorida',
+        'Regata Masculina Branco',
+        'Regata Masculina Colorida'
+      ]
+    },
+    uniformes: {
+      title: 'Uniformes',
+      icon: Briefcase,
+      description: 'Uniformes profissionais para diversos segmentos',
+      items: [
+        'Polo Masculina Piquet',
+        'Polo Feminina Piquet',
+        'Polo Masculina Dry',
+        'Polo Feminina Dry',
+        'Tradicional Masculina',
+        'Tradicional Feminina',
+        'Toca Personalizada',
+        'Avental',
+        'Colete de Futebol',
+        'Jaleco de Brim',
+        'Jaleco de Enfermagem',
+        'Uniforme Esportivo'
+      ]
+    },
+    dtf: {
+      title: 'DTF',
+      icon: Palette,
+      description: 'Impressão DTF para personalização de alta qualidade',
+      items: [
+        'DTF Têxtil',
+        'DTF UV'
+      ]
+    },
+    brindes: {
+      title: 'Bolsas/Brindes/Insumos',
+      icon: ShoppingBag,
+      description: 'Produtos promocionais e insumos para sublimação',
+      items: [
+        'Malinha Baú',
+        'Saquinhos de Embalagem Oxford',
+        'Necessaire',
+        'Bolsa Plástica',
+        'Bolsa 3D',
+        'Caneca Personalizada',
+        'Almochaveiro',
+        'Azulejo',
+        'Base Giratória',
+        'Bolsa Ecobag',
+        'Caneta',
+        'Capa de Almofada',
+        'Capa de Almofada Lantejola',
+        'Cavaletes',
+        'Chaveiro Acrílico',
+        'Chaveiro Polímero',
+        'Chinelo',
+        'Colocador de Tiras Chinelo',
+        'Fita Térmica',
+        'Lavabinho',
+        'Lavabo',
+        'Mouse Pad',
+        'Quebra Cabeça',
+        'Relógio de Vidro',
+        'Relógio MDF',
+        'Suportes',
+        'Teflon',
+        'Toalha de Banho',
+        'Toalha de Rosto'
+      ]
+    }
+  };
+
+  const scrollToContact = () => {
+    const element = document.getElementById('contato');
+    if (element) {
+      const offsetTop = element.offsetTop - 80;
+      window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <section id="services" className="section bg-transparent">
-      <div className="container-custom py-12 sm:py-16 lg:py-20">
+    <section id="servicos" className="section bg-muted/30">
+      <div className="container-custom py-16 sm:py-20 lg:py-24">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 px-4">
-          <div className="inline-block bg-ds3-gold/10 text-ds3-dark font-medium px-3 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm mb-4 text-shadow-sm">
-            Nossos Produtos
+        <div className="text-center max-w-4xl mx-auto mb-12 sm:mb-16">
+          <div className="inline-block bg-accent/10 text-primary font-medium px-4 py-2 rounded-full text-sm mb-6">
+            Nossos Serviços
           </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6 text-shadow-md">
-            EPIs completos para sua segurança
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-6 sm:mb-8">
+            Soluções completas em
+            <span className="block text-accent mt-2">personalização</span>
           </h2>
-          <p className="text-base sm:text-lg text-shadow text-gray-950">
-            Oferecemos equipamentos de proteção individual certificados para atender às necessidades específicas 
-            do seu ambiente de trabalho, com qualidade e segurança garantidas.
+          <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed">
+            Oferecemos duas modalidades: <strong>venda de produtos para sublimação</strong> e <strong>serviços de personalização</strong>, 
+            entregando produtos já customizados como canecas, uniformes, bolsas e muito mais.
           </p>
         </div>
-        
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 px-4">
-          {services.map(service => (
-            <div 
-              key={service.id} 
-              style={{
-                animationDelay: service.delay
-              }} 
-              className="backdrop-blur-sm rounded-lg p-6 sm:p-8 border border-gray-100 shadow-sm hover:shadow-md hover:border-ds3-gold/30 transition-all duration-300 transform hover:scale-[1.02] animate-fade-in bg-zinc-300"
+
+        {/* Category Tabs */}
+        <div className="flex flex-wrap justify-center gap-4 mb-12 sm:mb-16">
+          {Object.entries(categories).map(([key, category]) => (
+            <button
+              key={key}
+              onClick={() => setActiveCategory(key)}
+              className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+                activeCategory === key
+                  ? 'bg-primary text-primary-foreground shadow-lg'
+                  : 'bg-white text-primary hover:bg-primary/10 border border-primary/20'
+              }`}
             >
-              <div className="bg-ds3-gold/10 p-3 sm:p-4 rounded-lg inline-block mb-4 sm:mb-5">
-                <service.icon className="text-ds3-dark" size={24} />
-              </div>
-              <h3 className="text-lg sm:text-xl font-semibold mb-3 text-gray-900 text-shadow-sm">{service.title}</h3>
-              <p className="text-sm sm:text-base text-gray-600 mb-4 text-shadow-sm leading-relaxed">{service.description}</p>
-              <a href="#contact" className="inline-flex items-center text-ds3-dark hover:text-ds3-gold font-medium transition-colors duration-300 text-shadow-sm text-sm sm:text-base">
-                Solicitar orçamento <ArrowRight size={16} className="ml-1" />
-              </a>
-            </div>
+              <category.icon size={20} />
+              <span className="hidden sm:inline">{category.title}</span>
+            </button>
           ))}
         </div>
-        
+
+        {/* Active Category Content */}
+        <div className="animate-fade-in">
+          <div className="bg-white rounded-2xl p-8 sm:p-12 shadow-sm border border-accent/10 mb-8 sm:mb-12">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="bg-primary/10 p-3 rounded-full">
+                <categories[activeCategory].icon className="text-primary" size={32} />
+              </div>
+              <div>
+                <h3 className="text-2xl sm:text-3xl font-bold text-primary mb-2">
+                  {categories[activeCategory].title}
+                </h3>
+                <p className="text-muted-foreground text-lg">
+                  {categories[activeCategory].description}
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {categories[activeCategory].items.map((item, index) => (
+                <div
+                  key={index}
+                  className="bg-muted/20 rounded-lg p-4 hover:bg-accent/10 hover:border-accent/20 border border-transparent transition-all duration-300 group"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-accent rounded-full group-hover:scale-125 transition-transform duration-300"></div>
+                    <span className="text-primary font-medium">{item}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Service Modalities */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 mb-12 sm:mb-16">
+          <div className="bg-white rounded-2xl p-8 sm:p-10 shadow-sm border border-accent/10 hover:shadow-md transition-all duration-300">
+            <div className="bg-primary/10 p-4 rounded-full w-fit mb-6">
+              <ShoppingBag className="text-primary" size={32} />
+            </div>
+            <h3 className="text-2xl sm:text-3xl font-bold text-primary mb-4">Venda de Insumos</h3>
+            <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+              Produtos lisos e insumos para sublimação, ideais para quem quer personalizar por conta própria. 
+              Oferecemos uma ampla variedade de produtos em branco prontos para personalização.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <span className="bg-accent/10 text-primary px-3 py-1 rounded-full text-sm font-medium">Produtos em branco</span>
+              <span className="bg-accent/10 text-primary px-3 py-1 rounded-full text-sm font-medium">Insumos</span>
+              <span className="bg-accent/10 text-primary px-3 py-1 rounded-full text-sm font-medium">Materiais</span>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl p-8 sm:p-10 shadow-sm border border-accent/10 hover:shadow-md transition-all duration-300">
+            <div className="bg-accent/10 p-4 rounded-full w-fit mb-6">
+              <Sparkles className="text-accent" size={32} />
+            </div>
+            <h3 className="text-2xl sm:text-3xl font-bold text-primary mb-4">Personalização Completa</h3>
+            <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+              Entregamos produtos já personalizados com sua arte, logo ou design. 
+              Desde canecas até uniformes completos, cuidamos de todo o processo para você.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <span className="bg-accent/10 text-primary px-3 py-1 rounded-full text-sm font-medium">Produto final</span>
+              <span className="bg-accent/10 text-primary px-3 py-1 rounded-full text-sm font-medium">Personalização</span>
+              <span className="bg-accent/10 text-primary px-3 py-1 rounded-full text-sm font-medium">Entrega pronta</span>
+            </div>
+          </div>
+        </div>
+
         {/* CTA */}
-        <div className="mt-12 sm:mt-16 text-center px-4">
-          <a href="#contact" className="bg-ds3-dark hover:bg-ds3-dark/90 text-ds3-gold px-6 py-3 rounded-md transition-all flex items-center justify-center gap-2 font-medium inline-flex text-shadow-sm text-sm sm:text-base">
-            <span>Fale com um especialista</span>
-            <ArrowRight size={18} />
-          </a>
+        <div className="text-center">
+          <div className="bg-gradient-to-r from-primary to-primary/80 rounded-2xl p-8 sm:p-12 text-primary-foreground">
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6">
+              Pronto para dar vida às suas ideias?
+            </h3>
+            <p className="text-lg sm:text-xl text-primary-foreground/90 mb-6 sm:mb-8 max-w-2xl mx-auto">
+              Entre em contato conosco e descubra como podemos ajudar você a criar produtos únicos e personalizados.
+            </p>
+            <button 
+              onClick={scrollToContact}
+              className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-4 rounded-xl font-medium text-lg transition-all duration-300 transform hover:scale-105 inline-flex items-center gap-2 shadow-lg"
+            >
+              <span>Solicitar Orçamento</span>
+              <ArrowRight size={20} />
+            </button>
+          </div>
         </div>
       </div>
     </section>

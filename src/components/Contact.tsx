@@ -1,128 +1,184 @@
 
 import React from 'react';
-import { Phone, Mail, MapPin } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Instagram } from 'lucide-react';
 import { useIsMobile } from '../hooks/use-mobile';
 
 const Contact = () => {
   const isMobile = useIsMobile();
 
   return (
-    <section id="contact" className="section bg-transparent">
-      <div className="container-custom py-12 sm:py-16 lg:py-20 px-4">
+    <section id="contato" className="section bg-muted/30">
+      <div className="container-custom py-16 sm:py-20 lg:py-24">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
-          <div className="inline-block bg-ds3-gold/20 text-ds3-dark font-medium px-3 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <div className="inline-block bg-accent/10 text-primary font-medium px-4 py-2 rounded-full text-sm mb-6">
             Contato
           </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900 mb-4 sm:mb-6">
-            Entre em contato conosco
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-6 sm:mb-8">
+            Vamos transformar sua ideia
+            <span className="block text-accent mt-2">em realidade</span>
           </h2>
-          <p className="text-base sm:text-lg text-zinc-950">
-            Estamos prontos para atender suas necessidades de EPIs através dos nossos canais de atendimento.
+          <p className="text-lg sm:text-xl text-muted-foreground">
+            Entre em contato conosco através dos nossos canais de atendimento. Estamos prontos para ajudar você!
           </p>
         </div>
         
         {/* Contact Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-12 sm:mb-16">
           {/* WhatsApp Card */}
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden animate-fade-in">
-            <div className="bg-emerald-500 p-4 sm:p-6 flex items-center justify-center">
-              <img src="/lovable-uploads/1fa16bc1-908d-4a63-9c7f-88a25f117f80.png" alt="WhatsApp" className="w-12 h-12 sm:w-16 sm:h-16" />
+          <div className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300 animate-fade-in">
+            <div className="bg-green-500 p-6 flex items-center justify-center">
+              <div className="bg-white p-3 rounded-full">
+                <Phone className="text-green-500" size={24} />
+              </div>
             </div>
-            <div className="p-4 sm:p-6 text-center bg-zinc-400">
-              <h3 className="text-base sm:text-lg font-semibold text-neutral-900 mb-2">WhatsApp</h3>
-              <p className="text-sm sm:text-base text-neutral-600 mb-4">Atendimento rápido e prático</p>
-              <a href="https://wa.me/5511987654321" target="_blank" rel="noopener noreferrer" className="bg-ds3-dark hover:bg-ds3-dark/90 text-ds3-gold px-4 sm:px-6 py-2 rounded-md inline-flex items-center justify-center gap-2 transition-all font-medium text-sm sm:text-base w-full sm:w-auto">
-                <span>Enviar mensagem</span>
+            <div className="p-6 text-center">
+              <h3 className="text-lg font-semibold text-primary mb-2">WhatsApp</h3>
+              <p className="text-muted-foreground text-sm mb-4">Atendimento rápido e prático</p>
+              <a href="https://wa.me/5573998503370" target="_blank" rel="noopener noreferrer" className="btn-secondary w-full text-sm">
+                Enviar mensagem
               </a>
             </div>
           </div>
           
           {/* Phone Card */}
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden animate-fade-in" style={{
-            animationDelay: '0.1s'
-          }}>
-            <div className="bg-ds3-gold p-4 sm:p-6 flex items-center justify-center">
-              <Phone className="w-12 h-12 sm:w-16 sm:h-16 text-ds3-dark" />
+          <div className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+            <div className="bg-accent p-6 flex items-center justify-center">
+              <Phone className="text-accent-foreground" size={32} />
             </div>
-            <div className="p-4 sm:p-6 text-center bg-zinc-400">
-              <h3 className="text-base sm:text-lg font-semibold text-neutral-900 mb-2">Telefone</h3>
-              <p className="text-sm sm:text-base text-neutral-600 mb-4">Fale diretamente conosco</p>
-              <a href="tel:+5511987654321" className="bg-ds3-dark hover:bg-ds3-dark/90 text-ds3-gold px-4 sm:px-6 py-2 rounded-md inline-flex items-center justify-center gap-2 transition-all font-medium text-sm sm:text-base w-full sm:w-auto">
-                <span>(11) 98765-4321</span>
+            <div className="p-6 text-center">
+              <h3 className="text-lg font-semibold text-primary mb-2">Telefone</h3>
+              <p className="text-muted-foreground text-sm mb-4">Fale diretamente conosco</p>
+              <a href="tel:+5573998503370" className="btn-primary w-full text-sm">
+                (73) 99850-3370
               </a>
             </div>
           </div>
           
           {/* Email Card */}
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden animate-fade-in sm:col-span-2 lg:col-span-1" style={{
-            animationDelay: '0.2s'
-          }}>
-            <div className="bg-ds3-dark p-4 sm:p-6 flex items-center justify-center">
-              <Mail className="w-12 h-12 sm:w-16 sm:h-16 text-ds3-gold" />
+          <div className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            <div className="bg-primary p-6 flex items-center justify-center">
+              <Mail className="text-primary-foreground" size={32} />
             </div>
-            <div className="p-4 sm:p-6 text-center bg-zinc-400">
-              <h3 className="text-base sm:text-lg font-semibold text-neutral-900 mb-2">E-mail</h3>
-              <p className="text-sm sm:text-base text-neutral-600 mb-4">Envie sua mensagem</p>
-              <a href="mailto:vendas@safeguardepis.com.br" className="bg-ds3-dark hover:bg-ds3-dark/90 text-ds3-gold px-4 sm:px-6 py-2 rounded-md inline-flex items-center justify-center gap-2 transition-all font-medium text-xs sm:text-sm w-full sm:w-auto break-all sm:break-normal">
-                <span className="truncate sm:whitespace-normal">vendas@safeguardepis.com.br</span>
+            <div className="p-6 text-center">
+              <h3 className="text-lg font-semibold text-primary mb-2">E-mail</h3>
+              <p className="text-muted-foreground text-sm mb-4">Envie sua mensagem</p>
+              <a href="mailto:calumaconsultoria@gmail.com" className="btn-primary w-full text-xs">
+                calumaconsultoria@gmail.com
+              </a>
+            </div>
+          </div>
+
+          {/* Instagram Card */}
+          <div className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+            <div className="bg-gradient-to-br from-purple-500 to-pink-500 p-6 flex items-center justify-center">
+              <Instagram className="text-white" size={32} />
+            </div>
+            <div className="p-6 text-center">
+              <h3 className="text-lg font-semibold text-primary mb-2">Instagram</h3>
+              <p className="text-muted-foreground text-sm mb-4">Acompanhe nosso trabalho</p>
+              <a href="https://instagram.com/calumavariedades" target="_blank" rel="noopener noreferrer" className="btn-secondary w-full text-sm">
+                @calumavariedades
               </a>
             </div>
           </div>
         </div>
         
-        {/* Address and Hours Card */}
-        <div className="mt-8 sm:mt-12 rounded-xl shadow-sm p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto bg-zinc-400">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+        {/* Location and Hours */}
+        <div className="bg-white rounded-2xl shadow-sm p-8 sm:p-12 border border-accent/10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
             {/* Address */}
-            <div>
-              <div className="flex items-start mb-4 sm:mb-6">
-                <div className="bg-neutral-100 p-2 sm:p-3 rounded-full mr-3 sm:mr-4 flex-shrink-0">
-                  <MapPin className="text-ds3-dark" size={20} />
+            <div id="localizacao">
+              <div className="flex items-start mb-6">
+                <div className="bg-accent/10 p-3 rounded-full mr-4 flex-shrink-0">
+                  <MapPin className="text-primary" size={24} />
                 </div>
                 <div>
-                  <h4 className="text-base sm:text-lg font-semibold text-neutral-900 mb-2">Endereço</h4>
-                  <p className="text-sm sm:text-base text-zinc-950 leading-relaxed">Rua da Segurança, 123 - Centro, São Paulo - SP, 01000-000</p>
-                  <a href="https://www.google.com/maps/place/R.+da+Seguran%C3%A7a,+123+-+Centro,+S%C3%A3o+Paulo+-+SP,+01000-000,+Brasil/" target="_blank" rel="noopener noreferrer" className="text-ds3-dark hover:text-ds3-gold transition-colors duration-300 mt-2 inline-block text-sm sm:text-base">
-                    Ver no mapa
+                  <h4 className="text-xl sm:text-2xl font-semibold text-primary mb-3">Nossa Localização</h4>
+                  <p className="text-muted-foreground text-lg leading-relaxed mb-4">
+                    Rua Oswaldo Cruz, Vila Canaã<br />
+                    Araruama - RJ
+                  </p>
+                  <a 
+                    href="https://maps.google.com/maps?q=Rua+Oswaldo+Cruz+Vila+Canaã+Araruama+RJ" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="text-accent hover:text-accent/80 transition-colors font-medium inline-flex items-center gap-2"
+                  >
+                    <span>Ver no Google Maps</span>
+                    <MapPin size={16} />
                   </a>
                 </div>
               </div>
               
-              {/* Google Maps Embed */}
-              <div className="w-full h-48 sm:h-64 mt-4 rounded-lg overflow-hidden">
+              {/* Embedded Map */}
+              <div className="w-full h-64 sm:h-80 rounded-lg overflow-hidden border border-accent/10">
                 <iframe 
-                  src="https://www.google.com/maps?q=Centro+S%C3%A3o+Paulo+SP&output=embed" 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.8899516273595!2d-42.34000832468896!3d-22.87250037936967!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x978f2c9e4f6a0d%3A0x2e4b7d8a3f5c6e8f!2sAraruama%2C%20RJ!5e0!3m2!1spt!2sbr!4v1683000000000!5m2!1spt!2sbr" 
                   width="100%" 
                   height="100%" 
-                  style={{
-                    border: 0
-                  }} 
+                  style={{ border: 0 }} 
                   allowFullScreen 
                   loading="lazy" 
-                  referrerPolicy="no-referrer-when-downgrade" 
-                  title="Localização da Safeguard EPIs"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Localização da Caluma Variedades e Personalizados"
                 ></iframe>
               </div>
             </div>
             
-            {/* Working Hours */}
-            <div className="mt-6 lg:mt-0">
-              <h4 className="text-base sm:text-lg font-semibold text-neutral-900 mb-4">Horário de Atendimento</h4>
-              
-              <div className="space-y-3 sm:space-y-2">
-                <div className="flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-0">
-                  <span className="text-sm sm:text-base text-zinc-950">Segunda - Sexta:</span>
-                  <span className="font-medium text-neutral-900 text-sm sm:text-base">08:00 - 18:00</span>
+            {/* Business Hours and Additional Info */}
+            <div>
+              <div className="mb-8">
+                <div className="flex items-center mb-4">
+                  <div className="bg-accent/10 p-3 rounded-full mr-4">
+                    <Clock className="text-primary" size={24} />
+                  </div>
+                  <h4 className="text-xl sm:text-2xl font-semibold text-primary">Horário de Atendimento</h4>
                 </div>
-                <div className="flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-0">
-                  <span className="text-sm sm:text-base text-zinc-950">Sábado:</span>
-                  <span className="font-medium text-neutral-900 text-sm sm:text-base">08:00 - 12:00</span>
+                
+                <div className="space-y-3 ml-16">
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Segunda - Sexta:</span>
+                    <span className="font-medium text-primary">08:00 - 18:00</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Sábado:</span>
+                    <span className="font-medium text-primary">08:00 - 12:00</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Domingo:</span>
+                    <span className="font-medium text-primary">Fechado</span>
+                  </div>
                 </div>
-                <div className="flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-0">
-                  <span className="text-sm sm:text-base text-zinc-950">Domingo:</span>
-                  <span className="font-medium text-neutral-900 text-sm sm:text-base">Fechado</span>
+              </div>
+
+              {/* Additional Contact Info */}
+              <div className="bg-muted/30 rounded-xl p-6">
+                <h5 className="text-lg font-semibold text-primary mb-4">Contatos Adicionais</h5>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <Phone size={16} className="text-accent" />
+                    <a href="tel:+5522992142239" className="text-muted-foreground hover:text-primary transition-colors">
+                      (22) 9 9214-2239
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Instagram size={16} className="text-accent" />
+                    <a href="https://instagram.com/calumavariedades" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                      @calumavariedades
+                    </a>
+                  </div>
                 </div>
+              </div>
+
+              {/* CTA */}
+              <div className="mt-8 p-6 bg-gradient-to-r from-primary to-primary/80 rounded-xl text-primary-foreground text-center">
+                <h5 className="text-lg font-semibold mb-2">Pronto para começar?</h5>
+                <p className="text-primary-foreground/90 mb-4">Entre em contato e transforme sua ideia em realidade!</p>
+                <a href="https://wa.me/5573998503370" target="_blank" rel="noopener noreferrer" className="bg-accent hover:bg-accent/90 text-accent-foreground px-6 py-3 rounded-lg font-medium transition-all inline-flex items-center gap-2">
+                  <Phone size={18} />
+                  Falar no WhatsApp
+                </a>
               </div>
             </div>
           </div>

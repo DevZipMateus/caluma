@@ -17,9 +17,9 @@
     --popover: 0 0% 100%;
     --popover-foreground: 220 6% 10%;
 
-    /* Primary (30%): Gold */
-    --primary: 46 86% 70%;
-    --primary-foreground: 220 6% 10%;
+    /* Primary (30%): Blue from logo */
+    --primary: 234 89% 35%;
+    --primary-foreground: 0 0% 98%;
 
     --secondary: 0 0% 98%;
     --secondary-foreground: 220 6% 10%;
@@ -27,16 +27,16 @@
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
 
-    /* Accent (10%): Dark Gray */
-    --accent: 220 6% 10%;
-    --accent-foreground: 0 0% 98%;
+    /* Accent (10%): Yellow from logo */
+    --accent: 48 95% 60%;
+    --accent-foreground: 0 0% 10%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
-    --ring: 46 86% 70%;
+    --ring: 48 95% 60%;
 
     --radius: 0.5rem;
 
@@ -51,17 +51,17 @@
   }
 
   .dark {
-    --background: 220 6% 10%;
+    --background: 234 89% 35%;
     --foreground: 0 0% 98%;
 
-    --card: 220 6% 10%;
+    --card: 234 89% 35%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 220 6% 10%;
+    --popover: 234 89% 35%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 46 86% 70%;
-    --primary-foreground: 220 6% 10%;
+    --primary: 48 95% 60%;
+    --primary-foreground: 0 0% 10%;
 
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
@@ -69,15 +69,15 @@
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
 
-    --accent: 46 86% 60%; 
-    --accent-foreground: 0 0% 98%; 
+    --accent: 48 95% 60%; 
+    --accent-foreground: 0 0% 10%; 
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    --ring: 46 86% 70%;
+    --ring: 48 95% 60%;
     
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
@@ -89,36 +89,10 @@
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
-  /* Fixed background image with fade overlay for the entire site */
+  /* Remove fixed background and overlay */
   html {
     position: relative;
-  }
-
-  html::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('https://images.unsplash.com/photo-1662309376159-b95fb193d96b?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    opacity: 0.3;
-    z-index: -2;
-  }
-
-  html::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 100%);
-    z-index: -1;
+    scroll-behavior: smooth;
   }
 }
 
@@ -128,9 +102,8 @@
   }
 
   body {
-    @apply bg-transparent text-foreground font-sans;
+    @apply bg-background text-foreground font-sans;
     font-family: 'Inter', sans-serif;
-    background: transparent;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -140,11 +113,6 @@
   /* Glass effect */
   .glass {
     @apply bg-white/80 backdrop-blur-md border border-white/20;
-  }
-  
-  /* Smooth scroll behavior */
-  html {
-    scroll-behavior: smooth;
   }
 
   /* Text Shadow Utilities for Enhanced Readability */
@@ -184,11 +152,11 @@
   
   /* Buttons with hover effect */
   .btn-primary {
-    @apply bg-ds3-dark hover:bg-ds3-dark/90 text-ds3-gold px-6 py-3 rounded-md transition-all duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-ds3-gold/50 shadow-sm;
+    @apply bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-md transition-all duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-accent/50 shadow-sm;
   }
   
   .btn-secondary {
-    @apply bg-white hover:bg-gray-50 text-ds3-dark border border-ds3-gold/20 px-6 py-3 rounded-md transition-all duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-ds3-gold/50 shadow-sm;
+    @apply bg-accent hover:bg-accent/90 text-accent-foreground px-6 py-3 rounded-md transition-all duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-primary/50 shadow-sm;
   }
   
   /* Card hover effects */
@@ -208,21 +176,12 @@
   
   /* Navigation link hover effect */
   .nav-link {
-    @apply relative py-2 px-3 text-ds3-dark hover:text-ds3-gold transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-ds3-gold after:transition-all after:duration-300 hover:after:w-full;
+    @apply relative py-2 px-3 text-primary-foreground hover:text-accent transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-accent after:transition-all after:duration-300 hover:after:w-full;
   }
   
   /* Image hover effect */
   .img-hover {
     @apply transition-all duration-500 hover:opacity-90 hover:scale-[1.02];
-  }
-  
-  /* Plan cards */
-  .plan-card {
-    @apply bg-white rounded-xl p-6 md:p-8 shadow-sm transition-all duration-300 hover:shadow-md border border-neutral-100;
-  }
-  
-  .plan-card-popular {
-    @apply bg-gradient-to-br from-white to-ds3-gold/20 rounded-xl p-6 md:p-8 shadow-md transition-all duration-300 hover:shadow-lg border border-ds3-gold/30 relative;
   }
   
   /* Feature list */
@@ -231,7 +190,7 @@
   }
   
   .feature-icon {
-    @apply bg-ds3-gold/20 p-1.5 rounded-full mr-3 mt-0.5 flex-shrink-0 text-ds3-dark;
+    @apply bg-accent/20 p-1.5 rounded-full mr-3 mt-0.5 flex-shrink-0 text-primary;
   }
   
   /* Floating animation */
@@ -246,8 +205,8 @@
   
   /* Pulse animation for attention */
   @keyframes attention-pulse {
-    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(242, 205, 105, 0.7); }
-    50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(242, 205, 105, 0); }
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.7); }
+    50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(234, 179, 8, 0); }
   }
   
   .pulse-attention {

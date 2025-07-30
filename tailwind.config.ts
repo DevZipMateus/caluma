@@ -63,10 +63,10 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				ds3: {
-					gold: '#f2cd69', // Gold color (30%)
-					dark: '#131619', // Dark color (10%)
-					white: '#ffffff', // White (60%)
+				caluma: {
+					blue: 'hsl(234, 89%, 35%)', // Azul da logo
+					yellow: 'hsl(48, 95%, 60%)', // Amarelo da logo
+					white: 'hsl(0, 0%, 100%)', // Branco
 				}
 			},
 			borderRadius: {
