@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ArrowRight, Sparkles, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -35,7 +34,7 @@ const Hero = () => {
             <img 
               src="/lovable-uploads/855dbbc1-ae89-4024-a478-1b7d2781b8ac.png" 
               alt="Caluma Variedades e Personalizados" 
-              className="h-24 sm:h-36 md:h-48 lg:h-60 xl:h-72 2xl:h-80 w-auto mx-auto mb-4 sm:mb-6 drop-shadow-2xl"
+              className="h-32 sm:h-48 md:h-64 lg:h-80 xl:h-96 2xl:h-[28rem] w-auto mx-auto mb-4 sm:mb-6 drop-shadow-2xl"
             />
           </div>
 
