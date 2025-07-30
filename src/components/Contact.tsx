@@ -1,186 +1,260 @@
 
-import React from 'react';
-import { Phone, Mail, MapPin, Clock, Instagram } from 'lucide-react';
-import { useIsMobile } from '../hooks/use-mobile';
+import React, { useState } from 'react';
+import { Phone, Mail, MapPin, Clock, Send, MessageCircle } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
 
 const Contact = () => {
-  const isMobile = useIsMobile();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    subject: '',
+    message: ''
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Criar mensagem para WhatsApp
+    const whatsappMessage = `Olá! Gostaria de solicitar um orçamento:
+
+*Nome:* ${formData.name}
+*E-mail:* ${formData.email}
+*Telefone:* ${formData.phone}
+*Assunto:* ${formData.subject}
+*Mensagem:* ${formData.message}`;
+    
+    const encodedMessage = encodeURIComponent(whatsappMessage);
+    const whatsappURL = `https://wa.me/5573998503370?text=${encodedMessage}`;
+    
+    window.open(whatsappURL, '_blank');
+  };
+
+  const contactInfo = [
+    {
+      icon: Phone,
+      title: 'Telefone / WhatsApp',
+      content: '(73) 99850-3370',
+      action: 'tel:+5573998503370'
+    },
+    {
+      icon: Mail,
+      title: 'E-mail',
+      content: 'calumaconsultoria@gmail.com',
+      action: 'mailto:calumaconsultoria@gmail.com'
+    },
+    {
+      icon: MapPin,
+      title: 'Localização',
+      content: 'Itabuna - BA',
+      action: ''
+    },
+    {
+      icon: Clock,
+      title: 'Horário de Atendimento',
+      content: 'Seg à Sex: 8h às 18h',
+      action: ''
+    }
+  ];
 
   return (
-    <section id="contato" className="section bg-muted/30">
-      <div className="container-custom py-16 sm:py-20 lg:py-24">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <div className="inline-block bg-accent/10 text-primary font-medium px-4 py-2 rounded-full text-sm mb-6">
-            Contato
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-6 sm:mb-8">
+    <section id="contato" className="py-16 lg:py-24 bg-muted/30">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
+          <Badge variant="secondary" className="mb-4">Entre em Contato</Badge>
+          <h2 className="text-3xl lg:text-5xl font-bold text-primary mb-6">
             Vamos transformar sua ideia
             <span className="block text-accent mt-2">em realidade</span>
           </h2>
-          <p className="text-lg sm:text-xl text-muted-foreground">
-            Entre em contato conosco através dos nossos canais de atendimento. Estamos prontos para ajudar você!
+          <p className="text-lg text-muted-foreground">
+            Estamos prontos para atender você! Entre em contato e solicite seu orçamento personalizado.
+            Resposta rápida garantida.
           </p>
         </div>
-        
-        {/* Contact Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-12 sm:mb-16">
-          {/* WhatsApp Card */}
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300 animate-fade-in">
-            <div className="bg-green-500 p-6 flex items-center justify-center">
-              <div className="bg-white p-3 rounded-full">
-                <Phone className="text-green-500" size={24} />
-              </div>
-            </div>
-            <div className="p-6 text-center">
-              <h3 className="text-lg font-semibold text-primary mb-2">WhatsApp</h3>
-              <p className="text-muted-foreground text-sm mb-4">Atendimento rápido e prático</p>
-              <a href="https://wa.me/5573998503370" target="_blank" rel="noopener noreferrer" className="btn-secondary w-full text-sm">
-                Enviar mensagem
-              </a>
-            </div>
-          </div>
-          
-          {/* Phone Card */}
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300 animate-fade-in" style={{ animationDelay: '0.1s' }}>
-            <div className="bg-accent p-6 flex items-center justify-center">
-              <Phone className="text-accent-foreground" size={32} />
-            </div>
-            <div className="p-6 text-center">
-              <h3 className="text-lg font-semibold text-primary mb-2">Telefone</h3>
-              <p className="text-muted-foreground text-sm mb-4">Fale diretamente conosco</p>
-              <a href="tel:+5573998503370" className="btn-primary w-full text-sm">
-                (73) 99850-3370
-              </a>
-            </div>
-          </div>
-          
-          {/* Email Card */}
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            <div className="bg-primary p-6 flex items-center justify-center">
-              <Mail className="text-primary-foreground" size={32} />
-            </div>
-            <div className="p-6 text-center">
-              <h3 className="text-lg font-semibold text-primary mb-2">E-mail</h3>
-              <p className="text-muted-foreground text-sm mb-4">Envie sua mensagem</p>
-              <a href="mailto:calumaconsultoria@gmail.com" className="btn-primary w-full text-xs">
-                calumaconsultoria@gmail.com
-              </a>
-            </div>
-          </div>
 
-          {/* Instagram Card */}
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300 animate-fade-in" style={{ animationDelay: '0.3s' }}>
-            <div className="bg-gradient-to-br from-purple-500 to-pink-500 p-6 flex items-center justify-center">
-              <Instagram className="text-white" size={32} />
-            </div>
-            <div className="p-6 text-center">
-              <h3 className="text-lg font-semibold text-primary mb-2">Instagram</h3>
-              <p className="text-muted-foreground text-sm mb-4">Acompanhe nosso trabalho</p>
-              <a href="https://instagram.com/calumavariedades" target="_blank" rel="noopener noreferrer" className="btn-secondary w-full text-sm">
-                @calumavariedades
-              </a>
-            </div>
-          </div>
-        </div>
-        
-        {/* Location and Hours */}
-        <div className="bg-white rounded-2xl shadow-sm p-8 sm:p-12 border border-accent/10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
-            {/* Address */}
-            <div id="localizacao">
-              <div className="flex items-start mb-6">
-                <div className="bg-accent/10 p-3 rounded-full mr-4 flex-shrink-0">
-                  <MapPin className="text-primary" size={24} />
-                </div>
-                <div>
-                  <h4 className="text-xl sm:text-2xl font-semibold text-primary mb-3">Nossa Localização</h4>
-                  <p className="text-muted-foreground text-lg leading-relaxed mb-4">
-                    Rua Oswaldo Cruz, Vila Canaã<br />
-                    Araruama - RJ
-                  </p>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+          {/* Contact Info */}
+          <div className="lg:col-span-1 space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-xl text-primary">Informações de Contato</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {contactInfo.map((info, index) => (
+                  <div key={index}>
+                    <div className="flex items-start gap-3">
+                      <div className="bg-primary/10 p-2 rounded-lg flex-shrink-0">
+                        <info.icon className="text-primary" size={20} />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-medium text-foreground mb-1">{info.title}</h4>
+                        {info.action ? (
+                          <a 
+                            href={info.action}
+                            className="text-muted-foreground hover:text-primary transition-colors"
+                          >
+                            {info.content}
+                          </a>
+                        ) : (
+                          <p className="text-muted-foreground">{info.content}</p>
+                        )}
+                      </div>
+                    </div>
+                    {index < contactInfo.length - 1 && <Separator className="mt-6" />}
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+
+            {/* Quick Actions */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-xl text-primary">Contato Rápido</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <Button 
+                  asChild
+                  className="w-full"
+                  size="lg"
+                >
                   <a 
-                    href="https://maps.google.com/maps?q=Rua+Oswaldo+Cruz+Vila+Canaã+Araruama+RJ" 
+                    href="https://wa.me/5573998503370" 
                     target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="text-accent hover:text-accent/80 transition-colors font-medium inline-flex items-center gap-2"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2"
                   >
-                    <span>Ver no Google Maps</span>
-                    <MapPin size={16} />
+                    <MessageCircle size={20} />
+                    WhatsApp
                   </a>
-                </div>
-              </div>
-              
-              {/* Embedded Map */}
-              <div className="w-full h-64 sm:h-80 rounded-lg overflow-hidden border border-accent/10">
-                <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.8899516273595!2d-42.34000832468896!3d-22.87250037936967!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x978f2c9e4f6a0d%3A0x2e4b7d8a3f5c6e8f!2sAraruama%2C%20RJ!5e0!3m2!1spt!2sbr!4v1683000000000!5m2!1spt!2sbr" 
-                  width="100%" 
-                  height="100%" 
-                  style={{ border: 0 }} 
-                  allowFullScreen 
-                  loading="lazy" 
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Localização da Caluma Variedades e Personalizados"
-                ></iframe>
-              </div>
-            </div>
-            
-            {/* Business Hours and Additional Info */}
-            <div>
-              <div className="mb-8">
-                <div className="flex items-center mb-4">
-                  <div className="bg-accent/10 p-3 rounded-full mr-4">
-                    <Clock className="text-primary" size={24} />
-                  </div>
-                  <h4 className="text-xl sm:text-2xl font-semibold text-primary">Horário de Atendimento</h4>
-                </div>
+                </Button>
                 
-                <div className="space-y-3 ml-16">
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Segunda - Sexta:</span>
-                    <span className="font-medium text-primary">08:00 - 18:00</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Sábado:</span>
-                    <span className="font-medium text-primary">08:00 - 12:00</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Domingo:</span>
-                    <span className="font-medium text-primary">Fechado</span>
-                  </div>
-                </div>
-              </div>
+                <Button 
+                  asChild
+                  variant="outline"
+                  className="w-full"
+                  size="lg"
+                >
+                  <a 
+                    href="tel:+5573998503370"
+                    className="flex items-center gap-2"
+                  >
+                    <Phone size={20} />
+                    Ligar Agora
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
 
-              {/* Additional Contact Info */}
-              <div className="bg-muted/30 rounded-xl p-6">
-                <h5 className="text-lg font-semibold text-primary mb-4">Contatos Adicionais</h5>
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <Phone size={16} className="text-accent" />
-                    <a href="tel:+5522992142239" className="text-muted-foreground hover:text-primary transition-colors">
-                      (22) 9 9214-2239
-                    </a>
+          {/* Contact Form */}
+          <div className="lg:col-span-2">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-xl text-primary">Solicite seu Orçamento</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
+                        Nome Completo *
+                      </label>
+                      <Input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        required
+                        placeholder="Seu nome completo"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+                        E-mail *
+                      </label>
+                      <Input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        required
+                        placeholder="seu@email.com"
+                      />
+                    </div>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <Instagram size={16} className="text-accent" />
-                    <a href="https://instagram.com/calumavariedades" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
-                      @calumavariedades
-                    </a>
-                  </div>
-                </div>
-              </div>
 
-              {/* CTA */}
-              <div className="mt-8 p-6 bg-gradient-to-r from-primary to-primary/80 rounded-xl text-primary-foreground text-center">
-                <h5 className="text-lg font-semibold mb-2">Pronto para começar?</h5>
-                <p className="text-primary-foreground/90 mb-4">Entre em contato e transforme sua ideia em realidade!</p>
-                <a href="https://wa.me/5573998503370" target="_blank" rel="noopener noreferrer" className="bg-accent hover:bg-accent/90 text-accent-foreground px-6 py-3 rounded-lg font-medium transition-all inline-flex items-center gap-2">
-                  <Phone size={18} />
-                  Falar no WhatsApp
-                </a>
-              </div>
-            </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
+                        Telefone *
+                      </label>
+                      <Input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        required
+                        placeholder="(73) 99999-9999"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="subject" className="block text-sm font-medium text-foreground mb-2">
+                        Assunto *
+                      </label>
+                      <Input
+                        type="text"
+                        id="subject"
+                        name="subject"
+                        value={formData.subject}
+                        onChange={handleInputChange}
+                        required
+                        placeholder="Sobre o que você precisa?"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
+                      Mensagem *
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      required
+                      rows={4}
+                      placeholder="Descreva seu projeto, quantidade, prazo desejado..."
+                      className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    />
+                  </div>
+
+                  <Button type="submit" className="w-full" size="lg">
+                    <Send size={20} className="mr-2" />
+                    Enviar Solicitação via WhatsApp
+                  </Button>
+
+                  <p className="text-sm text-muted-foreground text-center">
+                    * Campos obrigatórios. Sua solicitação será enviada diretamente para nosso WhatsApp.
+                  </p>
+                </form>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>
