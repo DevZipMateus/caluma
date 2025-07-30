@@ -17,8 +17,8 @@
     --popover: 0 0% 100%;
     --popover-foreground: 220 6% 10%;
 
-    /* Primary (30%): Blue from logo */
-    --primary: 234 89% 35%;
+    /* Primary (30%): New header color #04008b */
+    --primary: 241 96% 28%;
     --primary-foreground: 0 0% 98%;
 
     --secondary: 0 0% 98%;
@@ -51,13 +51,13 @@
   }
 
   .dark {
-    --background: 234 89% 35%;
+    --background: 241 96% 28%;
     --foreground: 0 0% 98%;
 
-    --card: 234 89% 35%;
+    --card: 241 96% 28%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 234 89% 35%;
+    --popover: 241 96% 28%;
     --popover-foreground: 0 0% 98%;
 
     --primary: 48 95% 60%;

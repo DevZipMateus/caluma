@@ -64,7 +64,7 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				caluma: {
-					blue: 'hsl(234, 89%, 35%)', // Azul da logo
+					blue: 'hsl(241, 96%, 28%)', // Nova cor do header #04008b
 					yellow: 'hsl(48, 95%, 60%)', // Amarelo da logo
 					white: 'hsl(0, 0%, 100%)', // Branco
 				}
