@@ -33,7 +33,7 @@ const Hero = () => {
           {/* Logo */}
           <div className="mb-6 sm:mb-8 lg:mb-12 animate-fade-in">
             <img 
-              src="/lovable-uploads/8d3c539b-e71e-45f5-bc79-6f4f9b1a47f2.png" 
+              src="/lovable-uploads/855dbbc1-ae89-4024-a478-1b7d2781b8ac.png" 
               alt="Caluma Variedades e Personalizados" 
               className="h-16 sm:h-20 md:h-24 lg:h-32 xl:h-40 w-auto mx-auto mb-4 sm:mb-6 drop-shadow-2xl"
             />
