@@ -1,11 +1,13 @@
-
 import React from 'react';
 import { Star, Quote, User } from 'lucide-react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { useIsMobile } from '../hooks/use-mobile';
 
 const Testimonials = () => {
+  const isMobile = useIsMobile();
+
   const testimonials = [
     {
       name: 'Maria Silva',
@@ -55,7 +57,7 @@ const Testimonials = () => {
     return Array.from({ length: 5 }, (_, index) => (
       <Star
         key={index}
-        size={16}
+        size={isMobile ? 12 : 16}
         className={index < rating ? "fill-accent text-accent" : "text-muted-foreground"}
       />
     ));
@@ -66,55 +68,55 @@ const Testimonials = () => {
   };
 
   return (
-    <section id="depoimentos" className="py-16 lg:py-24 bg-background">
+    <section id="depoimentos" className="py-12 sm:py-16 lg:py-24 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
-          <Badge variant="secondary" className="mb-4">Depoimentos</Badge>
-          <h2 className="text-3xl lg:text-5xl font-bold text-primary mb-6">
+        <div className="text-center max-w-4xl mx-auto mb-8 sm:mb-12 lg:mb-16">
+          <Badge variant="secondary" className="mb-4 text-xs sm:text-sm">Depoimentos</Badge>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-primary mb-4 sm:mb-6">
             O que nossos clientes
-            <span className="block text-accent mt-2">dizem sobre nós</span>
+            <span className="block text-accent mt-1 sm:mt-2">dizem sobre nós</span>
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-sm sm:text-base lg:text-lg text-muted-foreground px-4 sm:px-0">
             A satisfação dos nossos clientes é nossa maior conquista. 
             Veja o que eles têm a dizer sobre nossos serviços e qualidade.
           </p>
         </div>
 
         {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {testimonials.map((testimonial, index) => (
             <Card 
               key={index} 
-              className="group hover:shadow-lg transition-all duration-300 hover:border-accent/40 animate-fade-in"
+              className="group hover:shadow-lg transition-all duration-300 hover:border-accent/40 animate-fade-in h-full"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <CardHeader className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <Avatar className="h-12 w-12">
-                    <AvatarFallback className="bg-primary text-primary-foreground">
+              <CardHeader className="space-y-3 sm:space-y-4 p-4 sm:p-6">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <Avatar className={`${isMobile ? 'h-10 w-10' : 'h-12 w-12'}`}>
+                    <AvatarFallback className="bg-primary text-primary-foreground text-xs sm:text-sm">
                       {getInitials(testimonial.name)}
                     </AvatarFallback>
                   </Avatar>
-                  <div className="flex-1">
-                    <h4 className="font-semibold text-foreground">{testimonial.name}</h4>
-                    <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-semibold text-foreground text-sm sm:text-base truncate">{testimonial.name}</h4>
+                    <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">{testimonial.role}</p>
                   </div>
                 </div>
                 
-                <Badge variant="outline" className="w-fit">
+                <Badge variant="outline" className="w-fit text-xs">
                   {testimonial.category}
                 </Badge>
               </CardHeader>
 
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-3 sm:space-y-4 p-4 sm:p-6 pt-0">
                 <div className="flex items-center gap-1">
                   {renderStars(testimonial.rating)}
                 </div>
                 
                 <div className="relative">
-                  <Quote className="absolute -top-2 -left-2 text-accent/20" size={24} />
-                  <p className="text-muted-foreground leading-relaxed pl-4">
+                  <Quote className="absolute -top-1 -left-1 text-accent/20 flex-shrink-0" size={isMobile ? 16 : 20} />
+                  <p className="text-muted-foreground leading-relaxed pl-3 sm:pl-4 text-xs sm:text-sm">
                     {testimonial.content}
                   </p>
                 </div>
@@ -124,28 +126,28 @@ const Testimonials = () => {
         </div>
 
         {/* Stats Section */}
-        <div className="mt-16 lg:mt-24">
+        <div className="mt-12 sm:mt-16 lg:mt-24">
           <Card className="bg-gradient-to-r from-primary to-primary/80 border-none">
-            <CardContent className="text-center text-primary-foreground p-8 lg:p-12">
-              <h3 className="text-2xl lg:text-3xl font-bold mb-8">
+            <CardContent className="text-center text-primary-foreground p-6 sm:p-8 lg:p-12">
+              <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-6 sm:mb-8">
                 Números que falam por si
               </h3>
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-                <div>
-                  <div className="text-3xl lg:text-4xl font-bold text-accent mb-2">500+</div>
-                  <p className="text-primary-foreground/90">Clientes Satisfeitos</p>
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+                <div className="space-y-1 sm:space-y-2">
+                  <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-accent">500+</div>
+                  <p className="text-primary-foreground/90 text-xs sm:text-sm lg:text-base">Clientes Satisfeitos</p>
                 </div>
-                <div>
-                  <div className="text-3xl lg:text-4xl font-bold text-accent mb-2">2000+</div>
-                  <p className="text-primary-foreground/90">Produtos Entregues</p>
+                <div className="space-y-1 sm:space-y-2">
+                  <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-accent">2000+</div>
+                  <p className="text-primary-foreground/90 text-xs sm:text-sm lg:text-base">Produtos Entregues</p>
                 </div>
-                <div>
-                  <div className="text-3xl lg:text-4xl font-bold text-accent mb-2">98%</div>
-                  <p className="text-primary-foreground/90">Satisfação dos Clientes</p>
+                <div className="space-y-1 sm:space-y-2">
+                  <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-accent">98%</div>
+                  <p className="text-primary-foreground/90 text-xs sm:text-sm lg:text-base">Satisfação dos Clientes</p>
                 </div>
-                <div>
-                  <div className="text-3xl lg:text-4xl font-bold text-accent mb-2">5</div>
-                  <p className="text-primary-foreground/90">Anos de Experiência</p>
+                <div className="space-y-1 sm:space-y-2">
+                  <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-accent">5</div>
+                  <p className="text-primary-foreground/90 text-xs sm:text-sm lg:text-base">Anos de Experiência</p>
                 </div>
               </div>
             </CardContent>

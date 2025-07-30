@@ -1,6 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { MessageCircle, Phone, Mail, X } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import { useIsMobile } from '../hooks/use-mobile';
 
 const FloatingButton = () => {
@@ -22,44 +24,71 @@ const FloatingButton = () => {
     setIsOpen(!isOpen);
     setIsPulsing(false); // Stop pulsing when opened
   };
+
+  const contactOptions = [
+    {
+      href: "https://wa.me/5573998503370",
+      icon: MessageCircle,
+      label: "WhatsApp",
+      external: true
+    },
+    {
+      href: "tel:+5573998503370",
+      icon: Phone,
+      label: "Ligar",
+      external: false
+    },
+    {
+      href: "mailto:calumaconsultoria@gmail.com",
+      icon: Mail,
+      label: "E-mail",
+      external: false
+    }
+  ];
   
   return (
-    <div className={`fixed ${isMobile ? 'bottom-4 right-4' : 'bottom-6 right-6 lg:bottom-8 lg:right-8'} z-50`}>
+    <div className={`fixed z-50 ${
+      isMobile 
+        ? 'bottom-4 right-4' 
+        : 'bottom-6 right-6 lg:bottom-8 lg:right-8'
+    }`}>
       {/* Contact Options */}
-      <div className={`flex flex-col-reverse items-end mb-3 space-y-reverse space-y-2 transition-all duration-500 ${isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
-        <a 
-          href="https://wa.me/5573998503370" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="flex items-center bg-primary text-primary-foreground px-4 py-3 rounded-lg shadow-lg hover:bg-primary/90 transition-all duration-300 gap-2 font-medium text-sm whitespace-nowrap"
-        >
-          <MessageCircle size={16} />
-          <span>WhatsApp</span>
-        </a>
-        
-        <a 
-          href="tel:+5573998503370" 
-          className="flex items-center bg-primary text-primary-foreground px-4 py-3 rounded-lg shadow-lg hover:bg-primary/90 transition-all duration-300 gap-2 font-medium text-sm whitespace-nowrap"
-        >
-          <Phone size={16} />
-          <span>Ligar</span>
-        </a>
-        
-        <a 
-          href="mailto:calumaconsultoria@gmail.com" 
-          className="flex items-center bg-primary text-primary-foreground px-4 py-3 rounded-lg shadow-lg hover:bg-primary/90 transition-all duration-300 gap-2 font-medium text-sm whitespace-nowrap"
-        >
-          <Mail size={16} />
-          <span>E-mail</span>
-        </a>
+      <div className={`flex flex-col-reverse items-end mb-3 space-y-reverse space-y-2 transition-all duration-500 ${
+        isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'
+      }`}>
+        {contactOptions.map((option, index) => {
+          const IconComponent = option.icon;
+          return (
+            <Card key={index} className="shadow-lg border-primary/20">
+              <CardContent className="p-0">
+                <Button
+                  asChild
+                  variant="default"
+                  size={isMobile ? "sm" : "default"}
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground w-full justify-start gap-2"
+                >
+                  <a
+                    href={option.href}
+                    {...(option.external && { target: "_blank", rel: "noopener noreferrer" })}
+                    className="flex items-center whitespace-nowrap px-3 sm:px-4 py-2 sm:py-3"
+                  >
+                    <IconComponent size={isMobile ? 14 : 16} />
+                    <span className="text-xs sm:text-sm font-medium">{option.label}</span>
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
+          );
+        })}
       </div>
       
       {/* Main Button */}
-      <button
+      <Button
         onClick={toggleMenu}
-        className={`${isMobile ? 'w-12 h-12' : 'w-14 h-14'} rounded-full flex items-center justify-center transition-all duration-300 
-          ${isOpen ? 'bg-red-500 hover:bg-red-600' : 'bg-accent hover:bg-accent/90'} 
-          ${isOpen ? 'text-white' : 'text-accent-foreground'} 
+        size="icon"
+        className={`${isMobile ? 'h-12 w-12' : 'h-14 w-14'} rounded-full transition-all duration-300 
+          ${isOpen ? 'bg-destructive hover:bg-destructive/90' : 'bg-accent hover:bg-accent/90'} 
+          ${isOpen ? 'text-destructive-foreground' : 'text-accent-foreground'} 
           ${isPulsing && !isOpen ? 'animate-pulse' : ''}
           transform hover:scale-110 active:scale-95 shadow-lg`}
         aria-label={isOpen ? "Fechar menu de contato" : "Abrir menu de contato"}
@@ -74,7 +103,7 @@ const FloatingButton = () => {
         ) : (
           <MessageCircle size={isMobile ? 20 : 24} />
         )}
-      </button>
+      </Button>
     </div>
   );
 };
