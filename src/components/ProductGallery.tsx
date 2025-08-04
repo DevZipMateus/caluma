@@ -165,7 +165,7 @@ const ProductGallery = () => {
               className="flex items-center gap-2"
             >
               <MessageCircle size={20} />
-              Falar no WhatsApp
+              para saber o restante do catálogo clique aqui
             </a>
           </Button>
         </div>
