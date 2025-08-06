@@ -1,6 +1,6 @@
 
-import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import React from 'react';
+import { Menu } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -10,12 +10,16 @@ import {
 } from '@/components/ui/sheet';
 import { AppSidebar } from './AppSidebar';
 import { SidebarProvider } from '@/components/ui/sidebar';
+import { useMobileSheetState } from '../hooks/useMobileSheetState';
 
 const MobileSubcategoryButton: React.FC = () => {
-  const [open, setOpen] = useState(false);
+  const { 
+    subcategorySheetOpen, 
+    setSubcategorySheetOpen 
+  } = useMobileSheetState();
 
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
+    <Sheet open={subcategorySheetOpen} onOpenChange={setSubcategorySheetOpen}>
       <SheetTrigger asChild>
         <button className="flex-1 bg-secondary text-secondary-foreground py-3 px-4 rounded-lg font-medium hover:bg-secondary/80 transition-colors flex items-center justify-center gap-2">
           <Menu size={20} />

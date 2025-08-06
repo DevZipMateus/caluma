@@ -2,6 +2,7 @@ import React from 'react';
 import { Shirt, FileText, Settings, Coffee, Paintbrush, Palette, ChevronDown } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import { useSelectedSubcategory } from '../hooks/useSelectedSubcategory';
+import { useMobileSheetState } from '../hooks/useMobileSheetState';
 import {
   Sidebar,
   SidebarContent,
@@ -24,6 +25,7 @@ export function AppSidebar() {
   const { state } = useSidebar();
   const location = useLocation();
   const { setSelectedSubcategory } = useSelectedSubcategory();
+  const { closeAllSheets } = useMobileSheetState();
   
   const categories = [
     {
@@ -260,6 +262,7 @@ export function AppSidebar() {
   const handleSubcategoryClick = (item: string) => {
     console.log(`Selected subcategory: ${item}`);
     setSelectedSubcategory(item);
+    closeAllSheets();
   };
 
   return (

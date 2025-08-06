@@ -1,7 +1,7 @@
 
-import React, { useState } from 'react';
-import { Grid3X3, X } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import React from 'react';
+import { Grid3X3 } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {
   Sheet,
   SheetContent,
@@ -9,6 +9,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import { useMobileSheetState } from '../hooks/useMobileSheetState';
 
 const categories = [
   { name: 'Sublimação', path: '/sublimacao', icon: '🎨' },
@@ -20,15 +21,25 @@ const categories = [
 ];
 
 const MobileCategoryButton: React.FC = () => {
-  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   const location = useLocation();
+  const { 
+    categorySheetOpen, 
+    setCategorySheetOpen, 
+    openSubcategoryFromCategory 
+  } = useMobileSheetState();
 
-  const handleCategoryClick = () => {
-    setOpen(false);
+  const handleCategoryClick = (categoryPath: string) => {
+    console.log(`Navigating to category: ${categoryPath}`);
+    navigate(categoryPath);
+    // Aguarda um pouco para a navegação completar antes de abrir o menu de subcategorias
+    setTimeout(() => {
+      openSubcategoryFromCategory();
+    }, 100);
   };
 
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
+    <Sheet open={categorySheetOpen} onOpenChange={setCategorySheetOpen}>
       <SheetTrigger asChild>
         <button className="flex-1 bg-primary text-primary-foreground py-3 px-4 rounded-lg font-medium hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
           <Grid3X3 size={20} />
@@ -43,10 +54,9 @@ const MobileCategoryButton: React.FC = () => {
           {categories.map((category) => {
             const isActive = location.pathname === category.path;
             return (
-              <Link
+              <button
                 key={category.path}
-                to={category.path}
-                onClick={handleCategoryClick}
+                onClick={() => handleCategoryClick(category.path)}
                 className={`p-4 rounded-lg border transition-all ${
                   isActive
                     ? 'bg-primary text-primary-foreground border-primary'
@@ -64,7 +74,7 @@ const MobileCategoryButton: React.FC = () => {
                     </p>
                   </div>
                 </div>
-              </Link>
+              </button>
             );
           })}
         </div>
