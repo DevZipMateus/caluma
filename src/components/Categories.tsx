@@ -230,8 +230,8 @@ const Categories = () => {
       icon: Settings,
       href: '#equipamentos',
       subcategories: {
-        '/MÁQUINAS/': subcategoriasMaquinas,
-        '/KIT EMPREENDEDOR/': subcategoriasKitEmpreendedor
+        'MÁQUINAS': subcategoriasMaquinas,
+        'KIT EMPREENDEDOR': subcategoriasKitEmpreendedor
       }
     },
     {
@@ -250,7 +250,7 @@ const Categories = () => {
         'SQUEEZES': subcategoriasSublimacaoSqueezes,
         'INSUMOS': subcategoriasSublimacaoInsumos,
         'SUPORTES': subcategoriasSublimacaoSuportes,
-        'TINTAS': subcategoriasSublimacaoTintas,
+        
         'MÁQUINAS': subcategoriasSublimacaoMaquinas,
         'KIT EMPREENDEDOR': subcategoriasSublimacaoKitEmpreendedor
       }
