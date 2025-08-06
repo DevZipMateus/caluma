@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Shirt, FileText, Settings, Coffee, Paintbrush, Palette } from 'lucide-react';
 
@@ -43,6 +42,17 @@ const Categories = () => {
     'Jaleco de Enfermagem'
   ];
 
+  const subcategoriasPapelaria = [
+    'ADESIVO 30 FOLHAS',
+    'FOTOGRÁFICO A4 20 FOLHAS',
+    'FOTOGRÁFICO A4 50 FOLHAS',
+    'FOTOGRÁFICO A4 ESPECIAL',
+    'PAPEL OBM',
+    'SUBLIMÁTICO A3',
+    'SUBLIMÁTICO A4',
+    'VINIL'
+  ];
+
   const categories = [
     {
       name: 'CAMISAS E UNIFORMES',
@@ -56,7 +66,10 @@ const Categories = () => {
     {
       name: 'PAPELARIA',
       icon: FileText,
-      href: '#papelaria'
+      href: '#papelaria',
+      subcategories: {
+        'PAPELARIA': subcategoriasPapelaria
+      }
     },
     {
       name: 'EQUIPAMENTOS',
