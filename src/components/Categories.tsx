@@ -45,7 +45,7 @@ const Categories = () => {
   };
 
   return (
-    <section className="bg-primary py-3 sm:py-4 md:py-6">
+    <section className="bg-primary py-3 sm:py-4 md:py-6 pt-[calc(3.5rem+0.75rem)] sm:pt-[calc(4rem+1rem)] md:pt-[calc(4.5rem+1.5rem)] lg:pt-[calc(5rem+1.5rem)] xl:pt-[calc(6rem+1.5rem)]">
       <div className="container mx-auto px-2 sm:px-4 md:px-6">
         {/* Layout Responsivo */}
         <div className="hidden md:flex flex-wrap justify-center items-center gap-3 lg:gap-6 xl:gap-8">
