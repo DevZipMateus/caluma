@@ -22,7 +22,7 @@ const Header = () => {
   const scrollToSection = (href: string) => {
     const element = document.getElementById(href.substring(1));
     if (element) {
-      const offsetTop = element.offsetTop - 140; // Increased offset to account for header + category menu
+      const offsetTop = element.offsetTop - 140;
       window.scrollTo({ top: offsetTop, behavior: 'smooth' });
     }
     setIsMenuOpen(false);
@@ -32,14 +32,14 @@ const Header = () => {
     <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
       isScrolled ? 'bg-primary/95 backdrop-blur-md shadow-lg' : 'bg-primary/90 backdrop-blur-sm'
     } border-b border-white/10`}>
-      <div className="w-full px-2 sm:px-3 md:px-4 lg:px-6 max-w-7xl mx-auto">
-        <div className="flex items-center justify-between h-16 sm:h-18 md:h-20 lg:h-24">
-          {/* Logo Responsivo - Aumentado */}
-          <div className="flex-shrink-0 min-w-0">
+      <div className="w-full px-2 sm:px-3 md:px-4 lg:px-6 xl:px-8 max-w-full mx-auto">
+        <div className="flex items-center justify-between h-14 sm:h-16 md:h-18 lg:h-20 xl:h-24">
+          {/* Logo Responsivo com melhor controle de tamanho */}
+          <div className="flex-shrink-0 min-w-0 max-w-[60%] sm:max-w-[50%] lg:max-w-none">
             <img 
               src="/lovable-uploads/6863ba6e-864c-440d-a0c9-58c7739af553.png" 
               alt="Caluma Variedades e Personalizados" 
-              className="h-12 sm:h-14 md:h-16 lg:h-20 w-auto max-w-full transition-all duration-300"
+              className="h-10 sm:h-12 md:h-14 lg:h-16 xl:h-20 w-auto max-w-full transition-all duration-300"
             />
           </div>
 
@@ -47,7 +47,7 @@ const Header = () => {
           <nav className="hidden lg:flex items-center flex-shrink-0">
             <button
               onClick={() => scrollToSection('#inicio')}
-              className="text-primary-foreground hover:text-accent transition-colors duration-200 font-medium text-sm lg:text-base xl:text-lg whitespace-nowrap px-2"
+              className="text-primary-foreground hover:text-accent transition-colors duration-200 font-medium text-sm lg:text-base xl:text-lg whitespace-nowrap px-3 lg:px-4"
             >
               Início
             </button>
@@ -59,7 +59,7 @@ const Header = () => {
               onClick={() => scrollToSection('#contato')}
               variant="secondary"
               size={isMobile ? "sm" : "default"}
-              className="bg-accent hover:bg-accent/90 text-accent-foreground text-xs sm:text-sm lg:text-base px-2 sm:px-3 lg:px-4 py-1.5 sm:py-2 whitespace-nowrap"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground text-xs sm:text-sm lg:text-base px-2 sm:px-3 lg:px-4 xl:px-6 py-1.5 sm:py-2 whitespace-nowrap min-w-fit"
             >
               <span className="hidden lg:inline">Solicitar </span>
               <span>Orçamento</span>
@@ -69,8 +69,8 @@ const Header = () => {
           {/* Mobile Menu */}
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild className="lg:hidden flex-shrink-0">
-              <Button variant="ghost" size="sm" className="text-primary-foreground p-1 sm:p-1.5">
-                <Menu className="h-5 w-5" />
+              <Button variant="ghost" size="sm" className="text-primary-foreground p-1 sm:p-1.5 min-w-fit">
+                <Menu className="h-4 w-4 sm:h-5 sm:w-5" />
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[280px] sm:w-[300px] z-50">
