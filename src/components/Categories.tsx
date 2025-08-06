@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Shirt, FileText, Settings, Coffee, Paintbrush, Palette } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -317,17 +316,35 @@ const Categories = () => {
     }
   };
 
-  const handleCategoryClick = (category: any) => {
+  const handleCategoryClick = (category: any, event?: React.MouseEvent) => {
+    console.log(`Category clicked: ${category.name}`);
+    
+    // If it's a click directly on the category (not opening dropdown)
+    // or if it's a mobile click, navigate to the category page
+    if (!category.subcategories || event?.target === event?.currentTarget) {
+      console.log(`Navigating directly to category: ${category.href}`);
+      // Clear any selected subcategory when navigating to category
+      setSelectedSubcategory(null);
+      navigate(category.href);
+      return;
+    }
+
+    // For desktop with subcategories, toggle dropdown
     if (category.subcategories) {
       if (openCategory === category.name) {
         setOpenCategory(null);
       } else {
         setOpenCategory(category.name);
       }
-    } else {
-      // Navigate to category page
-      navigate(category.href);
     }
+  };
+
+  const handleCategoryTitleClick = (category: any) => {
+    console.log(`Category title clicked: ${category.name}`);
+    // Clear any selected subcategory when navigating to category
+    setSelectedSubcategory(null);
+    navigate(category.href);
+    setOpenCategory(null); // Close dropdown if open
   };
 
   useEffect(() => {
@@ -365,7 +382,7 @@ const Categories = () => {
                 }}
               >
                 <button
-                  onClick={() => handleCategoryClick(category)}
+                  onClick={(e) => handleCategoryClick(category, e)}
                   className="flex flex-col items-center justify-center text-primary-foreground hover:text-accent transition-colors duration-300 group min-w-[120px] md:min-w-[140px] lg:min-w-[160px] p-2 md:p-3"
                 >
                   <div className="mb-2 group-hover:scale-110 transition-transform duration-300">
@@ -387,6 +404,16 @@ const Categories = () => {
                         ? 'w-[80vw] max-w-[800px]'
                         : 'w-[70vw] max-w-[600px]'
                   }`}>
+                    {/* Category Title - Clickable to navigate */}
+                    <div className="p-3 border-b bg-primary text-primary-foreground">
+                      <button
+                        onClick={() => handleCategoryTitleClick(category)}
+                        className="w-full text-left font-semibold hover:text-accent transition-colors"
+                      >
+                        Ir para {category.name}
+                      </button>
+                    </div>
+                    
                     <div className="p-3 md:p-4 max-h-[70vh] overflow-y-auto">
                       {category.name === 'SUBLIMAÇÃO' ? (
                         // Layout em grid para SUBLIMAÇÃO
@@ -498,10 +525,15 @@ const Categories = () => {
                   <div className="fixed inset-0 z-50 bg-black/50 p-4 flex items-center justify-center">
                     <div className="bg-white rounded-lg shadow-lg max-w-sm w-full max-h-[85vh] overflow-hidden">
                       <div className="p-4 border-b bg-primary text-primary-foreground flex justify-between items-center">
-                        <h3 className="font-semibold text-sm">{category.name}</h3>
+                        <button
+                          onClick={() => handleCategoryTitleClick(category)}
+                          className="font-semibold text-sm hover:text-accent transition-colors flex-1 text-left"
+                        >
+                          {category.name}
+                        </button>
                         <button 
                           onClick={() => setOpenCategory(null)}
-                          className="text-primary-foreground hover:text-accent text-xl leading-none"
+                          className="text-primary-foreground hover:text-accent text-xl leading-none ml-4"
                         >
                           ×
                         </button>
