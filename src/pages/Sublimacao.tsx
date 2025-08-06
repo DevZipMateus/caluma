@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Paintbrush } from 'lucide-react';
 import Header from '../components/Header';
@@ -89,18 +88,6 @@ const Sublimacao = () => {
             <div className="space-y-6">
               <div className="bg-white rounded-lg p-4 shadow-sm">
                 <SubcategoryImage subcategory={selectedSubcategory} />
-              </div>
-
-              <div className="bg-white rounded-lg p-6 shadow-sm text-center">
-                <h3 className="text-lg font-semibold text-primary mb-3">
-                  Quer começar na sublimação?
-                </h3>
-                <p className="text-gray-600 mb-4 text-sm">
-                  Temos kits completos e materiais avulsos para todos os níveis.
-                </p>
-                <button className="w-full bg-primary text-primary-foreground py-3 px-6 rounded-lg font-medium hover:bg-primary/90 transition-colors">
-                  Solicitar Orçamento
-                </button>
               </div>
             </div>
           </main>
