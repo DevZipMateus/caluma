@@ -7,6 +7,12 @@ import Categories from './components/Categories';
 import Footer from './components/Footer';
 import FloatingButton from './components/FloatingButton';
 import NotFound from './pages/NotFound';
+import CamisasUniformes from './pages/CamisasUniformes';
+import Papelaria from './pages/Papelaria';
+import Equipamentos from './pages/Equipamentos';
+import Canecas from './pages/Canecas';
+import Sublimacao from './pages/Sublimacao';
+import Serigrafia from './pages/Serigrafia';
 
 function MainPage() {
   // Scroll to top on page load
@@ -34,6 +40,12 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<MainPage />} />
+        <Route path="/camisas-uniformes" element={<CamisasUniformes />} />
+        <Route path="/papelaria" element={<Papelaria />} />
+        <Route path="/equipamentos" element={<Equipamentos />} />
+        <Route path="/canecas" element={<Canecas />} />
+        <Route path="/sublimacao" element={<Sublimacao />} />
+        <Route path="/serigrafia" element={<Serigrafia />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

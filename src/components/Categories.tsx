@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Shirt, FileText, Settings, Coffee, Paintbrush, Palette } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Categories = () => {
   const [openCategory, setOpenCategory] = useState<string | null>(null);
   const dropdownRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+  const navigate = useNavigate();
 
   const subcategoriasCamisas = [
     'Body Infantil',
@@ -204,7 +206,7 @@ const Categories = () => {
     {
       name: 'CAMISAS E UNIFORMES',
       icon: Shirt,
-      href: '#camisas',
+      href: '/camisas-uniformes',
       subcategories: {
         'CAMISAS': subcategoriasCamisas,
         'UNIFORMES': subcategoriasUniformes
@@ -213,7 +215,7 @@ const Categories = () => {
     {
       name: 'PAPELARIA',
       icon: FileText,
-      href: '#papelaria',
+      href: '/papelaria',
       subcategories: {
         'PAPELARIA': subcategoriasPapelaria
       }
@@ -221,7 +223,7 @@ const Categories = () => {
     {
       name: 'EQUIPAMENTOS',
       icon: Settings,
-      href: '#equipamentos',
+      href: '/equipamentos',
       subcategories: {
         'MÁQUINAS': subcategoriasMaquinas,
         'KIT EMPREENDEDOR': subcategoriasKitEmpreendedor
@@ -230,7 +232,7 @@ const Categories = () => {
     {
       name: 'CANECAS',
       icon: Coffee,
-      href: '#canecas',
+      href: '/canecas',
       subcategories: {
         'CANECAS': subcategoriasCanecas
       }
@@ -238,7 +240,7 @@ const Categories = () => {
     {
       name: 'SUBLIMAÇÃO',
       icon: Paintbrush,
-      href: '#sublimacao',
+      href: '/sublimacao',
       subcategories: {
         'SQUEEZES': subcategoriasSublimacaoSqueezes,
         'INSUMOS': subcategoriasSublimacaoInsumos,
@@ -250,7 +252,7 @@ const Categories = () => {
     {
       name: 'SERIGRAFIA',
       icon: Palette,
-      href: '#serigrafia',
+      href: '/serigrafia',
       subcategories: {
         'INSUMOS': subcategoriasSerigrafiaInsumos,
         'TINTAS': subcategoriasSerigrafiasTintas,
@@ -288,11 +290,16 @@ const Categories = () => {
     }
   };
 
-  const handleCategoryClick = (categoryName: string) => {
-    if (openCategory === categoryName) {
-      setOpenCategory(null);
+  const handleCategoryClick = (category: any) => {
+    if (category.subcategories) {
+      if (openCategory === category.name) {
+        setOpenCategory(null);
+      } else {
+        setOpenCategory(category.name);
+      }
     } else {
-      setOpenCategory(categoryName);
+      // Navigate to category page
+      navigate(category.href);
     }
   };
 
@@ -331,13 +338,7 @@ const Categories = () => {
                 }}
               >
                 <button
-                  onClick={() => {
-                    if (hasSubcategories) {
-                      handleCategoryClick(category.name);
-                    } else {
-                      scrollToSection(category.href);
-                    }
-                  }}
+                  onClick={() => handleCategoryClick(category)}
                   className="flex flex-col items-center justify-center text-primary-foreground hover:text-accent transition-colors duration-300 group min-w-[120px] md:min-w-[140px] lg:min-w-[160px] p-2 md:p-3"
                 >
                   <div className="mb-2 group-hover:scale-110 transition-transform duration-300">
@@ -360,6 +361,19 @@ const Categories = () => {
                         : 'w-[70vw] max-w-[600px]'
                   }`}>
                     <div className="p-3 md:p-4 max-h-[70vh] overflow-y-auto">
+                      {/* View All Button */}
+                      <div className="mb-4 text-center border-b border-gray-200 pb-3">
+                        <button
+                          onClick={() => {
+                            navigate(category.href);
+                            setOpenCategory(null);
+                          }}
+                          className="bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors text-sm font-medium"
+                        >
+                          Ver Todos os Produtos
+                        </button>
+                      </div>
+
                       {category.name === 'SUBLIMAÇÃO' ? (
                         // Layout em grid para SUBLIMAÇÃO
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -454,13 +468,7 @@ const Categories = () => {
                 }}
               >
                 <button
-                  onClick={() => {
-                    if (hasSubcategories) {
-                      handleCategoryClick(category.name);
-                    } else {
-                      scrollToSection(category.href);
-                    }
-                  }}
+                  onClick={() => handleCategoryClick(category)}
                   className="flex flex-col items-center justify-center text-primary-foreground hover:text-accent transition-colors duration-300 group w-full p-3 rounded-lg hover:bg-primary/10"
                 >
                   <div className="mb-2 group-hover:scale-110 transition-transform duration-300">
@@ -485,6 +493,19 @@ const Categories = () => {
                         </button>
                       </div>
                       <div className="p-4 overflow-y-auto">
+                        {/* View All Button */}
+                        <div className="mb-4 text-center border-b border-gray-200 pb-3">
+                          <button
+                            onClick={() => {
+                              navigate(category.href);
+                              setOpenCategory(null);
+                            }}
+                            className="bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors text-sm font-medium w-full"
+                          >
+                            Ver Todos os Produtos
+                          </button>
+                        </div>
+
                         {Object.entries(category.subcategories).map(([sectionName, subcategories]) => (
                           <div key={sectionName} className="mb-4 last:mb-0">
                             <h4 className="font-semibold text-primary mb-2 text-sm border-b border-gray-200 pb-1">
