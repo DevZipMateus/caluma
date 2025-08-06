@@ -19,9 +19,10 @@ const Papelaria = () => {
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden">
       <Header />
-      <CategoryMenu />
+      {isDesktop && <CategoryMenu />}
       
-      <div className="flex-1 flex flex-col">
+      {/* Adicionar espaçamento superior para evitar sobreposição */}
+      <div className="pt-16 sm:pt-20 md:pt-24 lg:pt-28 flex-1 flex flex-col">
         {isDesktop ? (
           <SidebarProvider>
             <div className="flex flex-1 w-full min-h-0">
