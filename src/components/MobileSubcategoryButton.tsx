@@ -9,6 +9,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { AppSidebar } from './AppSidebar';
+import { SidebarProvider } from '@/components/ui/sidebar';
 
 const MobileSubcategoryButton: React.FC = () => {
   const [open, setOpen] = useState(false);
@@ -26,7 +27,9 @@ const MobileSubcategoryButton: React.FC = () => {
           <SheetTitle>Menu de Produtos</SheetTitle>
         </SheetHeader>
         <div className="flex-1 overflow-auto">
-          <AppSidebar />
+          <SidebarProvider>
+            <AppSidebar />
+          </SidebarProvider>
         </div>
       </SheetContent>
     </Sheet>
