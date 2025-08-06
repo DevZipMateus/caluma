@@ -12,12 +12,12 @@ import {
 import { useMobileSheetState } from '../hooks/useMobileSheetState';
 
 const categories = [
-  { name: 'Sublimação', path: '/sublimacao', icon: '🎨' },
-  { name: 'Serigrafia', path: '/serigrafia', icon: '🖼️' },
-  { name: 'Camisas e Uniformes', path: '/camisas-uniformes', icon: '👕' },
-  { name: 'Canecas', path: '/canecas', icon: '☕' },
-  { name: 'Equipamentos', path: '/equipamentos', icon: '⚙️' },
-  { name: 'Papelaria', path: '/papelaria', icon: '📄' },
+  { name: 'Sublimação', path: '/sublimacao' },
+  { name: 'Serigrafia', path: '/serigrafia' },
+  { name: 'Camisas e Uniformes', path: '/camisas-uniformes' },
+  { name: 'Canecas', path: '/canecas' },
+  { name: 'Equipamentos', path: '/equipamentos' },
+  { name: 'Papelaria', path: '/papelaria' },
 ];
 
 const MobileCategoryButton: React.FC = () => {
@@ -64,7 +64,6 @@ const MobileCategoryButton: React.FC = () => {
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-2xl">{category.icon}</span>
                   <div>
                     <h3 className="font-semibold text-left">{category.name}</h3>
                     <p className={`text-sm text-left ${
