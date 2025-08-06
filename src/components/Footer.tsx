@@ -24,7 +24,7 @@ const Footer = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <Button asChild size="sm" variant="secondary">
                 <a 
-                  href="https://wa.me/5573998503370" 
+                  href="https://wa.me/5522992142239" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="flex items-center gap-2"
@@ -36,7 +36,7 @@ const Footer = () => {
               
               <Button asChild size="sm" variant="outline" className="bg-transparent">
                 <a 
-                  href="tel:+5573998503370"
+                  href="tel:+5522992142239"
                   className="flex items-center gap-2"
                 >
                   <Phone size={16} />
@@ -53,10 +53,10 @@ const Footer = () => {
               <li className="flex items-center gap-3">
                 <Phone className="text-accent flex-shrink-0" size={16} />
                 <a 
-                  href="tel:+5573998503370"
+                  href="tel:+5522992142239"
                   className="text-primary-foreground/80 hover:text-accent transition-colors"
                 >
-                  (73) 99850-3370
+                  (22) 99214-2239
                 </a>
               </li>
               <li className="flex items-center gap-3">
@@ -71,8 +71,8 @@ const Footer = () => {
               <li className="flex items-start gap-3">
                 <MessageCircle className="text-accent flex-shrink-0 mt-0.5" size={16} />
                 <div className="text-primary-foreground/80">
-                  <p>Atendimento:</p>
-                  <p className="text-sm">Seg à Sex: 8h às 18h</p>
+                  <p>Rua Oswaldo Cruz, 27</p>
+                  <p className="text-sm">CEP: 28985-305</p>
                 </div>
               </li>
             </ul>

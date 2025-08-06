@@ -48,13 +48,13 @@ const FloatingButton = () => {
 
   const contactOptions = [
     {
-      href: "https://wa.me/5573998503370",
+      href: "https://wa.me/5522992142239",
       icon: MessageCircle,
       label: "WhatsApp",
       external: true
     },
     {
-      href: "tel:+5573998503370",
+      href: "tel:+5522992142239",
       icon: Phone,
       label: "Ligar",
       external: false

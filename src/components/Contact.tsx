@@ -36,7 +36,7 @@ const Contact = () => {
 *Mensagem:* ${formData.message}`;
     
     const encodedMessage = encodeURIComponent(whatsappMessage);
-    const whatsappURL = `https://wa.me/5573998503370?text=${encodedMessage}`;
+    const whatsappURL = `https://wa.me/5522992142239?text=${encodedMessage}`;
     
     window.open(whatsappURL, '_blank');
   };
@@ -45,8 +45,8 @@ const Contact = () => {
     {
       icon: Phone,
       title: 'Telefone / WhatsApp',
-      content: '(73) 99850-3370',
-      action: 'tel:+5573998503370'
+      content: '(22) 99214-2239',
+      action: 'tel:+5522992142239'
     },
     {
       icon: Mail,
@@ -57,7 +57,7 @@ const Contact = () => {
     {
       icon: MapPin,
       title: 'Localização',
-      content: 'Itabuna - BA',
+      content: 'Rua Oswaldo Cruz, 27 - CEP: 28985-305',
       action: ''
     },
     {
@@ -130,7 +130,7 @@ const Contact = () => {
                   size="lg"
                 >
                   <a 
-                    href="https://wa.me/5573998503370" 
+                    href="https://wa.me/5522992142239" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="flex items-center gap-2"
@@ -147,7 +147,7 @@ const Contact = () => {
                   size="lg"
                 >
                   <a 
-                    href="tel:+5573998503370"
+                    href="tel:+5522992142239"
                     className="flex items-center gap-2"
                   >
                     <Phone size={20} />
@@ -209,7 +209,7 @@ const Contact = () => {
                         value={formData.phone}
                         onChange={handleInputChange}
                         required
-                        placeholder="(73) 99999-9999"
+                        placeholder="(22) 99999-9999"
                       />
                     </div>
                     <div>

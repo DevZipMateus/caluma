@@ -43,7 +43,7 @@ const Footer = () => {
                 <Instagram className="text-accent" size={20} />
               </a>
               <a 
-                href="https://wa.me/5573998503370" 
+                href="https://wa.me/5522992142239" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="bg-primary-foreground/10 hover:bg-accent/20 p-3 rounded-full transition-all duration-300 hover:scale-110"
@@ -114,19 +114,19 @@ const Footer = () => {
                 <MapPin className="text-accent mt-1 flex-shrink-0" size={16} />
                 <div>
                   <p className="text-primary-foreground/80 text-sm">
-                    Rua Oswaldo Cruz, Vila Canaã<br />
-                    Araruama - RJ
+                    Rua Oswaldo Cruz, 27<br />
+                    CEP: 28985-305
                   </p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="text-accent flex-shrink-0" size={16} />
                 <div className="space-y-1">
+                  <a href="tel:+5522992142239" className="text-primary-foreground/80 hover:text-accent transition-colors text-sm block">
+                    (22) 99214-2239
+                  </a>
                   <a href="tel:+5573998503370" className="text-primary-foreground/80 hover:text-accent transition-colors text-sm block">
                     (73) 99850-3370
-                  </a>
-                  <a href="tel:+5522992142239" className="text-primary-foreground/80 hover:text-accent transition-colors text-sm block">
-                    (22) 9 9214-2239
                   </a>
                 </div>
               </div>

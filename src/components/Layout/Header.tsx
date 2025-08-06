@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone, Menu, X, Instagram } from 'lucide-react';
@@ -47,9 +46,9 @@ const Header = () => {
               <span className="hidden sm:inline">calumaconsultoria@gmail.com</span>
               <span className="sm:hidden">Email</span>
             </a>
-            <a href="tel:+5573998503370" className="flex items-center hover:text-accent transition-colors">
+            <a href="tel:+5522992142239" className="flex items-center hover:text-accent transition-colors">
               <Phone size={14} className="mr-1 sm:mr-2" />
-              <span className="hidden sm:inline">(73) 99850-3370</span>
+              <span className="hidden sm:inline">(22) 99214-2239</span>
               <span className="sm:hidden">Ligar</span>
             </a>
           </div>
@@ -149,13 +148,13 @@ const Header = () => {
           
           <div className="mt-auto pb-8">
             <div className="text-primary-foreground/70 space-y-4">
+              <a href="tel:+5522992142239" className="flex items-center text-sm hover:text-accent transition-colors py-2">
+                <Phone size={16} className="mr-2" />
+                (22) 99214-2239
+              </a>
               <a href="tel:+5573998503370" className="flex items-center text-sm hover:text-accent transition-colors py-2">
                 <Phone size={16} className="mr-2" />
                 (73) 99850-3370
-              </a>
-              <a href="tel:+5522992142239" className="flex items-center text-sm hover:text-accent transition-colors py-2">
-                <Phone size={16} className="mr-2" />
-                (22) 9 9214-2239
               </a>
               <a href="mailto:calumaconsultoria@gmail.com" className="flex items-center text-sm hover:text-accent transition-colors py-2">
                 <Mail size={16} className="mr-2" />
