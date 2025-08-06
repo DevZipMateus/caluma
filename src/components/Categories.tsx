@@ -1,11 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Shirt, FileText, Settings, Coffee, Paintbrush, Palette } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useSelectedSubcategory } from '../hooks/useSelectedSubcategory';
+import { subcategoryToCategoryMapping } from '../utils/subcategoryMapping';
 
 const Categories = () => {
   const [openCategory, setOpenCategory] = useState<string | null>(null);
   const dropdownRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
   const navigate = useNavigate();
+  const { setSelectedSubcategory } = useSelectedSubcategory();
 
   const subcategoriasCamisas = [
     'Body Infantil',
@@ -261,6 +264,26 @@ const Categories = () => {
     }
   ];
 
+  const handleSubcategoryClick = (subcategory: string) => {
+    console.log(`Selecting subcategory: ${subcategory}`);
+    
+    // Set the selected subcategory
+    setSelectedSubcategory(subcategory);
+    
+    // Get the category route for this subcategory
+    const categoryRoute = subcategoryToCategoryMapping[subcategory];
+    
+    if (categoryRoute) {
+      console.log(`Navigating to: ${categoryRoute}`);
+      // Close any open dropdowns/modals
+      setOpenCategory(null);
+      // Navigate to the category page
+      navigate(categoryRoute);
+    } else {
+      console.warn(`No route mapping found for subcategory: ${subcategory}`);
+    }
+  };
+
   const getDropdownPosition = (index: number, totalCategories: number) => {
     // Primeira categoria - alinhar à esquerda
     if (index === 0) {
@@ -373,7 +396,7 @@ const Categories = () => {
                                 {subcategories.map((subcategory, subIndex) => (
                                   <button
                                     key={subIndex}
-                                    onClick={() => console.log(`Clicked: ${subcategory}`)}
+                                    onClick={() => handleSubcategoryClick(subcategory)}
                                     className="block text-left text-xs py-1 px-2 hover:bg-gray-100 rounded transition-colors duration-200 text-gray-700 w-full truncate"
                                     title={subcategory}
                                   >
@@ -396,7 +419,7 @@ const Categories = () => {
                                 {subcategories.map((subcategory, subIndex) => (
                                   <button
                                     key={subIndex}
-                                    onClick={() => console.log(`Clicked: ${subcategory}`)}
+                                    onClick={() => handleSubcategoryClick(subcategory)}
                                     className="text-left text-xs py-1.5 px-2 hover:bg-gray-100 rounded transition-colors duration-200 text-gray-700 truncate"
                                     title={subcategory}
                                   >
@@ -419,7 +442,7 @@ const Categories = () => {
                                 {subcategories.map((subcategory, subIndex) => (
                                   <button
                                     key={subIndex}
-                                    onClick={() => console.log(`Clicked: ${subcategory}`)}
+                                    onClick={() => handleSubcategoryClick(subcategory)}
                                     className="text-left text-xs py-1.5 px-2 hover:bg-gray-100 rounded transition-colors duration-200 text-gray-700 truncate"
                                     title={subcategory}
                                   >
@@ -489,10 +512,7 @@ const Categories = () => {
                               {subcategories.map((subcategory, subIndex) => (
                                 <button
                                   key={subIndex}
-                                  onClick={() => {
-                                    console.log(`Clicked: ${subcategory}`);
-                                    setOpenCategory(null);
-                                  }}
+                                  onClick={() => handleSubcategoryClick(subcategory)}
                                   className="block text-left text-xs py-2 px-2 hover:bg-gray-100 rounded transition-colors duration-200 text-gray-700 w-full"
                                 >
                                   {subcategory}
