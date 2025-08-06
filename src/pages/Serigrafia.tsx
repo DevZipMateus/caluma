@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import FloatingButton from '../components/FloatingButton';
 import CategoryMenu from '../components/CategoryMenu';
 import SubcategoryImage from '../components/SubcategoryImage';
+import CategoryCarousel from '../components/CategoryCarousel';
 import MobileButtonRow from '../components/MobileButtonRow';
 import { AppSidebar } from '../components/AppSidebar';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
@@ -42,7 +43,11 @@ const Serigrafia = () => {
                   </div>
 
                   <div className="max-w-6xl mx-auto">
-                    <SubcategoryImage subcategory={selectedSubcategory} />
+                    {selectedSubcategory ? (
+                      <SubcategoryImage subcategory={selectedSubcategory} />
+                    ) : (
+                      <CategoryCarousel categorySlug="serigrafia" categoryName="Serigrafia" />
+                    )}
                   </div>
                 </main>
               </SidebarInset>
@@ -60,7 +65,11 @@ const Serigrafia = () => {
 
             <div className="space-y-4 sm:space-y-6">
               <div className="bg-white rounded-lg p-3 sm:p-4 shadow-sm">
-                <SubcategoryImage subcategory={selectedSubcategory} />
+                {selectedSubcategory ? (
+                  <SubcategoryImage subcategory={selectedSubcategory} />
+                ) : (
+                  <CategoryCarousel categorySlug="serigrafia" categoryName="Serigrafia" />
+                )}
               </div>
             </div>
           </main>

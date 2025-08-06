@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import FloatingButton from '../components/FloatingButton';
 import CategoryMenu from '../components/CategoryMenu';
 import SubcategoryImage from '../components/SubcategoryImage';
+import CategoryCarousel from '../components/CategoryCarousel';
 import MobileButtonRow from '../components/MobileButtonRow';
 import DesktopButtonRow from '../components/DesktopButtonRow';
 import { useSelectedSubcategory } from '../hooks/useSelectedSubcategory';
@@ -52,9 +53,13 @@ const Canecas = () => {
 
           <div className="max-w-6xl mx-auto">
             <div className="bg-white rounded-lg p-3 sm:p-4 shadow-sm">
-              <SubcategoryImage subcategory={selectedSubcategory} />
+              {selectedSubcategory ? (
+                <SubcategoryImage subcategory={selectedSubcategory} />
+              ) : (
+                <CategoryCarousel categorySlug="canecas" categoryName="Canecas" />
+              )}
               {!selectedSubcategory && (
-                <div className="text-center py-12 text-muted-foreground">
+                <div className="text-center py-12 text-muted-foreground mt-4">
                   <p className="text-lg mb-2">Selecione um produto</p>
                   <p className="text-sm">Use os botões acima para escolher uma categoria e produto específico</p>
                 </div>
