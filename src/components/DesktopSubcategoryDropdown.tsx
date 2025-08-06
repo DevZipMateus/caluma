@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { ChevronDown, Menu } from 'lucide-react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,9 +12,11 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useSelectedSubcategory } from '../hooks/useSelectedSubcategory';
 import { useDesktopDropdownState } from '../hooks/useDesktopDropdownState';
+import { subcategoryToCategoryMapping } from '../utils/subcategoryMapping';
 
 const DesktopSubcategoryDropdown: React.FC = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { selectedSubcategory, setSelectedSubcategory } = useSelectedSubcategory();
   const { 
     subcategoryDropdownOpen, 
@@ -247,8 +248,28 @@ const DesktopSubcategoryDropdown: React.FC = () => {
 
   const handleSubcategoryClick = (item: string) => {
     console.log(`Selected subcategory: ${item}`);
+    
+    // First, set the selected subcategory
     setSelectedSubcategory(item);
-    closeAllDropdowns();
+    
+    // Get the category route for this subcategory
+    const categoryRoute = subcategoryToCategoryMapping[item];
+    
+    if (categoryRoute) {
+      console.log(`Current path: ${location.pathname}, Target path: ${categoryRoute}`);
+      
+      // Close all dropdowns
+      closeAllDropdowns();
+      
+      // If we need to navigate to a different category page
+      if (location.pathname !== categoryRoute) {
+        console.log(`Navigating to: ${categoryRoute}`);
+        navigate(categoryRoute);
+      }
+    } else {
+      console.warn(`No route mapping found for subcategory: ${item}`);
+      closeAllDropdowns();
+    }
   };
 
   if (!currentCategory) {

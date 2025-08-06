@@ -54,12 +54,19 @@ const DesktopCategoryDropdown: React.FC = () => {
   ];
 
   const handleCategoryClick = (path: string) => {
-    navigate(path);
+    console.log(`Navigating to category: ${path}`);
+    
+    // Close all dropdowns first
     closeAllDropdowns();
-    // After navigation, open the subcategory dropdown
+    
+    // Navigate to the category page
+    navigate(path);
+    
+    // After navigation, open the subcategory dropdown with a slight delay
+    // to ensure the navigation has completed
     setTimeout(() => {
       openSubcategoryFromCategory();
-    }, 100);
+    }, 150);
   };
 
   const currentCategory = categories.find(cat => location.pathname === cat.path);
