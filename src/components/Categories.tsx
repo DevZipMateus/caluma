@@ -279,8 +279,10 @@ const Categories = () => {
       // Close any open dropdowns/modals
       setOpenCategory(null);
       
-      // Navigate to the category page
-      navigate(categoryRoute);
+      // Small delay to ensure state is updated before navigation
+      setTimeout(() => {
+        navigate(categoryRoute);
+      }, 50);
     } else {
       console.warn(`No route mapping found for subcategory: ${subcategory}`);
     }

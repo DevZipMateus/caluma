@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FloatingButton from '../components/FloatingButton';
@@ -14,6 +13,10 @@ import { useIsDesktop } from '../hooks/useIsDesktop';
 const Canecas = () => {
   const { selectedSubcategory } = useSelectedSubcategory();
   const isDesktop = useIsDesktop();
+
+  useEffect(() => {
+    console.log(`Canecas page loaded with selectedSubcategory: ${selectedSubcategory}`);
+  }, [selectedSubcategory]);
 
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden w-full">
