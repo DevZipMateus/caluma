@@ -80,123 +80,125 @@ const Sublimacao = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <CategoryMenu />
-      
-      <main className="flex-grow bg-gray-50">
-        {/* Hero Section */}
-        <div className="bg-primary text-primary-foreground py-12">
-          <div className="container mx-auto px-4">
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <Paintbrush size={48} />
-              <h1 className="text-3xl md:text-4xl font-bold">Sublimação</h1>
-            </div>
-            <p className="text-center text-lg opacity-90 max-w-2xl mx-auto">
-              Tudo para sublimação: materiais, equipamentos e acessórios
-            </p>
-          </div>
-        </div>
-
-        {/* Categories Content */}
-        <div className="container mx-auto px-4 py-12">
-          <div className="grid gap-8">
-            {/* Grid layout for multiple sections */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* Squeezes */}
-              <div className="bg-white rounded-lg shadow-lg p-6">
-                <h2 className="text-xl font-bold text-primary mb-4 border-b border-gray-200 pb-2">
-                  Squeezes
-                </h2>
-                <div className="space-y-2">
-                  {subcategoriasSqueezes.map((item, index) => (
-                    <button
-                      key={index}
-                      className="block w-full text-left p-2 text-xs rounded hover:bg-gray-100 transition-colors border border-gray-200 hover:border-primary"
-                      onClick={() => console.log(`Clicked: ${item}`)}
-                    >
-                      {item}
-                    </button>
-                  ))}
-                </div>
+      <div className="pt-14 sm:pt-16 md:pt-18 lg:pt-20">
+        <CategoryMenu />
+        
+        <main className="flex-grow bg-gray-50">
+          {/* Hero Section */}
+          <div className="bg-primary text-primary-foreground py-12">
+            <div className="container mx-auto px-4">
+              <div className="flex items-center justify-center gap-4 mb-6">
+                <Paintbrush size={48} />
+                <h1 className="text-3xl md:text-4xl font-bold">Sublimação</h1>
               </div>
-
-              {/* Máquinas */}
-              <div className="bg-white rounded-lg shadow-lg p-6">
-                <h2 className="text-xl font-bold text-primary mb-4 border-b border-gray-200 pb-2">
-                  Máquinas
-                </h2>
-                <div className="space-y-2">
-                  {subcategoriasMaquinas.map((item, index) => (
-                    <button
-                      key={index}
-                      className="block w-full text-left p-2 text-xs rounded hover:bg-gray-100 transition-colors border border-gray-200 hover:border-primary"
-                      onClick={() => console.log(`Clicked: ${item}`)}
-                    >
-                      {item}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Kit Empreendedor */}
-              <div className="bg-white rounded-lg shadow-lg p-6">
-                <h2 className="text-xl font-bold text-primary mb-4 border-b border-gray-200 pb-2">
-                  Kit Empreendedor
-                </h2>
-                <div className="space-y-2">
-                  {subcategoriasKitEmpreendedor.map((item, index) => (
-                    <button
-                      key={index}
-                      className="block w-full text-left p-2 text-xs rounded hover:bg-gray-100 transition-colors border border-gray-200 hover:border-primary"
-                      onClick={() => console.log(`Clicked: ${item}`)}
-                    >
-                      {item}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Large sections */}
-            <div className="grid md:grid-cols-2 gap-6">
-              {/* Insumos */}
-              <div className="bg-white rounded-lg shadow-lg p-6">
-                <h2 className="text-xl font-bold text-primary mb-4 border-b border-gray-200 pb-2">
-                  Insumos
-                </h2>
-                <div className="grid grid-cols-2 gap-2">
-                  {subcategoriasInsumos.map((item, index) => (
-                    <button
-                      key={index}
-                      className="text-left p-2 text-xs rounded hover:bg-gray-100 transition-colors border border-gray-200 hover:border-primary"
-                      onClick={() => console.log(`Clicked: ${item}`)}
-                    >
-                      {item}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Suportes */}
-              <div className="bg-white rounded-lg shadow-lg p-6">
-                <h2 className="text-xl font-bold text-primary mb-4 border-b border-gray-200 pb-2">
-                  Suportes
-                </h2>
-                <div className="space-y-2">
-                  {subcategoriasSuportes.map((item, index) => (
-                    <button
-                      key={index}
-                      className="block w-full text-left p-2 text-xs rounded hover:bg-gray-100 transition-colors border border-gray-200 hover:border-primary"
-                      onClick={() => console.log(`Clicked: ${item}`)}
-                    >
-                      {item}
-                    </button>
-                  ))}
-                </div>
-              </div>
+              <p className="text-center text-lg opacity-90 max-w-2xl mx-auto">
+                Tudo para sublimação: materiais, equipamentos e acessórios
+              </p>
             </div>
           </div>
-        </div>
-      </main>
+
+          {/* Categories Content */}
+          <div className="container mx-auto px-4 py-12">
+            <div className="grid gap-8">
+              {/* Grid layout for multiple sections */}
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {/* Squeezes */}
+                <div className="bg-white rounded-lg shadow-lg p-6">
+                  <h2 className="text-xl font-bold text-primary mb-4 border-b border-gray-200 pb-2">
+                    Squeezes
+                  </h2>
+                  <div className="space-y-2">
+                    {subcategoriasSqueezes.map((item, index) => (
+                      <button
+                        key={index}
+                        className="block w-full text-left p-2 text-xs rounded hover:bg-gray-100 transition-colors border border-gray-200 hover:border-primary"
+                        onClick={() => console.log(`Clicked: ${item}`)}
+                      >
+                        {item}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Máquinas */}
+                <div className="bg-white rounded-lg shadow-lg p-6">
+                  <h2 className="text-xl font-bold text-primary mb-4 border-b border-gray-200 pb-2">
+                    Máquinas
+                  </h2>
+                  <div className="space-y-2">
+                    {subcategoriasMaquinas.map((item, index) => (
+                      <button
+                        key={index}
+                        className="block w-full text-left p-2 text-xs rounded hover:bg-gray-100 transition-colors border border-gray-200 hover:border-primary"
+                        onClick={() => console.log(`Clicked: ${item}`)}
+                      >
+                        {item}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Kit Empreendedor */}
+                <div className="bg-white rounded-lg shadow-lg p-6">
+                  <h2 className="text-xl font-bold text-primary mb-4 border-b border-gray-200 pb-2">
+                    Kit Empreendedor
+                  </h2>
+                  <div className="space-y-2">
+                    {subcategoriasKitEmpreendedor.map((item, index) => (
+                      <button
+                        key={index}
+                        className="block w-full text-left p-2 text-xs rounded hover:bg-gray-100 transition-colors border border-gray-200 hover:border-primary"
+                        onClick={() => console.log(`Clicked: ${item}`)}
+                      >
+                        {item}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Large sections */}
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* Insumos */}
+                <div className="bg-white rounded-lg shadow-lg p-6">
+                  <h2 className="text-xl font-bold text-primary mb-4 border-b border-gray-200 pb-2">
+                    Insumos
+                  </h2>
+                  <div className="grid grid-cols-2 gap-2">
+                    {subcategoriasInsumos.map((item, index) => (
+                      <button
+                        key={index}
+                        className="text-left p-2 text-xs rounded hover:bg-gray-100 transition-colors border border-gray-200 hover:border-primary"
+                        onClick={() => console.log(`Clicked: ${item}`)}
+                      >
+                        {item}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Suportes */}
+                <div className="bg-white rounded-lg shadow-lg p-6">
+                  <h2 className="text-xl font-bold text-primary mb-4 border-b border-gray-200 pb-2">
+                    Suportes
+                  </h2>
+                  <div className="space-y-2">
+                    {subcategoriasSuportes.map((item, index) => (
+                      <button
+                        key={index}
+                        className="block w-full text-left p-2 text-xs rounded hover:bg-gray-100 transition-colors border border-gray-200 hover:border-primary"
+                        onClick={() => console.log(`Clicked: ${item}`)}
+                      >
+                        {item}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
       
       <Footer />
       <FloatingButton />
