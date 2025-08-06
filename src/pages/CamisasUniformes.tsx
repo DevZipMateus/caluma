@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import FloatingButton from '../components/FloatingButton';
 import CategoryMenu from '../components/CategoryMenu';
 import SubcategoryImage from '../components/SubcategoryImage';
+import MobileButtonRow from '../components/MobileButtonRow';
 import { AppSidebar } from '../components/AppSidebar';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import { useSelectedSubcategory } from '../hooks/useSelectedSubcategory';
@@ -20,7 +21,6 @@ const CamisasUniformes = () => {
       <Header />
       <CategoryMenu />
       
-      {/* Main content area that takes remaining space */}
       <div className="flex-1 flex flex-col">
         {isDesktop ? (
           <SidebarProvider>
@@ -29,7 +29,6 @@ const CamisasUniformes = () => {
               
               <SidebarInset className="flex-1 flex flex-col min-w-0">
                 <main className="flex-1 bg-gray-50 p-2 sm:p-4 md:p-6">
-                  {/* Hero Section */}
                   <div className="bg-primary text-primary-foreground py-6 sm:py-8 px-4 rounded-lg mb-4 sm:mb-6">
                     <div className="max-w-4xl mx-auto">
                       <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4">
@@ -44,7 +43,6 @@ const CamisasUniformes = () => {
                     </div>
                   </div>
 
-                  {/* Content Area */}
                   <div className="max-w-6xl mx-auto">
                     <div className="flex flex-col lg:flex-row gap-6">
                       <div className="lg:w-1/3">
@@ -79,9 +77,7 @@ const CamisasUniformes = () => {
             </div>
           </SidebarProvider>
         ) : (
-          // Mobile/Tablet Layout
           <main className="flex-1 bg-gray-50 p-4">
-            {/* Hero Section Mobile */}
             <div className="bg-primary text-primary-foreground py-6 px-4 rounded-lg mb-6">
               <div className="text-center">
                 <div className="flex justify-center mb-4">
@@ -96,14 +92,13 @@ const CamisasUniformes = () => {
               </div>
             </div>
 
-            {/* Mobile Content */}
+            <MobileButtonRow />
+
             <div className="space-y-6">
-              {/* Image */}
               <div className="bg-white rounded-lg p-4 shadow-sm">
                 <SubcategoryImage subcategory={selectedSubcategory} />
               </div>
 
-              {/* Info Card */}
               <div className="bg-white rounded-lg p-6 shadow-sm">
                 <h2 className="text-xl font-bold text-primary mb-4 text-center">
                   Produtos Disponíveis
@@ -112,7 +107,6 @@ const CamisasUniformes = () => {
                   Oferecemos uma ampla variedade de camisas personalizadas e uniformes profissionais.
                 </p>
                 
-                {/* Categories Grid Mobile */}
                 <div className="grid grid-cols-1 gap-3 mt-6">
                   {[
                     'Camisas Masculinas',
@@ -139,7 +133,6 @@ const CamisasUniformes = () => {
                 )}
               </div>
 
-              {/* CTA Section Mobile */}
               <div className="bg-white rounded-lg p-6 shadow-sm text-center">
                 <h3 className="text-lg font-semibold text-primary mb-3">
                   Interessado em nossos produtos?

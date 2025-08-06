@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Settings } from 'lucide-react';
 import Header from '../components/Header';
@@ -5,6 +6,7 @@ import Footer from '../components/Footer';
 import FloatingButton from '../components/FloatingButton';
 import CategoryMenu from '../components/CategoryMenu';
 import SubcategoryImage from '../components/SubcategoryImage';
+import MobileButtonRow from '../components/MobileButtonRow';
 import { AppSidebar } from '../components/AppSidebar';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import { useSelectedSubcategory } from '../hooks/useSelectedSubcategory';
@@ -27,7 +29,6 @@ const Equipamentos = () => {
               
               <SidebarInset className="flex-1 flex flex-col min-w-0">
                 <main className="flex-1 bg-gray-50 p-2 sm:p-4 md:p-6">
-                  {/* Hero Section */}
                   <div className="bg-primary text-primary-foreground py-6 sm:py-8 px-4 rounded-lg mb-4 sm:mb-6">
                     <div className="max-w-4xl mx-auto">
                       <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4">
@@ -42,16 +43,12 @@ const Equipamentos = () => {
                     </div>
                   </div>
 
-                  {/* Content Area */}
                   <div className="max-w-6xl mx-auto">
-                    {/* Responsive layout for image and content */}
                     <div className="flex flex-col lg:flex-row gap-6">
-                      {/* Subcategory Image - Shows above content on mobile, left side on desktop */}
                       <div className="lg:w-1/3">
                         <SubcategoryImage subcategory={selectedSubcategory} />
                       </div>
                       
-                      {/* Main content */}
                       <div className="flex-1">
                         <div className="text-center mb-6 sm:mb-8 px-2">
                           <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">
@@ -94,6 +91,8 @@ const Equipamentos = () => {
                 </p>
               </div>
             </div>
+
+            <MobileButtonRow />
 
             <div className="space-y-6">
               <div className="bg-white rounded-lg p-4 shadow-sm">
