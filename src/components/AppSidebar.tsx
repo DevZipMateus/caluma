@@ -20,6 +20,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 export function AppSidebar() {
   const { state } = useSidebar();
@@ -266,43 +267,47 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar className="w-80 border-r relative" collapsible="none">
-      <SidebarHeader className="p-4 border-b">
+    <Sidebar className="w-80 border-r relative h-screen flex flex-col" collapsible="none">
+      <SidebarHeader className="p-4 border-b flex-shrink-0">
         <div className="flex items-center gap-2">
           <currentCategory.icon className="h-5 w-5 text-primary" />
           <h2 className="font-semibold text-primary">{currentCategory.title}</h2>
         </div>
       </SidebarHeader>
       
-      <SidebarContent className="overflow-y-auto">
-        {Object.entries(currentCategory.subcategories).map(([groupName, items]) => (
-          <SidebarGroup key={groupName}>
-            <Collapsible defaultOpen>
-              <CollapsibleTrigger asChild>
-                <SidebarGroupLabel className="group/label hover:bg-sidebar-accent hover:text-sidebar-accent-foreground cursor-pointer">
-                  {groupName}
-                  <ChevronDown className="ml-auto transition-transform group-data-[state=open]/label:rotate-180" />
-                </SidebarGroupLabel>
-              </CollapsibleTrigger>
-              <CollapsibleContent>
-                <SidebarGroupContent>
-                  <SidebarMenu>
-                    {items.map((item, index) => (
-                      <SidebarMenuItem key={index}>
-                        <SidebarMenuButton
-                          onClick={() => handleSubcategoryClick(item)}
-                          className="text-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground cursor-pointer"
-                        >
-                          {item}
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    ))}
-                  </SidebarMenu>
-                </SidebarGroupContent>
-              </CollapsibleContent>
-            </Collapsible>
-          </SidebarGroup>
-        ))}
+      <SidebarContent className="flex-1 min-h-0">
+        <ScrollArea className="h-full">
+          <div className="p-2">
+            {Object.entries(currentCategory.subcategories).map(([groupName, items]) => (
+              <SidebarGroup key={groupName} className="mb-4">
+                <Collapsible defaultOpen>
+                  <CollapsibleTrigger asChild>
+                    <SidebarGroupLabel className="group/label hover:bg-sidebar-accent hover:text-sidebar-accent-foreground cursor-pointer">
+                      {groupName}
+                      <ChevronDown className="ml-auto transition-transform group-data-[state=open]/label:rotate-180" />
+                    </SidebarGroupLabel>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <SidebarGroupContent>
+                      <SidebarMenu>
+                        {items.map((item, index) => (
+                          <SidebarMenuItem key={index}>
+                            <SidebarMenuButton
+                              onClick={() => handleSubcategoryClick(item)}
+                              className="text-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground cursor-pointer"
+                            >
+                              {item}
+                            </SidebarMenuButton>
+                          </SidebarMenuItem>
+                        ))}
+                      </SidebarMenu>
+                    </SidebarGroupContent>
+                  </CollapsibleContent>
+                </Collapsible>
+              </SidebarGroup>
+            ))}
+          </div>
+        </ScrollArea>
       </SidebarContent>
     </Sidebar>
   );
