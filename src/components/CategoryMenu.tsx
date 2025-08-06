@@ -4,12 +4,12 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useIsDesktop } from '../hooks/useIsDesktop';
 
 const categories = [
-  { name: 'Sublimação', path: '/sublimacao' },
-  { name: 'Serigrafia', path: '/serigrafia' },
-  { name: 'Camisas e Uniformes', path: '/camisas-uniformes' },
-  { name: 'Canecas', path: '/canecas' },
-  { name: 'Equipamentos', path: '/equipamentos' },
-  { name: 'Papelaria', path: '/papelaria' },
+  { name: 'Sublimação', path: '/sublimacao', icon: '🎨' },
+  { name: 'Serigrafia', path: '/serigrafia', icon: '🖼️' },
+  { name: 'Camisas e Uniformes', path: '/camisas-uniformes', icon: '👕' },
+  { name: 'Canecas', path: '/canecas', icon: '☕' },
+  { name: 'Equipamentos', path: '/equipamentos', icon: '⚙️' },
+  { name: 'Papelaria', path: '/papelaria', icon: '📄' },
 ];
 
 const CategoryMenu: React.FC = () => {
@@ -42,6 +42,7 @@ const CategoryMenu: React.FC = () => {
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }`}
               >
+                <span className="mr-2">{category.icon}</span>
                 {category.name}
               </button>
             );

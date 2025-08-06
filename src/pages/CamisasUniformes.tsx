@@ -1,6 +1,6 @@
 
 import React from 'react';
-import Header from '../components/Layout/Header';
+import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FloatingButton from '../components/FloatingButton';
 import CategoryMenu from '../components/CategoryMenu';
@@ -24,7 +24,7 @@ const CamisasUniformes = () => {
       <div className={`${
         isDesktop 
           ? 'pt-44 lg:pt-48 xl:pt-52 2xl:pt-56' 
-          : 'pt-32 sm:pt-36 md:pt-40 lg:pt-44'
+          : 'pt-14 sm:pt-16 md:pt-20 lg:pt-24'
       } flex-1 flex flex-col min-h-0`}>
         {isDesktop ? (
           <SidebarProvider>
