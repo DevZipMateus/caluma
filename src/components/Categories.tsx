@@ -55,11 +55,11 @@ const Categories = () => {
 
   const subcategoriasMaquinas = [
     'CAMEO SILHOUETTE',
-    'DIAMOND 360° TRANSFER',
+    'DIAMOND 360º TRANSFER',
     'IMPRESSORA EPSON',
     'PLOTTER DE RECORTE',
     'PRENSA 8 EM 1',
-    'PRENSA CILÍNDRICA',
+    'PRENSA CILINDRICA',
     'PRENSA LONG DRINK',
     'PRENSA PLANA',
     'PRENSA PORTÁTIL'
@@ -229,8 +229,8 @@ const Categories = () => {
       icon: Settings,
       href: '#equipamentos',
       subcategories: {
-        'MÁQUINAS': subcategoriasMaquinas,
-        'KIT EMPREENDEDOR': subcategoriasKitEmpreendedor
+        '/MÁQUINAS/': subcategoriasMaquinas,
+        '/KIT EMPREENDEDOR/': subcategoriasKitEmpreendedor
       }
     },
     {
