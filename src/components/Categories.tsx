@@ -361,19 +361,6 @@ const Categories = () => {
                         : 'w-[70vw] max-w-[600px]'
                   }`}>
                     <div className="p-3 md:p-4 max-h-[70vh] overflow-y-auto">
-                      {/* View All Button */}
-                      <div className="mb-4 text-center border-b border-gray-200 pb-3">
-                        <button
-                          onClick={() => {
-                            navigate(category.href);
-                            setOpenCategory(null);
-                          }}
-                          className="bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors text-sm font-medium"
-                        >
-                          Ver Todos os Produtos
-                        </button>
-                      </div>
-
                       {category.name === 'SUBLIMAÇÃO' ? (
                         // Layout em grid para SUBLIMAÇÃO
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -493,19 +480,6 @@ const Categories = () => {
                         </button>
                       </div>
                       <div className="p-4 overflow-y-auto">
-                        {/* View All Button */}
-                        <div className="mb-4 text-center border-b border-gray-200 pb-3">
-                          <button
-                            onClick={() => {
-                              navigate(category.href);
-                              setOpenCategory(null);
-                            }}
-                            className="bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors text-sm font-medium w-full"
-                          >
-                            Ver Todos os Produtos
-                          </button>
-                        </div>
-
                         {Object.entries(category.subcategories).map(([sectionName, subcategories]) => (
                           <div key={sectionName} className="mb-4 last:mb-0">
                             <h4 className="font-semibold text-primary mb-2 text-sm border-b border-gray-200 pb-1">
