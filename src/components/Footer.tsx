@@ -7,28 +7,19 @@ import { Separator } from '@/components/ui/separator';
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      const offsetTop = element.offsetTop - 80;
-      window.scrollTo({ top: offsetTop, behavior: 'smooth' });
-    }
-  };
-
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
           {/* Logo e Descrição */}
-          <div className="lg:col-span-2">
+          <div>
             <div className="mb-6">
               <img 
                 src="/lovable-uploads/8d3c539b-e71e-45f5-bc79-6f4f9b1a47f2.png" 
                 alt="Caluma Variedades e Personalizados" 
-                className="h-12 w-auto mb-4"
+                className="h-20 w-auto mb-6"
               />
               <p className="text-primary-foreground/90 leading-relaxed">
-                Transformamos suas ideias em produtos únicos com qualidade excepcional. 
                 Somos especialistas em sublimação, serigrafia e produtos personalizados 
                 para empresas e pessoas que buscam excelência.
               </p>
@@ -57,29 +48,6 @@ const Footer = () => {
                 </a>
               </Button>
             </div>
-          </div>
-
-          {/* Links Rápidos */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4 text-accent">Links Rápidos</h3>
-            <ul className="space-y-3">
-              {[
-                { name: 'Início', id: 'inicio' },
-                { name: 'Sobre Nós', id: 'sobre' },
-                { name: 'Serviços', id: 'servicos' },
-                { name: 'Depoimentos', id: 'depoimentos' },
-                { name: 'Contato', id: 'contato' }
-              ].map((item) => (
-                <li key={item.id}>
-                  <button
-                    onClick={() => scrollToSection(item.id)}
-                    className="text-primary-foreground/80 hover:text-accent transition-colors duration-200 text-left"
-                  >
-                    {item.name}
-                  </button>
-                </li>
-              ))}
-            </ul>
           </div>
 
           {/* Contato */}
