@@ -23,10 +23,4 @@ export const subcategoryImageMapping: Record<string, string> = {
   'PRENSA PLANA': '/lovable-uploads/galeria/prensa plana.jpg',
   'DIAMOND 360º TRANSFER': '/lovable-uploads/galeria/prensa transfer.jpg',
   'PLOTTER DE RECORTE': '/lovable-uploads/galeria/maquina de corte.jpg',
-  
-  // Sublimação - Default subcategory
-  'ALUMÍNIO BIG MOUTH': '/lovable-uploads/galeria/caneca aluminio.jpg',
-  
-  // Serigrafia - Default subcategory  
-  'AUX PLÁSTICOS': '/lovable-uploads/galeria/papeis adesivos.jpg',
 };
