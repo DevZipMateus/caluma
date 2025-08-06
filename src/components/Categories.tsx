@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Shirt, FileText, Settings, Coffee, Paintbrush, Palette } from 'lucide-react';
 
@@ -53,6 +54,23 @@ const Categories = () => {
     'VINIL'
   ];
 
+  const subcategoriasMaquinas = [
+    'CAMEO SILHOUETTE',
+    'DIAMOND 360° TRANSFER',
+    'IMPRESSORA EPSON',
+    'PLOTTER DE RECORTE',
+    'PRENSA 8 EM 1',
+    'PRENSA CILÍNDRICA',
+    'PRENSA LONG DRINK',
+    'PRENSA PLANA',
+    'PRENSA PORTÁTIL'
+  ];
+
+  const subcategoriasKitEmpreendedor = [
+    'KIT CILÍNDRICO',
+    'KIT PLANO'
+  ];
+
   const categories = [
     {
       name: 'CAMISAS E UNIFORMES',
@@ -74,7 +92,11 @@ const Categories = () => {
     {
       name: 'EQUIPAMENTOS',
       icon: Settings,
-      href: '#equipamentos'
+      href: '#equipamentos',
+      subcategories: {
+        'MÁQUINAS': subcategoriasMaquinas,
+        'KIT EMPREENDEDOR': subcategoriasKitEmpreendedor
+      }
     },
     {
       name: 'CANECAS',
