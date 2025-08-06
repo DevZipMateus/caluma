@@ -35,7 +35,7 @@ const Canecas = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       
-      <main className="flex-grow bg-gray-50">
+      <main className="flex-grow bg-gray-50 pt-24 sm:pt-28 md:pt-32">
         {/* Hero Section */}
         <div className="bg-primary text-primary-foreground py-12">
           <div className="container mx-auto px-4">
