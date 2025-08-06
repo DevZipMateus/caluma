@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Shirt, FileText, Settings, Coffee, Paintbrush, Palette } from 'lucide-react';
 
 const Categories = () => {
-  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
+  const [openCategory, setOpenCategory] = useState<string | null>(null);
+  const dropdownRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
   const subcategoriasCamisas = [
     'Body Infantil',
@@ -163,7 +164,7 @@ const Categories = () => {
     'IMPRESSORA EPSON',
     'PLOTTER DE RECORTE',
     'PRENSA 8 EM 1',
-    'PRENSA CILÍNDRICA',
+    'PRENSA CILINDRICA',
     'PRENSA LONG DRINK',
     'PRENSA PLANA',
     'PRENSA PORTÁTIL'
@@ -274,6 +275,31 @@ const Categories = () => {
     }
   };
 
+  const handleCategoryClick = (categoryName: string) => {
+    if (openCategory === categoryName) {
+      setOpenCategory(null);
+    } else {
+      setOpenCategory(categoryName);
+    }
+  };
+
+  // Detectar clique fora do dropdown
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (openCategory) {
+        const dropdownRef = dropdownRefs.current[openCategory];
+        if (dropdownRef && !dropdownRef.contains(event.target as Node)) {
+          setOpenCategory(null);
+        }
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [openCategory]);
+
   return (
     <section className="bg-primary py-4 relative">
       <div className="container mx-auto px-4">
@@ -281,16 +307,24 @@ const Categories = () => {
           {categories.map((category, index) => {
             const IconComponent = category.icon;
             const hasSubcategories = category.subcategories;
+            const isOpen = openCategory === category.name;
             
             return (
               <div
                 key={index}
                 className="relative"
-                onMouseEnter={() => setHoveredCategory(category.name)}
-                onMouseLeave={() => setHoveredCategory(null)}
+                ref={(el) => {
+                  dropdownRefs.current[category.name] = el;
+                }}
               >
                 <button
-                  onClick={() => scrollToSection(category.href)}
+                  onClick={() => {
+                    if (hasSubcategories) {
+                      handleCategoryClick(category.name);
+                    } else {
+                      scrollToSection(category.href);
+                    }
+                  }}
                   className="flex flex-col items-center justify-center text-primary-foreground hover:text-accent transition-colors duration-300 group min-w-[120px] sm:min-w-[140px] lg:min-w-[160px] p-2"
                 >
                   <div className="mb-2 group-hover:scale-110 transition-transform duration-300">
@@ -302,7 +336,7 @@ const Categories = () => {
                 </button>
 
                 {/* Subcategories Dropdown */}
-                {hasSubcategories && hoveredCategory === category.name && (
+                {hasSubcategories && isOpen && (
                   <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 z-50 bg-white rounded-lg shadow-lg border ${
                     category.name === 'SUBLIMAÇÃO' ? 'min-w-[800px] max-w-[1000px]' : 'min-w-[320px] max-w-[400px]'
                   }`}>
