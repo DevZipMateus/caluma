@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Hero from './components/Hero';
+import Categories from './components/Categories';
 import Footer from './components/Footer';
 import FloatingButton from './components/FloatingButton';
 import NotFound from './pages/NotFound';
@@ -19,6 +20,7 @@ function MainPage() {
       
       <main className="flex-grow">
         <Hero />
+        <Categories />
       </main>
       
       <Footer />
