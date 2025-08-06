@@ -13,6 +13,7 @@ import Equipamentos from './pages/Equipamentos';
 import Canecas from './pages/Canecas';
 import Sublimacao from './pages/Sublimacao';
 import Serigrafia from './pages/Serigrafia';
+import { useScrollToTop } from './hooks/useScrollToTop';
 
 function MainPage() {
   // Scroll to top on page load
@@ -35,19 +36,28 @@ function MainPage() {
   );
 }
 
+function AppContent() {
+  // Hook to scroll to top on route changes
+  useScrollToTop();
+
+  return (
+    <Routes>
+      <Route path="/" element={<MainPage />} />
+      <Route path="/camisas-uniformes" element={<CamisasUniformes />} />
+      <Route path="/papelaria" element={<Papelaria />} />
+      <Route path="/equipamentos" element={<Equipamentos />} />
+      <Route path="/canecas" element={<Canecas />} />
+      <Route path="/sublimacao" element={<Sublimacao />} />
+      <Route path="/serigrafia" element={<Serigrafia />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+}
+
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/camisas-uniformes" element={<CamisasUniformes />} />
-        <Route path="/papelaria" element={<Papelaria />} />
-        <Route path="/equipamentos" element={<Equipamentos />} />
-        <Route path="/canecas" element={<Canecas />} />
-        <Route path="/sublimacao" element={<Sublimacao />} />
-        <Route path="/serigrafia" element={<Serigrafia />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <AppContent />
     </Router>
   );
 }
