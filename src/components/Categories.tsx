@@ -258,26 +258,53 @@ const Categories = () => {
 
                 {/* Subcategories Dropdown */}
                 {hasSubcategories && hoveredCategory === category.name && (
-                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 z-50 bg-white rounded-lg shadow-lg border min-w-[320px] max-w-[400px]">
+                  <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 z-50 bg-white rounded-lg shadow-lg border ${
+                    category.name === 'SUBLIMAÇÃO' ? 'min-w-[800px] max-w-[1000px]' : 'min-w-[320px] max-w-[400px]'
+                  }`}>
                     <div className="p-4">
-                      {Object.entries(category.subcategories).map(([sectionName, subcategories]) => (
-                        <div key={sectionName} className="mb-4 last:mb-0">
-                          <h4 className="font-semibold text-primary mb-2 text-sm border-b border-gray-200 pb-1">
-                            {sectionName}
-                          </h4>
-                          <div className="grid grid-cols-2 gap-1">
-                            {subcategories.map((subcategory, subIndex) => (
-                              <button
-                                key={subIndex}
-                                onClick={() => console.log(`Clicked: ${subcategory}`)}
-                                className="text-left text-xs py-1 px-2 hover:bg-gray-100 rounded transition-colors duration-200 text-gray-700"
-                              >
-                                {subcategory}
-                              </button>
-                            ))}
-                          </div>
+                      {category.name === 'SUBLIMAÇÃO' ? (
+                        // Layout horizontal para SUBLIMAÇÃO
+                        <div className="flex flex-wrap gap-6">
+                          {Object.entries(category.subcategories).map(([sectionName, subcategories]) => (
+                            <div key={sectionName} className="flex-1 min-w-[120px]">
+                              <h4 className="font-semibold text-primary mb-2 text-sm border-b border-gray-200 pb-1">
+                                {sectionName}
+                              </h4>
+                              <div className="space-y-1">
+                                {subcategories.map((subcategory, subIndex) => (
+                                  <button
+                                    key={subIndex}
+                                    onClick={() => console.log(`Clicked: ${subcategory}`)}
+                                    className="block text-left text-xs py-1 px-2 hover:bg-gray-100 rounded transition-colors duration-200 text-gray-700 w-full"
+                                  >
+                                    {subcategory}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
                         </div>
-                      ))}
+                      ) : (
+                        // Layout vertical para outras categorias
+                        Object.entries(category.subcategories).map(([sectionName, subcategories]) => (
+                          <div key={sectionName} className="mb-4 last:mb-0">
+                            <h4 className="font-semibold text-primary mb-2 text-sm border-b border-gray-200 pb-1">
+                              {sectionName}
+                            </h4>
+                            <div className="grid grid-cols-2 gap-1">
+                              {subcategories.map((subcategory, subIndex) => (
+                                <button
+                                  key={subIndex}
+                                  onClick={() => console.log(`Clicked: ${subcategory}`)}
+                                  className="text-left text-xs py-1 px-2 hover:bg-gray-100 rounded transition-colors duration-200 text-gray-700"
+                                >
+                                  {subcategory}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        ))
+                      )}
                     </div>
                   </div>
                 )}
