@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import FloatingButton from '../components/FloatingButton';
 import CategoryMenu from '../components/CategoryMenu';
 import SubcategoryImage from '../components/SubcategoryImage';
+import MobileButtonRow from '../components/MobileButtonRow';
 import { AppSidebar } from '../components/AppSidebar';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import { useSelectedSubcategory } from '../hooks/useSelectedSubcategory';
@@ -54,6 +55,8 @@ const Canecas = () => {
                 <h1 className="text-lg sm:text-xl md:text-2xl font-bold">Canecas</h1>
               </div>
             </div>
+
+            <MobileButtonRow />
 
             <div className="space-y-4 sm:space-y-6">
               <div className="bg-white rounded-lg p-3 sm:p-4 shadow-sm">
