@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FloatingButton from '../components/FloatingButton';
@@ -13,8 +12,13 @@ import { useSelectedSubcategory } from '../hooks/useSelectedSubcategory';
 import { useIsDesktop } from '../hooks/useIsDesktop';
 
 const Equipamentos = () => {
-  const { selectedSubcategory } = useSelectedSubcategory();
+  const { selectedSubcategory, setDefaultSubcategory } = useSelectedSubcategory();
   const isDesktop = useIsDesktop();
+
+  // Set default subcategory when component mounts
+  useEffect(() => {
+    setDefaultSubcategory('/equipamentos');
+  }, [setDefaultSubcategory]);
 
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden w-full">
