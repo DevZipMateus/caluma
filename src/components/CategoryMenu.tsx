@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Shirt, FileText, Settings, Coffee, Paintbrush, Palette } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -313,10 +312,10 @@ const CategoryMenu = () => {
   }, [openCategory]);
 
   return (
-    <section className="bg-primary/90 py-2 relative overflow-visible border-b border-white/10">
-      <div className="container mx-auto px-2 sm:px-4 md:px-6">
-        {/* Layout Responsivo */}
-        <div className="hidden md:flex flex-wrap justify-center items-center gap-2 lg:gap-4 xl:gap-6">
+    <section className="bg-primary/90 py-1 sm:py-2 relative overflow-visible border-b border-white/10">
+      <div className="w-full px-1 sm:px-2 md:px-4 lg:px-6 max-w-7xl mx-auto">
+        {/* Layout Desktop */}
+        <div className="hidden md:flex flex-wrap justify-center items-center gap-1 lg:gap-2 xl:gap-4">
           {categories.map((category, index) => {
             const IconComponent = category.icon;
             const hasSubcategories = category.subcategories;
@@ -325,17 +324,17 @@ const CategoryMenu = () => {
             return (
               <div
                 key={index}
-                className="relative"
+                className="relative flex-shrink-0"
                 ref={(el) => {
                   dropdownRefs.current[category.name] = el;
                 }}
               >
                 <button
                   onClick={() => handleCategoryClick(category)}
-                  className="flex flex-col items-center justify-center text-primary-foreground hover:text-accent transition-colors duration-300 group min-w-[100px] md:min-w-[120px] lg:min-w-[140px] p-1.5 md:p-2"
+                  className="flex flex-col items-center justify-center text-primary-foreground hover:text-accent transition-colors duration-300 group min-w-[90px] md:min-w-[110px] lg:min-w-[130px] xl:min-w-[140px] p-1.5 md:p-2 rounded-md hover:bg-primary/20"
                 >
                   <div className="mb-1 group-hover:scale-110 transition-transform duration-300">
-                    <IconComponent size={20} className="md:w-6 md:h-6 lg:w-7 lg:h-7" />
+                    <IconComponent size={18} className="md:w-5 md:h-5 lg:w-6 lg:h-6" />
                   </div>
                   <span className="text-xs md:text-xs lg:text-sm font-medium text-center leading-tight px-1">
                     {category.name}
@@ -344,22 +343,22 @@ const CategoryMenu = () => {
 
                 {/* Subcategories Dropdown - Desktop */}
                 {hasSubcategories && isOpen && (
-                  <div className={`absolute top-full mt-1 z-50 bg-white rounded-lg shadow-lg border overflow-visible ${
+                  <div className={`absolute top-full mt-1 z-50 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden ${
                     getDropdownPosition(index, categories.length)
                   } ${
                     category.name === 'SUBLIMAÇÃO' 
                       ? 'w-[95vw] max-w-[1200px]' 
                       : category.name === 'CANECAS'
-                        ? 'w-[80vw] max-w-[800px]'
-                        : 'w-[70vw] max-w-[600px]'
+                        ? 'w-[85vw] max-w-[900px]'
+                        : 'w-[75vw] max-w-[700px]'
                   }`}>
-                    <div className="p-3 md:p-4 max-h-[60vh] overflow-y-auto">
+                    <div className="p-3 md:p-4 max-h-[70vh] overflow-y-auto">
                       {category.name === 'SUBLIMAÇÃO' ? (
                         // Layout em grid para SUBLIMAÇÃO
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
                           {Object.entries(category.subcategories).map(([sectionName, subcategories]) => (
                             <div key={sectionName} className="min-w-0">
-                              <h4 className="font-semibold text-primary mb-1 text-xs lg:text-sm border-b border-gray-200 pb-1 truncate">
+                              <h4 className="font-semibold text-primary mb-1.5 text-xs lg:text-sm border-b border-gray-200 pb-1 truncate">
                                 {sectionName}
                               </h4>
                               <div className="space-y-1">
@@ -378,7 +377,7 @@ const CategoryMenu = () => {
                           ))}
                         </div>
                       ) : category.name === 'CANECAS' ? (
-                        // Layout especial para CANECAS (muitos itens)
+                        // Layout especial para CANECAS
                         <div>
                           {Object.entries(category.subcategories).map(([sectionName, subcategories]) => (
                             <div key={sectionName} className="mb-3 last:mb-0">
@@ -433,7 +432,7 @@ const CategoryMenu = () => {
         </div>
 
         {/* Layout Mobile - Grid 2x3 */}
-        <div className="md:hidden grid grid-cols-2 gap-2">
+        <div className="md:hidden grid grid-cols-2 gap-1 px-1">
           {categories.map((category, index) => {
             const IconComponent = category.icon;
             const hasSubcategories = category.subcategories;
@@ -452,7 +451,7 @@ const CategoryMenu = () => {
                   className="flex flex-col items-center justify-center text-primary-foreground hover:text-accent transition-colors duration-300 group w-full p-2 rounded-lg hover:bg-primary/10"
                 >
                   <div className="mb-1 group-hover:scale-110 transition-transform duration-300">
-                    <IconComponent size={18} />
+                    <IconComponent size={16} />
                   </div>
                   <span className="text-xs font-medium text-center leading-tight px-1">
                     {category.name}
@@ -461,18 +460,18 @@ const CategoryMenu = () => {
 
                 {/* Subcategories Modal - Mobile */}
                 {hasSubcategories && isOpen && (
-                  <div className="fixed inset-0 z-50 bg-black/50 p-4 flex items-center justify-center">
-                    <div className="bg-white rounded-lg shadow-lg max-w-sm w-full max-h-[80vh] overflow-hidden">
+                  <div className="fixed inset-0 z-50 bg-black/50 p-3 flex items-center justify-center">
+                    <div className="bg-white rounded-lg shadow-lg w-full max-w-sm max-h-[85vh] overflow-hidden">
                       <div className="p-3 border-b bg-primary text-primary-foreground flex justify-between items-center">
-                        <h3 className="font-semibold text-sm">{category.name}</h3>
+                        <h3 className="font-semibold text-sm truncate flex-1 mr-2">{category.name}</h3>
                         <button 
                           onClick={() => setOpenCategory(null)}
-                          className="text-primary-foreground hover:text-accent text-xl leading-none"
+                          className="text-primary-foreground hover:text-accent text-xl leading-none p-1 min-w-[24px]"
                         >
                           ×
                         </button>
                       </div>
-                      <div className="p-3 overflow-y-auto">
+                      <div className="p-3 overflow-y-auto max-h-[calc(85vh-60px)]">
                         {Object.entries(category.subcategories).map(([sectionName, subcategories]) => (
                           <div key={sectionName} className="mb-3 last:mb-0">
                             <h4 className="font-semibold text-primary mb-2 text-sm border-b border-gray-200 pb-1">
