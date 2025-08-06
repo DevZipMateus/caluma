@@ -167,6 +167,38 @@ const Categories = () => {
     'TÉRMICA 4 EM 1 ALÇA'
   ];
 
+  const subcategoriasSerigrafiaInsumos = [
+    'AUX PLÁSTICOS',
+    'BARRICA CLEAR',
+    'CLEAR FILM',
+    'COBERCOLOR',
+    'COLA PERMANENTE',
+    'COLOR PAPEL',
+    'COPO MEDIDOR',
+    'CROMA',
+    'EMULSÃO',
+    'ESPÁTULA',
+    'FOTO ESTAMPA',
+    'GRAMPEADOR',
+    'GRAMPO',
+    'LUVA',
+    'NYLON',
+    'PARAFUSOS'
+  ];
+
+  const subcategoriasSerigrafiasTintas = [
+    'CROMA',
+    'HIDROCOLOR',
+    'HIDROMIX',
+    'PIGMENTO'
+  ];
+
+  const subcategoriasSerigrafiaMaquinas = [
+    'CILINDRICA SMART',
+    'CILINDRICA TEX COM SUPORTE 2 BERCOS',
+    'PLOTTER SEM SUPORTE'
+  ];
+
   const categories = [
     {
       name: 'CAMISAS E UNIFORMES',
@@ -218,7 +250,12 @@ const Categories = () => {
     {
       name: 'SERIGRAFIA',
       icon: Palette,
-      href: '#serigrafia'
+      href: '#serigrafia',
+      subcategories: {
+        'INSUMOS': subcategoriasSerigrafiaInsumos,
+        'TINTAS': subcategoriasSerigrafiasTintas,
+        'MÁQUINAS': subcategoriasSerigrafiaMaquinas
+      }
     }
   ];
 
