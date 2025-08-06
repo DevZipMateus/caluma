@@ -66,7 +66,7 @@ const Header = () => {
             className="flex-shrink-0 min-w-0 max-w-[60%] sm:max-w-[50%] lg:max-w-none focus:outline-none hover:opacity-90 transition-opacity"
           >
             <img 
-              src="/lovable-uploads/6863ba6e-864c-440d-a0c9-58c7739af553.png" 
+              src="/lovable-uploads/07c8a6fd-84e8-4066-a8a3-bcdef0510cbb.png" 
               alt="Caluma Variedades e Personalizados" 
               className="h-10 sm:h-12 md:h-14 lg:h-16 xl:h-20 w-auto max-w-full transition-all duration-300"
             />
