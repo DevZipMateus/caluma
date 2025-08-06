@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Shirt, FileText, Settings, Coffee, Paintbrush, Palette } from 'lucide-react';
 
@@ -71,6 +70,31 @@ const Categories = () => {
     'KIT PLANO'
   ];
 
+  const subcategoriasCanecas = [
+    'CANECA AÇO INOX',
+    'CANECA ALUMÍNIO',
+    'CANECA BELLY',
+    'CANECA BRANCA',
+    'CANECA BASE GLITTER',
+    'CANECA BOLINHA',
+    'CANECA CHOPP',
+    'CANECA COM COLHER',
+    'CANECA COM GLITTER',
+    'CANECA CÔNICA',
+    'CANECA CORAÇÃO',
+    'CANECA CROMADA',
+    'CANECA FALL',
+    'CANECA MÁGICA',
+    'CANECA MAZON',
+    'CANECA INOX',
+    'CANECA JATEADA',
+    'CANECA NEON',
+    'CANECA PEROLADA',
+    'CANECA POLÍMERO',
+    'CANECA DE TARJA SUBLIMÁTICA',
+    'CANECA WHISKY'
+  ];
+
   const categories = [
     {
       name: 'CAMISAS E UNIFORMES',
@@ -101,7 +125,10 @@ const Categories = () => {
     {
       name: 'CANECAS',
       icon: Coffee,
-      href: '#canecas'
+      href: '#canecas',
+      subcategories: {
+        'CANECAS': subcategoriasCanecas
+      }
     },
     {
       name: 'SUBLIMAÇÃO',
