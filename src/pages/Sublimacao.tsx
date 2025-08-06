@@ -80,15 +80,7 @@ const Sublimacao = () => {
           <main className="flex-1 bg-gray-50 p-4">
             <div className="bg-primary text-primary-foreground py-6 px-4 rounded-lg mb-6">
               <div className="text-center">
-                <div className="flex justify-center mb-4">
-                  <div className="w-16 h-16 bg-primary-foreground/10 rounded-full flex items-center justify-center">
-                    <Paintbrush size={32} className="text-primary-foreground" />
-                  </div>
-                </div>
-                <h1 className="text-2xl font-bold mb-2">Sublimação</h1>
-                <p className="opacity-90 text-sm">
-                  Tudo para sublimação: materiais, equipamentos e acessórios
-                </p>
+                <h1 className="text-2xl font-bold">Sublimação</h1>
               </div>
             </div>
 
