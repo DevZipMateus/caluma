@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Shirt, FileText, Settings, Coffee, Paintbrush, Palette } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -267,7 +268,7 @@ const Categories = () => {
   const handleSubcategoryClick = (subcategory: string) => {
     console.log(`Selecting subcategory: ${subcategory}`);
     
-    // Set the selected subcategory
+    // First, set the selected subcategory
     setSelectedSubcategory(subcategory);
     
     // Get the category route for this subcategory
@@ -277,6 +278,7 @@ const Categories = () => {
       console.log(`Navigating to: ${categoryRoute}`);
       // Close any open dropdowns/modals
       setOpenCategory(null);
+      
       // Navigate to the category page
       navigate(categoryRoute);
     } else {
