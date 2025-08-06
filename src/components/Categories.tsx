@@ -1,13 +1,57 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Shirt, FileText, Settings, Coffee, Paintbrush, Palette } from 'lucide-react';
 
 const Categories = () => {
+  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
+
+  const subcategoriasCamisas = [
+    'Body Infantil',
+    'Body Infantil Colorido',
+    'Camisa Polo Feminina',
+    'Camisa Polo Feminina Dry',
+    'Camisa Polo Masculina',
+    'Camisa Polo Masculina Dry',
+    'Feminina Algodão',
+    'Feminina Algodão Colorida',
+    'Feminina Branca',
+    'Feminina Colorida',
+    'Feminina Raglan',
+    'Infantil Branca',
+    'Infantil Colorida',
+    'Masculina Branca',
+    'Masculina Algodão',
+    'Masculina Algodão Colorida',
+    'Masculina Colorida',
+    'Masculina Reglan',
+    'Regata Feminina Branca',
+    'Regata Feminina Colorida',
+    'Regata Masculina Branca',
+    'Regata Masculina Colorida'
+  ];
+
+  const subcategoriasUniformes = [
+    'Avental Napo',
+    'Avental Oxford',
+    'Bermuda de Brim',
+    'Bota Cano Alto',
+    'Bota Cano Curto',
+    'Calça Carijó',
+    'Calça Brim',
+    'Colete Futebol',
+    'Jaleco de Brim',
+    'Jaleco de Enfermagem'
+  ];
+
   const categories = [
     {
       name: 'CAMISAS E UNIFORMES',
       icon: Shirt,
-      href: '#camisas'
+      href: '#camisas',
+      subcategories: {
+        'CAMISAS': subcategoriasCamisas,
+        'UNIFORMES': subcategoriasUniformes
+      }
     },
     {
       name: 'PAPELARIA',
@@ -45,24 +89,58 @@ const Categories = () => {
   };
 
   return (
-    <section className="bg-primary py-4">
+    <section className="bg-primary py-4 relative">
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap justify-center items-center gap-4 lg:gap-8">
           {categories.map((category, index) => {
             const IconComponent = category.icon;
+            const hasSubcategories = category.subcategories;
+            
             return (
-              <button
+              <div
                 key={index}
-                onClick={() => scrollToSection(category.href)}
-                className="flex flex-col items-center justify-center text-primary-foreground hover:text-accent transition-colors duration-300 group min-w-[120px] sm:min-w-[140px] lg:min-w-[160px] p-2"
+                className="relative"
+                onMouseEnter={() => setHoveredCategory(category.name)}
+                onMouseLeave={() => setHoveredCategory(null)}
               >
-                <div className="mb-2 group-hover:scale-110 transition-transform duration-300">
-                  <IconComponent size={32} className="sm:w-8 sm:h-8 lg:w-10 lg:h-10" />
-                </div>
-                <span className="text-xs sm:text-sm lg:text-base font-medium text-center leading-tight">
-                  {category.name}
-                </span>
-              </button>
+                <button
+                  onClick={() => scrollToSection(category.href)}
+                  className="flex flex-col items-center justify-center text-primary-foreground hover:text-accent transition-colors duration-300 group min-w-[120px] sm:min-w-[140px] lg:min-w-[160px] p-2"
+                >
+                  <div className="mb-2 group-hover:scale-110 transition-transform duration-300">
+                    <IconComponent size={32} className="sm:w-8 sm:h-8 lg:w-10 lg:h-10" />
+                  </div>
+                  <span className="text-xs sm:text-sm lg:text-base font-medium text-center leading-tight">
+                    {category.name}
+                  </span>
+                </button>
+
+                {/* Subcategories Dropdown */}
+                {hasSubcategories && hoveredCategory === category.name && (
+                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 z-50 bg-white rounded-lg shadow-lg border min-w-[320px] max-w-[400px]">
+                    <div className="p-4">
+                      {Object.entries(category.subcategories).map(([sectionName, subcategories]) => (
+                        <div key={sectionName} className="mb-4 last:mb-0">
+                          <h4 className="font-semibold text-primary mb-2 text-sm border-b border-gray-200 pb-1">
+                            {sectionName}
+                          </h4>
+                          <div className="grid grid-cols-2 gap-1">
+                            {subcategories.map((subcategory, subIndex) => (
+                              <button
+                                key={subIndex}
+                                onClick={() => console.log(`Clicked: ${subcategory}`)}
+                                className="text-left text-xs py-1 px-2 hover:bg-gray-100 rounded transition-colors duration-200 text-gray-700"
+                              >
+                                {subcategory}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             );
           })}
         </div>
