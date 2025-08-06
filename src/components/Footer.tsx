@@ -19,10 +19,6 @@ const Footer = () => {
                 alt="Caluma Variedades e Personalizados" 
                 className="h-20 w-auto mb-6"
               />
-              <p className="text-primary-foreground/90 leading-relaxed">
-                Somos especialistas em sublimação, serigrafia e produtos personalizados 
-                para empresas e pessoas que buscam excelência.
-              </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
