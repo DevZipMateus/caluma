@@ -22,14 +22,14 @@ const Header = () => {
   const scrollToSection = (href: string) => {
     const element = document.getElementById(href.substring(1));
     if (element) {
-      const offsetTop = element.offsetTop - 80;
+      const offsetTop = element.offsetTop - 140; // Increased offset to account for header + category menu
       window.scrollTo({ top: offsetTop, behavior: 'smooth' });
     }
     setIsMenuOpen(false);
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
       isScrolled ? 'bg-primary/95 backdrop-blur-md shadow-lg' : 'bg-primary/90 backdrop-blur-sm'
     } border-b border-white/10`}>
       <div className="w-full px-2 sm:px-3 md:px-4 lg:px-6 max-w-7xl mx-auto">
@@ -73,7 +73,7 @@ const Header = () => {
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[280px] sm:w-[300px]">
+            <SheetContent side="right" className="w-[280px] sm:w-[300px] z-50">
               <nav className="flex flex-col space-y-4 mt-8">
                 <button
                   onClick={() => scrollToSection('#inicio')}

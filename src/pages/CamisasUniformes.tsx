@@ -15,7 +15,7 @@ const CamisasUniformes = () => {
       <CategoryMenu />
       
       <SidebarProvider>
-        <div className="flex flex-1 w-full">
+        <div className="flex flex-1 w-full pt-2 sm:pt-4">
           <AppSidebar />
           
           <SidebarInset className="flex-1 flex flex-col min-w-0">
