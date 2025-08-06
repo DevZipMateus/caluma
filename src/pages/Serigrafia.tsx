@@ -16,7 +16,7 @@ const Serigrafia = () => {
         <div className="flex min-h-screen w-full pt-14 sm:pt-16 md:pt-18 lg:pt-20">
           <AppSidebar />
           
-          <SidebarInset className="flex-1">
+          <SidebarInset className="flex-1 flex flex-col">
             <main className="flex-grow bg-gray-50">
               {/* Hero Section */}
               <div className="bg-primary text-primary-foreground py-12">
