@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Palette } from 'lucide-react';
 import Header from '../components/Header';
@@ -45,7 +46,7 @@ const Serigrafia = () => {
 
                   <div className="max-w-6xl mx-auto">
                     <div className="flex flex-col lg:flex-row gap-6">
-                      <div className="lg:w-1/3">
+                      <div className="lg:w-1/2">
                         <SubcategoryImage subcategory={selectedSubcategory} />
                       </div>
                       
@@ -54,20 +55,6 @@ const Serigrafia = () => {
                           <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">
                             Use o menu lateral para navegar pelas categorias de serigrafia.
                           </p>
-                          <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6">
-                            <h2 className="text-lg sm:text-xl font-bold text-primary mb-2 sm:mb-3">
-                              Materiais para Serigrafia
-                            </h2>
-                            <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-                              No menu lateral você encontrará insumos, tintas e máquinas 
-                              para serigrafia profissional.
-                              {selectedSubcategory && (
-                                <span className="block mt-2 text-primary font-medium">
-                                  Produto selecionado: {selectedSubcategory}
-                                </span>
-                              )}
-                            </p>
-                          </div>
                         </div>
                       </div>
                     </div>
