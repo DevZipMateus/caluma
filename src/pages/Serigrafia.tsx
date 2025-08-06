@@ -12,13 +12,14 @@ const Serigrafia = () => {
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden">
       <Header />
-      <CategoryMenu />
       
       <SidebarProvider>
         <div className="flex flex-1 w-full">
           <AppSidebar />
           
           <SidebarInset className="flex-1 flex flex-col min-w-0">
+            <CategoryMenu />
+            
             <main className="flex-1 bg-gray-50 p-2 sm:p-4 md:p-6">
               {/* Hero Section */}
               <div className="bg-primary text-primary-foreground py-6 sm:py-8 px-4 rounded-lg mb-4 sm:mb-6">
