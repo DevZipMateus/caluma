@@ -41,33 +41,7 @@ const Canecas = () => {
                   </div>
 
                   <div className="max-w-6xl mx-auto">
-                    <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
-                      <div className="lg:w-1/3">
-                        <SubcategoryImage subcategory={selectedSubcategory} />
-                      </div>
-                      
-                      <div className="flex-1">
-                        <div className="text-center mb-4 sm:mb-6 lg:mb-8 px-2">
-                          <p className="text-gray-600 mb-3 sm:mb-4 lg:mb-6 text-xs sm:text-sm lg:text-base">
-                            Use o menu lateral para navegar pelos tipos de canecas disponíveis.
-                          </p>
-                          <div className="bg-white rounded-lg shadow-lg p-3 sm:p-4 lg:p-6">
-                            <h2 className="text-base sm:text-lg lg:text-xl font-bold text-primary mb-2 sm:mb-3">
-                              Variedade de Canecas
-                            </h2>
-                            <p className="text-gray-600 text-xs sm:text-sm lg:text-base leading-relaxed">
-                              No menu lateral você encontrará todos os tipos de canecas disponíveis, 
-                              desde modelos básicos até opções especiais com diferentes acabamentos.
-                              {selectedSubcategory && (
-                                <span className="block mt-2 text-primary font-medium">
-                                  Produto selecionado: {selectedSubcategory}
-                                </span>
-                              )}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <SubcategoryImage subcategory={selectedSubcategory} />
                   </div>
                 </main>
               </SidebarInset>

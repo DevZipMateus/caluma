@@ -42,19 +42,7 @@ const Serigrafia = () => {
                   </div>
 
                   <div className="max-w-6xl mx-auto">
-                    <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
-                      <div className="lg:w-1/2">
-                        <SubcategoryImage subcategory={selectedSubcategory} />
-                      </div>
-                      
-                      <div className="flex-1">
-                        <div className="text-center mb-4 sm:mb-6 lg:mb-8 px-2">
-                          <p className="text-gray-600 mb-3 sm:mb-4 lg:mb-6 text-xs sm:text-sm lg:text-base">
-                            Use o menu lateral para navegar pelas categorias de serigrafia.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
+                    <SubcategoryImage subcategory={selectedSubcategory} />
                   </div>
                 </main>
               </SidebarInset>
