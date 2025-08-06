@@ -33,13 +33,13 @@ const Header = () => {
       isScrolled ? 'bg-primary/95 backdrop-blur-md shadow-lg' : 'bg-primary/90 backdrop-blur-sm'
     } border-b border-white/10`}>
       <div className="w-full px-2 sm:px-3 md:px-4 lg:px-6 max-w-7xl mx-auto">
-        <div className="flex items-center justify-between h-12 sm:h-14 md:h-16 lg:h-18">
-          {/* Logo Responsivo */}
+        <div className="flex items-center justify-between h-16 sm:h-18 md:h-20 lg:h-24">
+          {/* Logo Responsivo - Aumentado */}
           <div className="flex-shrink-0 min-w-0">
             <img 
               src="/lovable-uploads/6863ba6e-864c-440d-a0c9-58c7739af553.png" 
               alt="Caluma Variedades e Personalizados" 
-              className="h-8 sm:h-10 md:h-12 lg:h-14 w-auto max-w-full transition-all duration-300"
+              className="h-12 sm:h-14 md:h-16 lg:h-20 w-auto max-w-full transition-all duration-300"
             />
           </div>
 
