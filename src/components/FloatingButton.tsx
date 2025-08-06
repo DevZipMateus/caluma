@@ -49,11 +49,11 @@ const FloatingButton = () => {
   return (
     <div className={`fixed z-50 ${
       isMobile 
-        ? 'bottom-4 right-4' 
-        : 'bottom-6 right-6 lg:bottom-8 lg:right-8'
+        ? 'bottom-3 right-3' 
+        : 'bottom-4 right-4 md:bottom-6 md:right-6'
     }`}>
       {/* Contact Options */}
-      <div className={`flex flex-col-reverse items-end mb-3 space-y-reverse space-y-2 transition-all duration-500 ${
+      <div className={`flex flex-col-reverse items-end mb-2 space-y-reverse space-y-2 transition-all duration-500 ${
         isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'
       }`}>
         {contactOptions.map((option, index) => {
@@ -64,16 +64,16 @@ const FloatingButton = () => {
                 <Button
                   asChild
                   variant="default"
-                  size={isMobile ? "sm" : "default"}
+                  size="sm"
                   className="bg-primary hover:bg-primary/90 text-primary-foreground w-full justify-start gap-2"
                 >
                   <a
                     href={option.href}
                     {...(option.external && { target: "_blank", rel: "noopener noreferrer" })}
-                    className="flex items-center whitespace-nowrap px-3 sm:px-4 py-2 sm:py-3"
+                    className="flex items-center whitespace-nowrap px-3 py-2"
                   >
-                    <IconComponent size={isMobile ? 14 : 16} />
-                    <span className="text-xs sm:text-sm font-medium">{option.label}</span>
+                    <IconComponent size={14} />
+                    <span className="text-xs font-medium">{option.label}</span>
                   </a>
                 </Button>
               </CardContent>
@@ -86,7 +86,11 @@ const FloatingButton = () => {
       <Button
         onClick={toggleMenu}
         size="icon"
-        className={`${isMobile ? 'h-12 w-12' : 'h-14 w-14'} rounded-full transition-all duration-300 
+        className={`${
+          isMobile 
+            ? 'h-12 w-12 text-base' 
+            : 'h-12 w-12 md:h-14 md:w-14'
+        } rounded-full transition-all duration-300 
           ${isOpen ? 'bg-destructive hover:bg-destructive/90' : 'bg-accent hover:bg-accent/90'} 
           ${isOpen ? 'text-destructive-foreground' : 'text-accent-foreground'} 
           ${isPulsing && !isOpen ? 'animate-pulse' : ''}
@@ -99,9 +103,9 @@ const FloatingButton = () => {
         }}
       >
         {isOpen ? (
-          <X size={isMobile ? 20 : 24} />
+          <X size={isMobile ? 18 : 20} />
         ) : (
-          <MessageCircle size={isMobile ? 20 : 24} />
+          <MessageCircle size={isMobile ? 18 : 20} />
         )}
       </Button>
     </div>

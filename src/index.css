@@ -104,6 +104,7 @@
   body {
     @apply bg-background text-foreground font-sans;
     font-family: 'Inter', sans-serif;
+    overflow-x: hidden; /* Previne scroll horizontal */
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -152,11 +153,11 @@
   
   /* Buttons with hover effect */
   .btn-primary {
-    @apply bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-md transition-all duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-accent/50 shadow-sm;
+    @apply bg-primary hover:bg-primary/90 text-primary-foreground px-4 sm:px-6 py-2 sm:py-3 rounded-md transition-all duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-accent/50 shadow-sm text-sm sm:text-base;
   }
   
   .btn-secondary {
-    @apply bg-accent hover:bg-accent/90 text-accent-foreground px-6 py-3 rounded-md transition-all duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-primary/50 shadow-sm;
+    @apply bg-accent hover:bg-accent/90 text-accent-foreground px-4 sm:px-6 py-2 sm:py-3 rounded-md transition-all duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-primary/50 shadow-sm text-sm sm:text-base;
   }
   
   /* Card hover effects */
@@ -166,12 +167,12 @@
   
   /* Section styling */
   .section {
-    @apply py-12 md:py-20;
+    @apply py-8 sm:py-12 md:py-16 lg:py-20;
   }
   
   /* Container max widths */
   .container-custom {
-    @apply container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
+    @apply container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 max-w-7xl;
   }
   
   /* Navigation link hover effect */
@@ -211,5 +212,24 @@
   
   .pulse-attention {
     animation: attention-pulse 2s infinite;
+  }
+
+  /* Responsividade para imagens */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Prevenir overflow horizontal */
+  .overflow-x-hidden {
+    overflow-x: hidden;
+  }
+
+  /* Melhor spacing para mobile */
+  @media (max-width: 640px) {
+    .container-custom {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
   }
 }

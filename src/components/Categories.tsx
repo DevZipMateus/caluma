@@ -151,13 +151,6 @@ const Categories = () => {
     'SUPORTES'
   ];
 
-  const subcategoriasSublimacaoTintas = [
-    'TEFLON',
-    'TIRANTE',
-    'TOALHA DE BANHO',
-    'TOALHA DE ROSTO'
-  ];
-
   const subcategoriasSublimacaoMaquinas = [
     'CAMEO SILHOUETTE',
     'DIAMOND 360º TRANSFER',
@@ -250,7 +243,6 @@ const Categories = () => {
         'SQUEEZES': subcategoriasSublimacaoSqueezes,
         'INSUMOS': subcategoriasSublimacaoInsumos,
         'SUPORTES': subcategoriasSublimacaoSuportes,
-        
         'MÁQUINAS': subcategoriasSublimacaoMaquinas,
         'KIT EMPREENDEDOR': subcategoriasSublimacaoKitEmpreendedor
       }
@@ -301,9 +293,10 @@ const Categories = () => {
   }, [openCategory]);
 
   return (
-    <section className="bg-primary py-4 relative">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-wrap justify-center items-center gap-4 lg:gap-8">
+    <section className="bg-primary py-3 sm:py-4 md:py-6 relative overflow-x-hidden">
+      <div className="container mx-auto px-2 sm:px-4 md:px-6">
+        {/* Layout Responsivo */}
+        <div className="hidden md:flex flex-wrap justify-center items-center gap-3 lg:gap-6 xl:gap-8">
           {categories.map((category, index) => {
             const IconComponent = category.icon;
             const hasSubcategories = category.subcategories;
@@ -325,28 +318,28 @@ const Categories = () => {
                       scrollToSection(category.href);
                     }
                   }}
-                  className="flex flex-col items-center justify-center text-primary-foreground hover:text-accent transition-colors duration-300 group min-w-[120px] sm:min-w-[140px] lg:min-w-[160px] p-2"
+                  className="flex flex-col items-center justify-center text-primary-foreground hover:text-accent transition-colors duration-300 group min-w-[120px] md:min-w-[140px] lg:min-w-[160px] p-2 md:p-3"
                 >
                   <div className="mb-2 group-hover:scale-110 transition-transform duration-300">
-                    <IconComponent size={32} className="sm:w-8 sm:h-8 lg:w-10 lg:h-10" />
+                    <IconComponent size={28} className="md:w-8 md:h-8 lg:w-10 lg:h-10" />
                   </div>
-                  <span className="text-xs sm:text-sm lg:text-base font-medium text-center leading-tight">
+                  <span className="text-xs md:text-sm lg:text-base font-medium text-center leading-tight px-1">
                     {category.name}
                   </span>
                 </button>
 
-                {/* Subcategories Dropdown */}
+                {/* Subcategories Dropdown - Desktop */}
                 {hasSubcategories && isOpen && (
                   <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 z-50 bg-white rounded-lg shadow-lg border ${
-                    category.name === 'SUBLIMAÇÃO' ? 'min-w-[800px] max-w-[1000px]' : 'min-w-[320px] max-w-[400px]'
+                    category.name === 'SUBLIMAÇÃO' ? 'min-w-[700px] max-w-[900px] xl:min-w-[800px] xl:max-w-[1000px]' : 'min-w-[300px] max-w-[400px]'
                   }`}>
-                    <div className="p-4">
+                    <div className="p-3 md:p-4">
                       {category.name === 'SUBLIMAÇÃO' ? (
                         // Layout horizontal para SUBLIMAÇÃO
-                        <div className="flex flex-wrap gap-6">
+                        <div className="flex flex-wrap gap-4 lg:gap-6">
                           {Object.entries(category.subcategories).map(([sectionName, subcategories]) => (
-                            <div key={sectionName} className="flex-1 min-w-[120px]">
-                              <h4 className="font-semibold text-primary mb-2 text-sm border-b border-gray-200 pb-1">
+                            <div key={sectionName} className="flex-1 min-w-[100px] lg:min-w-[120px]">
+                              <h4 className="font-semibold text-primary mb-2 text-xs lg:text-sm border-b border-gray-200 pb-1">
                                 {sectionName}
                               </h4>
                               <div className="space-y-1">
@@ -384,6 +377,83 @@ const Categories = () => {
                           </div>
                         ))
                       )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Layout Mobile - Grid 2x3 */}
+        <div className="md:hidden grid grid-cols-2 gap-3">
+          {categories.map((category, index) => {
+            const IconComponent = category.icon;
+            const hasSubcategories = category.subcategories;
+            const isOpen = openCategory === category.name;
+            
+            return (
+              <div
+                key={index}
+                className="relative"
+                ref={(el) => {
+                  dropdownRefs.current[category.name] = el;
+                }}
+              >
+                <button
+                  onClick={() => {
+                    if (hasSubcategories) {
+                      handleCategoryClick(category.name);
+                    } else {
+                      scrollToSection(category.href);
+                    }
+                  }}
+                  className="flex flex-col items-center justify-center text-primary-foreground hover:text-accent transition-colors duration-300 group w-full p-3 rounded-lg hover:bg-primary/10"
+                >
+                  <div className="mb-2 group-hover:scale-110 transition-transform duration-300">
+                    <IconComponent size={24} />
+                  </div>
+                  <span className="text-xs font-medium text-center leading-tight px-1">
+                    {category.name}
+                  </span>
+                </button>
+
+                {/* Subcategories Modal - Mobile */}
+                {hasSubcategories && isOpen && (
+                  <div className="fixed inset-0 z-50 bg-black/50 p-4 flex items-center justify-center">
+                    <div className="bg-white rounded-lg shadow-lg max-w-sm w-full max-h-[80vh] overflow-hidden">
+                      <div className="p-4 border-b bg-primary text-primary-foreground flex justify-between items-center">
+                        <h3 className="font-semibold text-sm">{category.name}</h3>
+                        <button 
+                          onClick={() => setOpenCategory(null)}
+                          className="text-primary-foreground hover:text-accent"
+                        >
+                          ×
+                        </button>
+                      </div>
+                      <div className="p-4 overflow-y-auto max-h-[60vh]">
+                        {Object.entries(category.subcategories).map(([sectionName, subcategories]) => (
+                          <div key={sectionName} className="mb-4 last:mb-0">
+                            <h4 className="font-semibold text-primary mb-2 text-sm border-b border-gray-200 pb-1">
+                              {sectionName}
+                            </h4>
+                            <div className="space-y-1">
+                              {subcategories.map((subcategory, subIndex) => (
+                                <button
+                                  key={subIndex}
+                                  onClick={() => {
+                                    console.log(`Clicked: ${subcategory}`);
+                                    setOpenCategory(null);
+                                  }}
+                                  className="block text-left text-xs py-2 px-2 hover:bg-gray-100 rounded transition-colors duration-200 text-gray-700 w-full"
+                                >
+                                  {subcategory}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 )}
