@@ -15,7 +15,7 @@ const Footer = () => {
           <div>
             <div className="mb-6">
               <img 
-                src="/lovable-uploads/8d3c539b-e71e-45f5-bc79-6f4f9b1a47f2.png" 
+                src="/lovable-uploads/6863ba6e-864c-440d-a0c9-58c7739af553.png" 
                 alt="Caluma Variedades e Personalizados" 
                 className="h-20 w-auto mb-6"
               />
