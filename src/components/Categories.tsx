@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Shirt, FileText, Settings, Coffee, Paintbrush, Palette } from 'lucide-react';
 
@@ -232,7 +231,7 @@ const Categories = () => {
   };
 
   return (
-    <section className="bg-primary py-4 relative overflow-x-hidden">
+    <section className="bg-primary py-4 relative">
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap justify-center items-center gap-4 lg:gap-8">
           {categories.map((category, index) => {
@@ -260,15 +259,15 @@ const Categories = () => {
 
                 {/* Subcategories Dropdown */}
                 {hasSubcategories && hoveredCategory === category.name && (
-                  <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 z-50 bg-white rounded-lg shadow-lg border max-w-[90vw] ${
-                    category.name === 'SUBLIMAÇÃO' ? 'w-[600px] sm:w-[700px] lg:w-[800px]' : 'min-w-[320px] max-w-[400px]'
+                  <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 z-50 bg-white rounded-lg shadow-lg border ${
+                    category.name === 'SUBLIMAÇÃO' ? 'min-w-[800px] max-w-[1000px]' : 'min-w-[320px] max-w-[400px]'
                   }`}>
-                    <div className="p-4 max-h-[70vh] overflow-y-auto">
+                    <div className="p-4">
                       {category.name === 'SUBLIMAÇÃO' ? (
-                        // Layout responsivo para SUBLIMAÇÃO
-                        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+                        // Layout horizontal para SUBLIMAÇÃO
+                        <div className="flex flex-wrap gap-6">
                           {Object.entries(category.subcategories).map(([sectionName, subcategories]) => (
-                            <div key={sectionName} className="min-w-0">
+                            <div key={sectionName} className="flex-1 min-w-[120px]">
                               <h4 className="font-semibold text-primary mb-2 text-sm border-b border-gray-200 pb-1">
                                 {sectionName}
                               </h4>
@@ -277,7 +276,7 @@ const Categories = () => {
                                   <button
                                     key={subIndex}
                                     onClick={() => console.log(`Clicked: ${subcategory}`)}
-                                    className="block text-left text-xs py-1 px-2 hover:bg-gray-100 rounded transition-colors duration-200 text-gray-700 w-full truncate"
+                                    className="block text-left text-xs py-1 px-2 hover:bg-gray-100 rounded transition-colors duration-200 text-gray-700 w-full"
                                   >
                                     {subcategory}
                                   </button>
