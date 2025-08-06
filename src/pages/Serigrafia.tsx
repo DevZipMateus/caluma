@@ -6,12 +6,26 @@ import Footer from '../components/Footer';
 import FloatingButton from '../components/FloatingButton';
 import CategoryMenu from '../components/CategoryMenu';
 import SubcategoryImage from '../components/SubcategoryImage';
+import MobilePlaceholder from '../components/MobilePlaceholder';
 import { AppSidebar } from '../components/AppSidebar';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import { useSelectedSubcategory } from '../hooks/useSelectedSubcategory';
+import { useIsDesktop } from '../hooks/useIsDesktop';
 
 const Serigrafia = () => {
   const { selectedSubcategory } = useSelectedSubcategory();
+  const isDesktop = useIsDesktop();
+
+  // Show placeholder for mobile/tablet
+  if (!isDesktop) {
+    return (
+      <MobilePlaceholder
+        title="Serigrafia"
+        description="Materiais e equipamentos para serigrafia profissional"
+        icon={<Palette size={32} className="text-primary" />}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden">
