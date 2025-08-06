@@ -1,11 +1,20 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { MessageCircle } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Input } from '@/components/ui/input';
+import { MessageCircle, ShoppingCart } from 'lucide-react';
+import { useProductSelection } from '../hooks/useProductSelection';
+import FloatingCart from './FloatingCart';
+import SelectedProductsList from './SelectedProductsList';
 
 const ProductGallery = () => {
+  const { addProduct, isProductSelected, getProductQuantity } = useProductSelection();
+  const [quantities, setQuantities] = useState<Record<number, number>>({});
+  const [selectedItems, setSelectedItems] = useState<Set<number>>(new Set());
+  const [showCartModal, setShowCartModal] = useState(false);
+
   const products = [
     {
       id: 1,
@@ -100,6 +109,44 @@ const ProductGallery = () => {
     window.open(whatsappURL, '_blank');
   };
 
+  const handleQuantityChange = (productId: number, quantity: number) => {
+    setQuantities(prev => ({ ...prev, [productId]: Math.max(1, quantity) }));
+  };
+
+  const handleCheckboxChange = (productId: number, checked: boolean) => {
+    setSelectedItems(prev => {
+      const newSet = new Set(prev);
+      if (checked) {
+        newSet.add(productId);
+        if (!quantities[productId]) {
+          setQuantities(prevQty => ({ ...prevQty, [productId]: 1 }));
+        }
+      } else {
+        newSet.delete(productId);
+      }
+      return newSet;
+    });
+  };
+
+  const handleAddToList = () => {
+    selectedItems.forEach(productId => {
+      const product = products.find(p => p.id === productId);
+      if (product) {
+        addProduct({
+          id: product.id.toString(),
+          name: product.name,
+          image: product.image,
+          description: product.description,
+          categorySlug: 'galeria'
+        }, quantities[productId] || 1);
+      }
+    });
+    
+    // Limpar seleções locais
+    setSelectedItems(new Set());
+    setQuantities({});
+  };
+
   return (
     <section id="produtos" className="py-16 lg:py-24 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -111,21 +158,42 @@ const ProductGallery = () => {
             <span className="block text-accent mt-2">produtos</span>
           </h2>
           <p className="text-lg text-muted-foreground">
-            Conheça alguns dos produtos e serviços que oferecemos. Entre em contato para mais informações!
+            Conheça alguns dos produtos e serviços que oferecemos. Selecione os produtos desejados para solicitar um orçamento!
           </p>
         </div>
+
+        {/* Add to List Button */}
+        {selectedItems.size > 0 && (
+          <div className="mb-8 text-center">
+            <Button onClick={handleAddToList} size="lg" className="mb-4">
+              <ShoppingCart size={20} className="mr-2" />
+              Adicionar {selectedItems.size} produto(s) à lista
+            </Button>
+            <p className="text-sm text-muted-foreground">
+              {selectedItems.size} produto(s) selecionado(s)
+            </p>
+          </div>
+        )}
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {products.map((product) => (
             <Card key={product.id} className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
               <CardContent className="p-0">
-                <div className="aspect-square overflow-hidden rounded-t-lg">
+                <div className="aspect-square overflow-hidden rounded-t-lg relative">
                   <img
                     src={product.image}
                     alt={product.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
+                  {/* Checkbox no canto superior esquerdo */}
+                  <div className="absolute top-2 left-2">
+                    <Checkbox
+                      checked={selectedItems.has(product.id)}
+                      onCheckedChange={(checked) => handleCheckboxChange(product.id, !!checked)}
+                      className="bg-white/90 border-2"
+                    />
+                  </div>
                 </div>
                 <div className="p-4">
                   <h3 className="font-semibold text-foreground mb-2 line-clamp-1">
@@ -134,10 +202,28 @@ const ProductGallery = () => {
                   <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
                     {product.description}
                   </p>
+                  
+                  {/* Quantity Input - only show when selected */}
+                  {selectedItems.has(product.id) && (
+                    <div className="mb-3">
+                      <label className="text-xs text-muted-foreground mb-1 block">
+                        Quantidade:
+                      </label>
+                      <Input
+                        type="number"
+                        min="1"
+                        value={quantities[product.id] || 1}
+                        onChange={(e) => handleQuantityChange(product.id, parseInt(e.target.value) || 1)}
+                        className="h-8"
+                      />
+                    </div>
+                  )}
+                  
                   <Button
                     onClick={() => handleWhatsAppContact(product.name)}
                     className="w-full"
                     size="sm"
+                    variant="outline"
                   >
                     <MessageCircle size={16} className="mr-2" />
                     Mais Informações
@@ -170,6 +256,15 @@ const ProductGallery = () => {
           </Button>
         </div>
       </div>
+
+      {/* Floating Cart */}
+      <FloatingCart onOpenCart={() => setShowCartModal(true)} />
+      
+      {/* Selected Products Modal */}
+      <SelectedProductsList 
+        open={showCartModal} 
+        onOpenChange={setShowCartModal} 
+      />
     </section>
   );
 };

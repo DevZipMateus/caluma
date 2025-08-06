@@ -1,11 +1,13 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Categories from './components/Categories';
 import Footer from './components/Footer';
 import FloatingButton from './components/FloatingButton';
+import FloatingCart from './components/FloatingCart';
+import SelectedProductsList from './components/SelectedProductsList';
 import NotFound from './pages/NotFound';
 import CamisasUniformes from './pages/CamisasUniformes';
 import Papelaria from './pages/Papelaria';
@@ -37,20 +39,33 @@ function MainPage() {
 }
 
 function AppContent() {
+  const [showCartModal, setShowCartModal] = useState(false);
+  
   // Hook to scroll to top on route changes
   useScrollToTop();
 
   return (
-    <Routes>
-      <Route path="/" element={<MainPage />} />
-      <Route path="/camisas-uniformes" element={<CamisasUniformes />} />
-      <Route path="/papelaria" element={<Papelaria />} />
-      <Route path="/equipamentos" element={<Equipamentos />} />
-      <Route path="/canecas" element={<Canecas />} />
-      <Route path="/sublimacao" element={<Sublimacao />} />
-      <Route path="/serigrafia" element={<Serigrafia />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/camisas-uniformes" element={<CamisasUniformes />} />
+        <Route path="/papelaria" element={<Papelaria />} />
+        <Route path="/equipamentos" element={<Equipamentos />} />
+        <Route path="/canecas" element={<Canecas />} />
+        <Route path="/sublimacao" element={<Sublimacao />} />
+        <Route path="/serigrafia" element={<Serigrafia />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      
+      {/* Global Floating Cart - disponível em todas as páginas */}
+      <FloatingCart onOpenCart={() => setShowCartModal(true)} />
+      
+      {/* Global Selected Products Modal */}
+      <SelectedProductsList 
+        open={showCartModal} 
+        onOpenChange={setShowCartModal} 
+      />
+    </>
   );
 }
 
