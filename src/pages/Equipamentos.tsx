@@ -4,6 +4,7 @@ import { Settings } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FloatingButton from '../components/FloatingButton';
+import CategoryMenu from '../components/CategoryMenu';
 
 const Equipamentos = () => {
   const subcategoriasMaquinas = [
@@ -26,8 +27,9 @@ const Equipamentos = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
+      <CategoryMenu />
       
-      <main className="flex-grow bg-gray-50 pt-24 sm:pt-28 md:pt-32">
+      <main className="flex-grow bg-gray-50">
         {/* Hero Section */}
         <div className="bg-primary text-primary-foreground py-12">
           <div className="container mx-auto px-4">
