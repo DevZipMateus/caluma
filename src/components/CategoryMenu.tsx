@@ -85,7 +85,7 @@ const CategoryMenu = () => {
   };
 
   return (
-    <nav className="bg-white border-b border-gray-200 shadow-sm z-30">
+    <nav className="bg-white border-b border-gray-200 shadow-sm sticky top-12 sm:top-14 md:top-16 lg:top-18 z-30 mt-12 sm:mt-14 md:mt-16 lg:mt-18">
       <div className="max-w-7xl mx-auto">
         <div className="flex overflow-x-auto scrollbar-hide">
           {categories.map((category) => (
