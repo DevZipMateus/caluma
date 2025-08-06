@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Coffee } from 'lucide-react';
 import Header from '../components/Header';
@@ -19,7 +20,8 @@ const Canecas = () => {
       <Header />
       <CategoryMenu />
       
-      <div className="flex-1 flex flex-col">
+      {/* Espaçamento ajustado para desktop com CategoryMenu */}
+      <div className={`${isDesktop ? 'pt-32 lg:pt-36' : 'pt-16 sm:pt-20 md:pt-24 lg:pt-28'} flex-1 flex flex-col`}>
         {isDesktop ? (
           <SidebarProvider>
             <div className="flex flex-1 w-full min-h-0">
