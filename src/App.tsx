@@ -24,9 +24,9 @@ function MainPage() {
   return (
     <div className="min-h-screen flex flex-col relative">
       <Header />
+      <Categories />
       
       <main className="flex-grow">
-        <Categories />
         <Hero />
       </main>
       
