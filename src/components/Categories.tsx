@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Shirt, FileText, Settings, Coffee, Paintbrush, Palette } from 'lucide-react';
 
@@ -260,6 +259,27 @@ const Categories = () => {
     }
   ];
 
+  const getDropdownPosition = (index: number, totalCategories: number) => {
+    // Primeira categoria - alinhar à esquerda
+    if (index === 0) {
+      return 'left-0';
+    }
+    // Última categoria - alinhar à direita  
+    if (index === totalCategories - 1) {
+      return 'right-0';
+    }
+    // Segunda categoria - alinhar mais à esquerda
+    if (index === 1) {
+      return 'left-1/4 transform -translate-x-1/4';
+    }
+    // Penúltima categoria - alinhar mais à direita
+    if (index === totalCategories - 2) {
+      return 'right-1/4 transform translate-x-1/4';
+    }
+    // Categorias do meio - centralizar
+    return 'left-1/2 transform -translate-x-1/2';
+  };
+
   const scrollToSection = (href: string) => {
     const element = document.getElementById(href.substring(1));
     if (element) {
@@ -276,7 +296,6 @@ const Categories = () => {
     }
   };
 
-  // Detectar clique fora do dropdown
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (openCategory) {
@@ -331,7 +350,9 @@ const Categories = () => {
 
                 {/* Subcategories Dropdown - Desktop */}
                 {hasSubcategories && isOpen && (
-                  <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 z-50 bg-white rounded-lg shadow-lg border overflow-visible ${
+                  <div className={`absolute top-full mt-2 z-50 bg-white rounded-lg shadow-lg border overflow-visible ${
+                    getDropdownPosition(index, categories.length)
+                  } ${
                     category.name === 'SUBLIMAÇÃO' 
                       ? 'w-[95vw] max-w-[1200px]' 
                       : category.name === 'CANECAS'
