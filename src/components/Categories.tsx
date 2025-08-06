@@ -135,7 +135,7 @@ const Categories = () => {
     'TITANS'
   ];
 
-  const subcategoriasSublimacaoTomadaBanho = [
+  const subcategoriasSublimacaoToalha = [
     'TOMADA DE REPOSIÇÃO'
   ];
 
@@ -210,7 +210,7 @@ const Categories = () => {
         'KIT EMPREENDEDOR': subcategoriasSublimacaoKitEmpreendedor,
         'INSUMOS': subcategoriasSublimacaoInsumos,
         'SUPORTES': subcategoriasSublimacaoSuportes,
-        'TOMADA DE BANHO': subcategoriasSublimacaoTomadaBanho,
+        'TOALHA': subcategoriasSublimacaoToalha,
         'SQUEEZES': subcategoriasSublimacaoSqueezes
       }
     },
