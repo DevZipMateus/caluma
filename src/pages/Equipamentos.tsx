@@ -91,39 +91,6 @@ const Equipamentos = () => {
                 <SubcategoryImage subcategory={selectedSubcategory} />
               </div>
 
-              <div className="bg-white rounded-lg p-6 shadow-sm">
-                <h2 className="text-xl font-bold text-primary mb-4 text-center">
-                  Equipamentos Profissionais
-                </h2>
-                <p className="text-gray-600 text-center mb-4 leading-relaxed">
-                  Máquinas e equipamentos de última geração para personalização.
-                </p>
-                
-                <div className="grid grid-cols-1 gap-3 mt-6">
-                  {[
-                    'Prensas Térmicas',
-                    'Máquinas de Corte',
-                    'Impressoras',
-                    'Kit Iniciante'
-                  ].map((category, index) => (
-                    <div key={index} className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                      <h3 className="font-medium text-primary">{category}</h3>
-                      <p className="text-sm text-gray-600 mt-1">
-                        Equipamentos de alta qualidade e tecnologia
-                      </p>
-                    </div>
-                  ))}
-                </div>
-
-                {selectedSubcategory && (
-                  <div className="mt-6 p-4 bg-primary/10 rounded-lg">
-                    <p className="text-primary font-medium text-center">
-                      Produto selecionado: {selectedSubcategory}
-                    </p>
-                  </div>
-                )}
-              </div>
-
               <div className="bg-white rounded-lg p-6 shadow-sm text-center">
                 <h3 className="text-lg font-semibold text-primary mb-3">
                   Quer investir em equipamentos?

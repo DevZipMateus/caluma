@@ -92,39 +92,6 @@ const Papelaria = () => {
                 <SubcategoryImage subcategory={selectedSubcategory} />
               </div>
 
-              <div className="bg-white rounded-lg p-6 shadow-sm">
-                <h2 className="text-xl font-bold text-primary mb-4 text-center">
-                  Produtos de Papelaria
-                </h2>
-                <p className="text-gray-600 text-center mb-4 leading-relaxed">
-                  Todos os tipos de papel e materiais para impressão.
-                </p>
-                
-                <div className="grid grid-cols-1 gap-3 mt-6">
-                  {[
-                    'Papel A4',
-                    'Papel Transfer',
-                    'Papel Adesivo',
-                    'Papel Fotográfico'
-                  ].map((category, index) => (
-                    <div key={index} className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                      <h3 className="font-medium text-primary">{category}</h3>
-                      <p className="text-sm text-gray-600 mt-1">
-                        Papéis de alta qualidade para impressão
-                      </p>
-                    </div>
-                  ))}
-                </div>
-
-                {selectedSubcategory && (
-                  <div className="mt-6 p-4 bg-primary/10 rounded-lg">
-                    <p className="text-primary font-medium text-center">
-                      Produto selecionado: {selectedSubcategory}
-                    </p>
-                  </div>
-                )}
-              </div>
-
               <div className="bg-white rounded-lg p-6 shadow-sm text-center">
                 <h3 className="text-lg font-semibold text-primary mb-3">
                   Precisa de materiais de papelaria?

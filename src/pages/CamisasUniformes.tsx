@@ -80,15 +80,7 @@ const CamisasUniformes = () => {
           <main className="flex-1 bg-gray-50 p-4">
             <div className="bg-primary text-primary-foreground py-6 px-4 rounded-lg mb-6">
               <div className="text-center">
-                <div className="flex justify-center mb-4">
-                  <div className="w-16 h-16 bg-primary-foreground/10 rounded-full flex items-center justify-center">
-                    <Shirt size={32} className="text-primary-foreground" />
-                  </div>
-                </div>
-                <h1 className="text-2xl font-bold mb-2">Camisas e Uniformes</h1>
-                <p className="opacity-90 text-sm">
-                  Camisas personalizadas e uniformes profissionais de alta qualidade
-                </p>
+                <h1 className="text-2xl font-bold">Camisas e Uniformes</h1>
               </div>
             </div>
 
@@ -97,40 +89,6 @@ const CamisasUniformes = () => {
             <div className="space-y-6">
               <div className="bg-white rounded-lg p-4 shadow-sm">
                 <SubcategoryImage subcategory={selectedSubcategory} />
-              </div>
-
-              <div className="bg-white rounded-lg p-6 shadow-sm">
-                <h2 className="text-xl font-bold text-primary mb-4 text-center">
-                  Produtos Disponíveis
-                </h2>
-                <p className="text-gray-600 text-center mb-4 leading-relaxed">
-                  Oferecemos uma ampla variedade de camisas personalizadas e uniformes profissionais.
-                </p>
-                
-                <div className="grid grid-cols-1 gap-3 mt-6">
-                  {[
-                    'Camisas Masculinas',
-                    'Camisas Femininas', 
-                    'Regatas',
-                    'Camisas Polo',
-                    'Uniformes Profissionais'
-                  ].map((category, index) => (
-                    <div key={index} className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                      <h3 className="font-medium text-primary">{category}</h3>
-                      <p className="text-sm text-gray-600 mt-1">
-                        Produtos de alta qualidade para personalização
-                      </p>
-                    </div>
-                  ))}
-                </div>
-
-                {selectedSubcategory && (
-                  <div className="mt-6 p-4 bg-primary/10 rounded-lg">
-                    <p className="text-primary font-medium text-center">
-                      Produto selecionado: {selectedSubcategory}
-                    </p>
-                  </div>
-                )}
               </div>
 
               <div className="bg-white rounded-lg p-6 shadow-sm text-center">

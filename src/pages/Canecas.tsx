@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Coffee } from 'lucide-react';
 import Header from '../components/Header';
@@ -27,7 +28,6 @@ const Canecas = () => {
               
               <SidebarInset className="flex-1 flex flex-col min-w-0">
                 <main className="flex-1 bg-gray-50 p-2 sm:p-4 md:p-6">
-                  {/* Hero Section */}
                   <div className="bg-primary text-primary-foreground py-6 sm:py-8 px-4 rounded-lg mb-4 sm:mb-6">
                     <div className="max-w-4xl mx-auto">
                       <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4">
@@ -42,16 +42,12 @@ const Canecas = () => {
                     </div>
                   </div>
 
-                  {/* Content Area */}
                   <div className="max-w-6xl mx-auto">
-                    {/* Responsive layout for image and content */}
                     <div className="flex flex-col lg:flex-row gap-6">
-                      {/* Subcategory Image - Shows above content on mobile, left side on desktop */}
                       <div className="lg:w-1/3">
                         <SubcategoryImage subcategory={selectedSubcategory} />
                       </div>
                       
-                      {/* Main content */}
                       <div className="flex-1">
                         <div className="text-center mb-6 sm:mb-8 px-2">
                           <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">
@@ -83,55 +79,13 @@ const Canecas = () => {
           <main className="flex-1 bg-gray-50 p-4">
             <div className="bg-primary text-primary-foreground py-6 px-4 rounded-lg mb-6">
               <div className="text-center">
-                <div className="flex justify-center mb-4">
-                  <div className="w-16 h-16 bg-primary-foreground/10 rounded-full flex items-center justify-center">
-                    <Coffee size={32} className="text-primary-foreground" />
-                  </div>
-                </div>
-                <h1 className="text-2xl font-bold mb-2">Canecas</h1>
-                <p className="opacity-90 text-sm">
-                  Grande variedade de canecas para personalização
-                </p>
+                <h1 className="text-2xl font-bold">Canecas</h1>
               </div>
             </div>
 
             <div className="space-y-6">
               <div className="bg-white rounded-lg p-4 shadow-sm">
                 <SubcategoryImage subcategory={selectedSubcategory} />
-              </div>
-
-              <div className="bg-white rounded-lg p-6 shadow-sm">
-                <h2 className="text-xl font-bold text-primary mb-4 text-center">
-                  Tipos de Canecas
-                </h2>
-                <p className="text-gray-600 text-center mb-4 leading-relaxed">
-                  Oferecemos canecas de diversos materiais e estilos para personalização.
-                </p>
-                
-                <div className="grid grid-cols-1 gap-3 mt-6">
-                  {[
-                    'Canecas Brancas',
-                    'Canecas Coloridas',
-                    'Canecas de Alumínio',
-                    'Canecas Inox',
-                    'Canecas de Chopp'
-                  ].map((category, index) => (
-                    <div key={index} className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                      <h3 className="font-medium text-primary">{category}</h3>
-                      <p className="text-sm text-gray-600 mt-1">
-                        Ideais para sublimação e personalização
-                      </p>
-                    </div>
-                  ))}
-                </div>
-
-                {selectedSubcategory && (
-                  <div className="mt-6 p-4 bg-primary/10 rounded-lg">
-                    <p className="text-primary font-medium text-center">
-                      Produto selecionado: {selectedSubcategory}
-                    </p>
-                  </div>
-                )}
               </div>
 
               <div className="bg-white rounded-lg p-6 shadow-sm text-center">
