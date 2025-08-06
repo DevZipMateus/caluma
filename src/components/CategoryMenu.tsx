@@ -1,128 +1,52 @@
 
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { ChevronDown } from 'lucide-react';
+import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useIsDesktop } from '../hooks/useIsDesktop';
 
-const CategoryMenu = () => {
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+const categories = [
+  { name: 'Sublimação', path: '/sublimacao', icon: '🎨' },
+  { name: 'Serigrafia', path: '/serigrafia', icon: '🖼️' },
+  { name: 'Camisas e Uniformes', path: '/camisas-uniformes', icon: '👕' },
+  { name: 'Canecas', path: '/canecas', icon: '☕' },
+  { name: 'Equipamentos', path: '/equipamentos', icon: '⚙️' },
+  { name: 'Papelaria', path: '/papelaria', icon: '📄' },
+];
+
+const CategoryMenu: React.FC = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const isDesktop = useIsDesktop();
 
-  const categories = [
-    {
-      name: 'Camisas e Uniformes',
-      path: '/camisas-uniformes',
-      subcategories: [
-        'Camisas Masculinas',
-        'Camisas Femininas', 
-        'Regatas',
-        'Camisas Polo',
-        'Uniformes Profissionais'
-      ]
-    },
-    {
-      name: 'Canecas',
-      path: '/canecas',
-      subcategories: [
-        'Canecas Brancas',
-        'Canecas Coloridas',
-        'Canecas de Alumínio',
-        'Canecas Inox',
-        'Canecas de Chopp'
-      ]
-    },
-    {
-      name: 'Sublimação',
-      path: '/sublimacao',
-      subcategories: [
-        'Tintas para Sublimação',
-        'Papel Transfer',
-        'Papel Fotográfico',
-        'Materiais Diversos'
-      ]
-    },
-    {
-      name: 'Serigrafia',
-      path: '/serigrafia',
-      subcategories: [
-        'Tintas Serigráficas',
-        'Telas e Rodos',
-        'Emulsão Fotográfica',
-        'Solventes'
-      ]
-    },
-    {
-      name: 'Equipamentos',
-      path: '/equipamentos',
-      subcategories: [
-        'Prensas Térmicas',
-        'Máquinas de Corte',
-        'Impressoras',
-        'Kit Iniciante'
-      ]
-    },
-    {
-      name: 'Papelaria',
-      path: '/papelaria',
-      subcategories: [
-        'Papel A4',
-        'Papel Transfer',
-        'Papel Adesivo',
-        'Papel Fotográfico'
-      ]
-    }
-  ];
+  // Não renderizar na versão mobile
+  if (!isDesktop) {
+    return null;
+  }
 
-  const handleMouseEnter = (categoryName: string) => {
-    setActiveDropdown(categoryName);
-  };
-
-  const handleMouseLeave = () => {
-    setActiveDropdown(null);
-  };
-
-  const isActivePath = (path: string) => {
-    return location.pathname === path;
+  const handleCategoryClick = (categoryPath: string) => {
+    navigate(categoryPath);
   };
 
   return (
-    <nav className="bg-white border-b border-gray-200 shadow-sm sticky top-12 sm:top-14 md:top-16 lg:top-18 z-30 mt-12 sm:mt-14 md:mt-16 lg:mt-18">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex overflow-x-auto scrollbar-hide">
-          {categories.map((category) => (
-            <div
-              key={category.name}
-              className="relative flex-shrink-0"
-              onMouseEnter={() => handleMouseEnter(category.name)}
-              onMouseLeave={handleMouseLeave}
-            >
-              <Link
-                to={category.path}
-                className={`flex items-center gap-1 px-3 sm:px-4 py-3 sm:py-4 text-xs sm:text-sm font-medium transition-colors whitespace-nowrap border-b-2 ${
-                  isActivePath(category.path)
-                    ? 'text-primary border-primary bg-primary/5'
-                    : 'text-gray-600 hover:text-primary border-transparent hover:border-primary/30'
+    <nav className="bg-white border-b border-gray-200 shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-center space-x-8">
+          {categories.map((category) => {
+            const isActive = location.pathname === category.path;
+            return (
+              <button
+                key={category.path}
+                onClick={() => handleCategoryClick(category.path)}
+                className={`py-4 px-3 text-sm font-medium border-b-2 transition-colors ${
+                  isActive
+                    ? 'border-primary text-primary'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }`}
               >
-                <span>{category.name}</span>
-                <ChevronDown size={14} className="opacity-60" />
-              </Link>
-
-              {/* Dropdown Menu */}
-              {activeDropdown === category.name && (
-                <div className="absolute top-full left-0 min-w-[200px] bg-white border border-gray-200 rounded-md shadow-lg z-50 py-2">
-                  {category.subcategories.map((subcategory, index) => (
-                    <button
-                      key={index}
-                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary transition-colors"
-                      onClick={() => setActiveDropdown(null)}
-                    >
-                      {subcategory}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
+                <span className="mr-2">{category.icon}</span>
+                {category.name}
+              </button>
+            );
+          })}
         </div>
       </div>
     </nav>
