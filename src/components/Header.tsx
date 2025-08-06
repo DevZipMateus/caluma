@@ -19,14 +19,6 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const menuItems = [
-    { name: 'Início', href: '#inicio' },
-    { name: 'Sobre', href: '#sobre' },
-    { name: 'Serviços', href: '#servicos' },
-    { name: 'Depoimentos', href: '#depoimentos' },
-    { name: 'Contato', href: '#contato' },
-  ];
-
   const scrollToSection = (href: string) => {
     const element = document.getElementById(href.substring(1));
     if (element) {
@@ -51,17 +43,14 @@ const Header = () => {
             />
           </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-4 xl:space-x-6 2xl:space-x-8">
-            {menuItems.map((item) => (
-              <button
-                key={item.name}
-                onClick={() => scrollToSection(item.href)}
-                className="text-primary-foreground hover:text-accent transition-colors duration-200 font-medium text-sm lg:text-base xl:text-lg whitespace-nowrap"
-              >
-                {item.name}
-              </button>
-            ))}
+          {/* Desktop Navigation - apenas Início */}
+          <nav className="hidden lg:flex items-center">
+            <button
+              onClick={() => scrollToSection('#inicio')}
+              className="text-primary-foreground hover:text-accent transition-colors duration-200 font-medium text-sm lg:text-base xl:text-lg whitespace-nowrap"
+            >
+              Início
+            </button>
           </nav>
 
           {/* Desktop CTA Button */}
@@ -85,15 +74,12 @@ const Header = () => {
             </SheetTrigger>
             <SheetContent side="right" className="w-[280px] sm:w-[300px]">
               <nav className="flex flex-col space-y-4 mt-8">
-                {menuItems.map((item) => (
-                  <button
-                    key={item.name}
-                    onClick={() => scrollToSection(item.href)}
-                    className="text-left py-3 text-base font-medium hover:text-primary transition-colors border-b border-muted/20 last:border-b-0"
-                  >
-                    {item.name}
-                  </button>
-                ))}
+                <button
+                  onClick={() => scrollToSection('#inicio')}
+                  className="text-left py-3 text-base font-medium hover:text-primary transition-colors border-b border-muted/20"
+                >
+                  Início
+                </button>
                 <div className="pt-4">
                   <Button 
                     onClick={() => scrollToSection('#contato')}
