@@ -19,11 +19,11 @@ const Canecas = () => {
       <Header />
       <CategoryMenu />
       
-      {/* Reduced padding for better spacing */}
+      {/* Adjusted padding to prevent header overlap on mobile */}
       <div className={`${
         isDesktop 
           ? 'pt-4 lg:pt-6 xl:pt-8' 
-          : 'pt-4 sm:pt-6'
+          : 'pt-32 sm:pt-36'
       } flex-1 flex flex-col min-h-0`}>
         {isDesktop ? (
           <SidebarProvider>

@@ -8,6 +8,8 @@ import { useIsMobile } from '../hooks/use-mobile';
 const FloatingButton = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isPulsing, setIsPulsing] = useState(true);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const isMobile = useIsMobile();
   
   // Start pulsing effect every 10 seconds
@@ -19,6 +21,25 @@ const FloatingButton = () => {
     
     return () => clearInterval(interval);
   }, []);
+
+  // Handle scroll behavior
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Hide button when scrolling down, show when scrolling up
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
   
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -47,10 +68,12 @@ const FloatingButton = () => {
   ];
   
   return (
-    <div className={`fixed z-50 ${
+    <div className={`fixed z-50 transition-all duration-300 ${
       isMobile 
         ? 'bottom-3 right-3' 
         : 'bottom-4 right-4 md:bottom-6 md:right-6'
+    } ${
+      isVisible ? 'transform translate-y-0 opacity-100' : 'transform translate-y-20 opacity-0 pointer-events-none'
     }`}>
       {/* Contact Options */}
       <div className={`flex flex-col-reverse items-end mb-2 space-y-reverse space-y-2 transition-all duration-500 ${
