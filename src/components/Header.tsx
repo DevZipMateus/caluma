@@ -39,6 +39,10 @@ const Header = () => {
     setIsMenuOpen(false);
   };
 
+  const handleLogoClick = () => {
+    navigate('/');
+  };
+
   const scrollToSection = (href: string) => {
     const element = document.getElementById(href.substring(1));
     if (element) {
@@ -56,14 +60,17 @@ const Header = () => {
     } border-b border-white/10`}>
       <div className="w-full px-2 sm:px-3 md:px-4 lg:px-6 xl:px-8 max-w-full mx-auto">
         <div className="flex items-center justify-between h-14 sm:h-16 md:h-18 lg:h-20 xl:h-24">
-          {/* Logo Responsivo com melhor controle de tamanho */}
-          <div className="flex-shrink-0 min-w-0 max-w-[60%] sm:max-w-[50%] lg:max-w-none">
+          {/* Logo Responsivo com navegação para página inicial */}
+          <button 
+            onClick={handleLogoClick}
+            className="flex-shrink-0 min-w-0 max-w-[60%] sm:max-w-[50%] lg:max-w-none focus:outline-none hover:opacity-90 transition-opacity"
+          >
             <img 
               src="/lovable-uploads/6863ba6e-864c-440d-a0c9-58c7739af553.png" 
               alt="Caluma Variedades e Personalizados" 
               className="h-10 sm:h-12 md:h-14 lg:h-16 xl:h-20 w-auto max-w-full transition-all duration-300"
             />
-          </div>
+          </button>
 
           {/* Desktop Navigation - apenas Início */}
           <nav className="hidden lg:flex items-center flex-shrink-0">
