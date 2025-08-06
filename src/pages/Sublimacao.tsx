@@ -5,10 +5,14 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FloatingButton from '../components/FloatingButton';
 import CategoryMenu from '../components/CategoryMenu';
+import SubcategoryImage from '../components/SubcategoryImage';
 import { AppSidebar } from '../components/AppSidebar';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
+import { useSelectedSubcategory } from '../hooks/useSelectedSubcategory';
 
 const Sublimacao = () => {
+  const { selectedSubcategory } = useSelectedSubcategory();
+
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden">
       <Header />
@@ -39,18 +43,34 @@ const Sublimacao = () => {
 
                 {/* Content Area */}
                 <div className="max-w-6xl mx-auto">
-                  <div className="text-center mb-6 sm:mb-8 px-2">
-                    <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">
-                      Use o menu lateral para navegar pelas categorias de sublimação.
-                    </p>
-                    <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 max-w-2xl mx-auto">
-                      <h2 className="text-lg sm:text-xl font-bold text-primary mb-2 sm:mb-3">
-                        Materiais para Sublimação
-                      </h2>
-                      <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-                        No menu lateral você encontrará todas as categorias organizadas: 
-                        squeezes, insumos, suportes, máquinas e kits empreendedor.
-                      </p>
+                  {/* Responsive layout for image and content */}
+                  <div className="flex flex-col lg:flex-row gap-6">
+                    {/* Subcategory Image - Shows above content on mobile, left side on desktop */}
+                    <div className="lg:w-1/3">
+                      <SubcategoryImage subcategory={selectedSubcategory} />
+                    </div>
+                    
+                    {/* Main content */}
+                    <div className="flex-1">
+                      <div className="text-center mb-6 sm:mb-8 px-2">
+                        <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">
+                          Use o menu lateral para navegar pelas categorias de sublimação.
+                        </p>
+                        <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6">
+                          <h2 className="text-lg sm:text-xl font-bold text-primary mb-2 sm:mb-3">
+                            Materiais para Sublimação
+                          </h2>
+                          <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
+                            No menu lateral você encontrará todas as categorias organizadas: 
+                            squeezes, insumos, suportes, máquinas e kits empreendedor.
+                            {selectedSubcategory && (
+                              <span className="block mt-2 text-primary font-medium">
+                                Produto selecionado: {selectedSubcategory}
+                              </span>
+                            )}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

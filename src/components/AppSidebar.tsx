@@ -1,6 +1,7 @@
 import React from 'react';
 import { Shirt, FileText, Settings, Coffee, Paintbrush, Palette, ChevronDown } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
+import { useSelectedSubcategory } from '../hooks/useSelectedSubcategory';
 import {
   Sidebar,
   SidebarContent,
@@ -22,6 +23,7 @@ import {
 export function AppSidebar() {
   const { state } = useSidebar();
   const location = useLocation();
+  const { setSelectedSubcategory } = useSelectedSubcategory();
   
   const categories = [
     {
@@ -255,6 +257,11 @@ export function AppSidebar() {
     return null;
   }
 
+  const handleSubcategoryClick = (item: string) => {
+    console.log(`Selected subcategory: ${item}`);
+    setSelectedSubcategory(item);
+  };
+
   return (
     <Sidebar className="w-80 border-r relative" collapsible="none">
       <SidebarHeader className="p-4 border-b">
@@ -280,8 +287,8 @@ export function AppSidebar() {
                     {items.map((item, index) => (
                       <SidebarMenuItem key={index}>
                         <SidebarMenuButton
-                          onClick={() => console.log(`Clicked: ${item}`)}
-                          className="text-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                          onClick={() => handleSubcategoryClick(item)}
+                          className="text-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground cursor-pointer"
                         >
                           {item}
                         </SidebarMenuButton>
