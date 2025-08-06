@@ -136,7 +136,8 @@ const Categories = () => {
   ];
 
   const subcategoriasSublimacaoToalha = [
-    'TOMADA DE REPOSIÇÃO'
+    'TOALHA DE ROSTO',
+    'TOALHA DE BANHO'
   ];
 
   const subcategoriasSublimacaoSqueezes = [
