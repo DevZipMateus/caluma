@@ -26,8 +26,8 @@ function MainPage() {
       <Header />
       
       <main className="flex-grow">
-        <Hero />
         <Categories />
+        <Hero />
       </main>
       
       <Footer />
