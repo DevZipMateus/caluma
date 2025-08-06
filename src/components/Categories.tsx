@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Shirt, FileText, Settings, Coffee, Paintbrush, Palette } from 'lucide-react';
 
@@ -293,7 +294,7 @@ const Categories = () => {
   }, [openCategory]);
 
   return (
-    <section className="bg-primary py-3 sm:py-4 md:py-6 relative overflow-x-hidden">
+    <section className="bg-primary py-3 sm:py-4 md:py-6 relative overflow-visible">
       <div className="container mx-auto px-2 sm:px-4 md:px-6">
         {/* Layout Responsivo */}
         <div className="hidden md:flex flex-wrap justify-center items-center gap-3 lg:gap-6 xl:gap-8">
@@ -330,16 +331,20 @@ const Categories = () => {
 
                 {/* Subcategories Dropdown - Desktop */}
                 {hasSubcategories && isOpen && (
-                  <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 z-50 bg-white rounded-lg shadow-lg border ${
-                    category.name === 'SUBLIMAÇÃO' ? 'min-w-[700px] max-w-[900px] xl:min-w-[800px] xl:max-w-[1000px]' : 'min-w-[300px] max-w-[400px]'
+                  <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 z-50 bg-white rounded-lg shadow-lg border overflow-visible ${
+                    category.name === 'SUBLIMAÇÃO' 
+                      ? 'w-[95vw] max-w-[1200px]' 
+                      : category.name === 'CANECAS'
+                        ? 'w-[80vw] max-w-[800px]'
+                        : 'w-[70vw] max-w-[600px]'
                   }`}>
-                    <div className="p-3 md:p-4">
+                    <div className="p-3 md:p-4 max-h-[70vh] overflow-y-auto">
                       {category.name === 'SUBLIMAÇÃO' ? (
-                        // Layout horizontal para SUBLIMAÇÃO
-                        <div className="flex flex-wrap gap-4 lg:gap-6">
+                        // Layout em grid para SUBLIMAÇÃO
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                           {Object.entries(category.subcategories).map(([sectionName, subcategories]) => (
-                            <div key={sectionName} className="flex-1 min-w-[100px] lg:min-w-[120px]">
-                              <h4 className="font-semibold text-primary mb-2 text-xs lg:text-sm border-b border-gray-200 pb-1">
+                            <div key={sectionName} className="min-w-0">
+                              <h4 className="font-semibold text-primary mb-2 text-xs lg:text-sm border-b border-gray-200 pb-1 truncate">
                                 {sectionName}
                               </h4>
                               <div className="space-y-1">
@@ -347,7 +352,31 @@ const Categories = () => {
                                   <button
                                     key={subIndex}
                                     onClick={() => console.log(`Clicked: ${subcategory}`)}
-                                    className="block text-left text-xs py-1 px-2 hover:bg-gray-100 rounded transition-colors duration-200 text-gray-700 w-full"
+                                    className="block text-left text-xs py-1 px-2 hover:bg-gray-100 rounded transition-colors duration-200 text-gray-700 w-full truncate"
+                                    title={subcategory}
+                                  >
+                                    {subcategory}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : category.name === 'CANECAS' ? (
+                        // Layout especial para CANECAS (muitos itens)
+                        <div>
+                          {Object.entries(category.subcategories).map(([sectionName, subcategories]) => (
+                            <div key={sectionName} className="mb-4 last:mb-0">
+                              <h4 className="font-semibold text-primary mb-3 text-sm border-b border-gray-200 pb-1">
+                                {sectionName}
+                              </h4>
+                              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1">
+                                {subcategories.map((subcategory, subIndex) => (
+                                  <button
+                                    key={subIndex}
+                                    onClick={() => console.log(`Clicked: ${subcategory}`)}
+                                    className="text-left text-xs py-1.5 px-2 hover:bg-gray-100 rounded transition-colors duration-200 text-gray-700 truncate"
+                                    title={subcategory}
                                   >
                                     {subcategory}
                                   </button>
@@ -357,25 +386,28 @@ const Categories = () => {
                           ))}
                         </div>
                       ) : (
-                        // Layout vertical para outras categorias
-                        Object.entries(category.subcategories).map(([sectionName, subcategories]) => (
-                          <div key={sectionName} className="mb-4 last:mb-0">
-                            <h4 className="font-semibold text-primary mb-2 text-sm border-b border-gray-200 pb-1">
-                              {sectionName}
-                            </h4>
-                            <div className="grid grid-cols-2 gap-1">
-                              {subcategories.map((subcategory, subIndex) => (
-                                <button
-                                  key={subIndex}
-                                  onClick={() => console.log(`Clicked: ${subcategory}`)}
-                                  className="text-left text-xs py-1 px-2 hover:bg-gray-100 rounded transition-colors duration-200 text-gray-700"
-                                >
-                                  {subcategory}
-                                </button>
-                              ))}
+                        // Layout padrão para outras categorias
+                        <div>
+                          {Object.entries(category.subcategories).map(([sectionName, subcategories]) => (
+                            <div key={sectionName} className="mb-4 last:mb-0">
+                              <h4 className="font-semibold text-primary mb-2 text-sm border-b border-gray-200 pb-1">
+                                {sectionName}
+                              </h4>
+                              <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
+                                {subcategories.map((subcategory, subIndex) => (
+                                  <button
+                                    key={subIndex}
+                                    onClick={() => console.log(`Clicked: ${subcategory}`)}
+                                    className="text-left text-xs py-1.5 px-2 hover:bg-gray-100 rounded transition-colors duration-200 text-gray-700 truncate"
+                                    title={subcategory}
+                                  >
+                                    {subcategory}
+                                  </button>
+                                ))}
+                              </div>
                             </div>
-                          </div>
-                        ))
+                          ))}
+                        </div>
                       )}
                     </div>
                   </div>
@@ -421,17 +453,17 @@ const Categories = () => {
                 {/* Subcategories Modal - Mobile */}
                 {hasSubcategories && isOpen && (
                   <div className="fixed inset-0 z-50 bg-black/50 p-4 flex items-center justify-center">
-                    <div className="bg-white rounded-lg shadow-lg max-w-sm w-full max-h-[80vh] overflow-hidden">
+                    <div className="bg-white rounded-lg shadow-lg max-w-sm w-full max-h-[85vh] overflow-hidden">
                       <div className="p-4 border-b bg-primary text-primary-foreground flex justify-between items-center">
                         <h3 className="font-semibold text-sm">{category.name}</h3>
                         <button 
                           onClick={() => setOpenCategory(null)}
-                          className="text-primary-foreground hover:text-accent"
+                          className="text-primary-foreground hover:text-accent text-xl leading-none"
                         >
                           ×
                         </button>
                       </div>
-                      <div className="p-4 overflow-y-auto max-h-[60vh]">
+                      <div className="p-4 overflow-y-auto">
                         {Object.entries(category.subcategories).map(([sectionName, subcategories]) => (
                           <div key={sectionName} className="mb-4 last:mb-0">
                             <h4 className="font-semibold text-primary mb-2 text-sm border-b border-gray-200 pb-1">
