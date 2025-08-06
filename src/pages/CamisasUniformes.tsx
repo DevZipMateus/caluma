@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { Shirt } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FloatingButton from '../components/FloatingButton';
@@ -35,16 +34,10 @@ const CamisasUniformes = () => {
               <SidebarInset className="flex-1 flex flex-col min-w-0">
                 <main className="flex-1 bg-gray-50 p-2 sm:p-3 md:p-4 lg:p-6 xl:p-8">
                   <div className="bg-primary text-primary-foreground py-4 sm:py-6 lg:py-8 px-3 sm:px-4 lg:px-6 rounded-lg mb-4 sm:mb-6">
-                    <div className="max-w-4xl mx-auto">
-                      <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 lg:gap-4 mb-2 sm:mb-3 lg:mb-4">
-                        <Shirt size={24} className="sm:w-8 sm:h-8 lg:w-10 lg:h-10" />
-                        <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-center">
-                          Camisas e Uniformes
-                        </h1>
-                      </div>
-                      <p className="text-center opacity-90 text-xs sm:text-sm lg:text-base max-w-2xl mx-auto px-2">
-                        Camisas personalizadas e uniformes profissionais de alta qualidade
-                      </p>
+                    <div className="max-w-4xl mx-auto text-center">
+                      <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold">
+                        Camisas e Uniformes
+                      </h1>
                     </div>
                   </div>
 
