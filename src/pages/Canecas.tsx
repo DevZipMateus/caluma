@@ -7,21 +7,23 @@ import CategoryMenu from '../components/CategoryMenu';
 import SubcategoryImage from '../components/SubcategoryImage';
 import CategoryCarousel from '../components/CategoryCarousel';
 import MobileButtonRow from '../components/MobileButtonRow';
-import DesktopButtonRow from '../components/DesktopButtonRow';
+import { AppSidebar } from '../components/AppSidebar';
+import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import { useSelectedSubcategory } from '../hooks/useSelectedSubcategory';
 import { useIsDesktop } from '../hooks/useIsDesktop';
 import { useDesktopDropdownState } from '../hooks/useDesktopDropdownState';
 
 const Canecas = () => {
-  const { selectedSubcategory } = useSelectedSubcategory();
+  const { selectedSubcategory, setDefaultSubcategory } = useSelectedSubcategory();
   const { closeAllDropdowns } = useDesktopDropdownState();
   const isDesktop = useIsDesktop();
 
-  // Close dropdowns when component mounts (page navigation)
+  // Close dropdowns and set default subcategory when component mounts
   useEffect(() => {
-    console.log('[Canecas] Page mounted, closing all dropdowns');
+    console.log('[Canecas] Page mounted, closing all dropdowns and setting default subcategory');
     closeAllDropdowns();
-  }, [closeAllDropdowns]);
+    setDefaultSubcategory('canecas');
+  }, [closeAllDropdowns, setDefaultSubcategory]);
 
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden w-full">
@@ -34,39 +36,53 @@ const Canecas = () => {
           ? 'pt-4 lg:pt-6 xl:pt-8' 
           : 'pt-32 sm:pt-36'
       } flex-1 flex flex-col min-h-0`}>
-        <main className="flex-1 bg-gray-50 p-3 sm:p-4 lg:p-6 xl:p-8">
-          <div className="bg-primary text-primary-foreground py-4 sm:py-6 lg:py-8 px-3 sm:px-4 lg:px-6 rounded-lg mb-4 sm:mb-6">
-            <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold">
-                Canecas
-              </h1>
-              {selectedSubcategory && (
-                <p className="text-sm opacity-90 mt-2">
-                  Produto selecionado: {selectedSubcategory}
-                </p>
-              )}
-            </div>
-          </div>
+        {isDesktop ? (
+          <SidebarProvider>
+            <div className="flex flex-1 w-full min-h-0">
+              <AppSidebar />
+              
+              <SidebarInset className="flex-1 flex flex-col min-w-0">
+                <main className="flex-1 bg-gray-50 p-2 sm:p-3 md:p-4 lg:p-6 xl:p-8">
+                  <div className="bg-primary text-primary-foreground py-4 sm:py-6 lg:py-8 px-3 sm:px-4 lg:px-6 rounded-lg mb-4 sm:mb-6">
+                    <div className="max-w-4xl mx-auto text-center">
+                      <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold">
+                        Canecas
+                      </h1>
+                    </div>
+                  </div>
 
-          {/* Button row for both mobile and desktop */}
-          {isDesktop ? <DesktopButtonRow /> : <MobileButtonRow />}
-
-          <div className="max-w-6xl mx-auto">
-            <div className="bg-white rounded-lg p-3 sm:p-4 shadow-sm">
-              {selectedSubcategory ? (
-                <SubcategoryImage subcategory={selectedSubcategory} />
-              ) : (
-                <CategoryCarousel categorySlug="canecas" categoryName="Canecas" />
-              )}
-              {!selectedSubcategory && (
-                <div className="text-center py-12 text-muted-foreground mt-4">
-                  <p className="text-lg mb-2">Selecione um produto</p>
-                  <p className="text-sm">Use os botões acima para escolher uma categoria e produto específico</p>
-                </div>
-              )}
+                  <div className="max-w-6xl mx-auto">
+                    {selectedSubcategory ? (
+                      <SubcategoryImage subcategory={selectedSubcategory} />
+                    ) : (
+                      <CategoryCarousel categorySlug="canecas" categoryName="Canecas" />
+                    )}
+                  </div>
+                </main>
+              </SidebarInset>
             </div>
-          </div>
-        </main>
+          </SidebarProvider>
+        ) : (
+          <main className="flex-1 bg-gray-50 p-3 sm:p-4">
+            <div className="bg-primary text-primary-foreground py-4 sm:py-6 px-3 sm:px-4 rounded-lg mb-4 sm:mb-6">
+              <div className="text-center">
+                <h1 className="text-lg sm:text-xl md:text-2xl font-bold">Canecas</h1>
+              </div>
+            </div>
+
+            <MobileButtonRow />
+
+            <div className="space-y-4 sm:space-y-6">
+              <div className="bg-white rounded-lg p-3 sm:p-4 shadow-sm">
+                {selectedSubcategory ? (
+                  <SubcategoryImage subcategory={selectedSubcategory} />
+                ) : (
+                  <CategoryCarousel categorySlug="canecas" categoryName="Canecas" />
+                )}
+              </div>
+            </div>
+          </main>
+        )}
       </div>
       
       <Footer />
