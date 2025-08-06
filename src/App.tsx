@@ -3,11 +3,6 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import AboutUs from './components/AboutUs';
-import Services from './components/Services';
-import ProductGallery from './components/ProductGallery';
-import Testimonials from './components/Testimonials';
-import Contact from './components/Contact';
 import Footer from './components/Footer';
 import FloatingButton from './components/FloatingButton';
 import NotFound from './pages/NotFound';
@@ -24,11 +19,6 @@ function MainPage() {
       
       <main className="flex-grow">
         <Hero />
-        <AboutUs />
-        <Services />
-        <ProductGallery />
-        <Testimonials />
-        <Contact />
       </main>
       
       <Footer />
