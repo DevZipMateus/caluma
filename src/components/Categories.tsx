@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Shirt, FileText, Settings, Coffee, Paintbrush, Palette } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -266,7 +265,7 @@ const Categories = () => {
   ];
 
   const handleSubcategoryClick = (subcategory: string) => {
-    console.log(`Selecting subcategory: ${subcategory}`);
+    console.log(`[Categories] Selecting subcategory: ${subcategory}`);
     
     // First, set the selected subcategory
     setSelectedSubcategory(subcategory);
@@ -275,14 +274,32 @@ const Categories = () => {
     const categoryRoute = subcategoryToCategoryMapping[subcategory];
     
     if (categoryRoute) {
-      console.log(`Navigating to: ${categoryRoute}`);
+      console.log(`[Categories] Navigating to: ${categoryRoute}`);
       // Close any open dropdowns/modals
       setOpenCategory(null);
       
       // Navigate to the category page
       navigate(categoryRoute);
     } else {
-      console.warn(`No route mapping found for subcategory: ${subcategory}`);
+      console.warn(`[Categories] No route mapping found for subcategory: ${subcategory}`);
+    }
+  };
+
+  const handleCategoryClick = (category: any) => {
+    console.log(`[Categories] Category clicked: ${category.name}`);
+    
+    if (category.subcategories) {
+      if (openCategory === category.name) {
+        console.log(`[Categories] Closing category dropdown: ${category.name}`);
+        setOpenCategory(null);
+      } else {
+        console.log(`[Categories] Opening category dropdown: ${category.name}`);
+        setOpenCategory(category.name);
+      }
+    } else {
+      console.log(`[Categories] Navigating to category without subcategories: ${category.href}`);
+      // Navigate to category page
+      navigate(category.href);
     }
   };
 
@@ -312,19 +329,6 @@ const Categories = () => {
     if (element) {
       const offsetTop = element.offsetTop - 80;
       window.scrollTo({ top: offsetTop, behavior: 'smooth' });
-    }
-  };
-
-  const handleCategoryClick = (category: any) => {
-    if (category.subcategories) {
-      if (openCategory === category.name) {
-        setOpenCategory(null);
-      } else {
-        setOpenCategory(category.name);
-      }
-    } else {
-      // Navigate to category page
-      navigate(category.href);
     }
   };
 
@@ -364,10 +368,12 @@ const Categories = () => {
               >
                 <button
                   onClick={() => handleCategoryClick(category)}
-                  className="flex flex-col items-center justify-center text-primary-foreground hover:text-accent transition-colors duration-300 group min-w-[120px] md:min-w-[140px] lg:min-w-[160px] p-2 md:p-3"
+                  className="flex flex-col items-center justify-center text-primary-foreground hover:text-accent transition-colors duration-300 group min-w-[120px] md:min-w-[140px] lg:min-w-[160px] p-2 md:p-3 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary rounded-lg"
+                  aria-label={`Categoria ${category.name}`}
+                  type="button"
                 >
                   <div className="mb-2 group-hover:scale-110 transition-transform duration-300">
-                    <IconComponent size={28} className="md:w-8 md:h-8 lg:w-10 lg:h-10" />
+                    <IconComponent size={28} className="md:w-8 md:h-8 lg:w-10 lg:h-10" aria-hidden="true" />
                   </div>
                   <span className="text-xs md:text-sm lg:text-base font-medium text-center leading-tight px-1">
                     {category.name}
@@ -376,15 +382,19 @@ const Categories = () => {
 
                 {/* Subcategories Dropdown - Desktop */}
                 {hasSubcategories && isOpen && (
-                  <div className={`absolute top-full mt-2 z-50 bg-white rounded-lg shadow-lg border overflow-visible ${
-                    getDropdownPosition(index, categories.length)
-                  } ${
-                    category.name === 'SUBLIMAÇÃO' 
-                      ? 'w-[95vw] max-w-[1200px]' 
-                      : category.name === 'CANECAS'
-                        ? 'w-[80vw] max-w-[800px]'
-                        : 'w-[70vw] max-w-[600px]'
-                  }`}>
+                  <div 
+                    className={`absolute top-full mt-2 z-50 bg-white rounded-lg shadow-lg border overflow-visible ${
+                      getDropdownPosition(index, categories.length)
+                    } ${
+                      category.name === 'SUBLIMAÇÃO' 
+                        ? 'w-[95vw] max-w-[1200px]' 
+                        : category.name === 'CANECAS'
+                          ? 'w-[80vw] max-w-[800px]'
+                          : 'w-[70vw] max-w-[600px]'
+                    }`}
+                    role="menu"
+                    aria-label={`Produtos da categoria ${category.name}`}
+                  >
                     <div className="p-3 md:p-4 max-h-[70vh] overflow-y-auto">
                       {category.name === 'SUBLIMAÇÃO' ? (
                         // Layout em grid para SUBLIMAÇÃO
@@ -481,10 +491,12 @@ const Categories = () => {
               >
                 <button
                   onClick={() => handleCategoryClick(category)}
-                  className="flex flex-col items-center justify-center text-primary-foreground hover:text-accent transition-colors duration-300 group w-full p-3 rounded-lg hover:bg-primary/10"
+                  className="flex flex-col items-center justify-center text-primary-foreground hover:text-accent transition-colors duration-300 group w-full p-3 rounded-lg hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary"
+                  aria-label={`Categoria ${category.name}`}
+                  type="button"
                 >
                   <div className="mb-2 group-hover:scale-110 transition-transform duration-300">
-                    <IconComponent size={24} />
+                    <IconComponent size={24} aria-hidden="true" />
                   </div>
                   <span className="text-xs font-medium text-center leading-tight px-1">
                     {category.name}
@@ -493,13 +505,20 @@ const Categories = () => {
 
                 {/* Subcategories Modal - Mobile */}
                 {hasSubcategories && isOpen && (
-                  <div className="fixed inset-0 z-50 bg-black/50 p-4 flex items-center justify-center">
+                  <div 
+                    className="fixed inset-0 z-50 bg-black/50 p-4 flex items-center justify-center"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label={`Produtos da categoria ${category.name}`}
+                  >
                     <div className="bg-white rounded-lg shadow-lg max-w-sm w-full max-h-[85vh] overflow-hidden">
                       <div className="p-4 border-b bg-primary text-primary-foreground flex justify-between items-center">
                         <h3 className="font-semibold text-sm">{category.name}</h3>
                         <button 
                           onClick={() => setOpenCategory(null)}
-                          className="text-primary-foreground hover:text-accent text-xl leading-none"
+                          className="text-primary-foreground hover:text-accent text-xl leading-none focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary rounded p-1"
+                          aria-label="Fechar menu"
+                          type="button"
                         >
                           ×
                         </button>

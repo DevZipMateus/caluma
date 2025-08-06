@@ -244,10 +244,8 @@ const DesktopSubcategoryDropdown: React.FC = () => {
     }
   ];
 
-  const currentCategory = categories.find(cat => location.pathname === cat.path);
-
   const handleSubcategoryClick = (item: string) => {
-    console.log(`Selected subcategory: ${item}`);
+    console.log(`[DesktopSubcategoryDropdown] Selected subcategory: ${item}`);
     
     // First, set the selected subcategory
     setSelectedSubcategory(item);
@@ -256,33 +254,51 @@ const DesktopSubcategoryDropdown: React.FC = () => {
     const categoryRoute = subcategoryToCategoryMapping[item];
     
     if (categoryRoute) {
-      console.log(`Current path: ${location.pathname}, Target path: ${categoryRoute}`);
+      console.log(`[DesktopSubcategoryDropdown] Current path: ${location.pathname}, Target path: ${categoryRoute}`);
       
       // Close all dropdowns
       closeAllDropdowns();
       
       // If we need to navigate to a different category page
       if (location.pathname !== categoryRoute) {
-        console.log(`Navigating to: ${categoryRoute}`);
+        console.log(`[DesktopSubcategoryDropdown] Navigating to: ${categoryRoute}`);
         navigate(categoryRoute);
       }
     } else {
-      console.warn(`No route mapping found for subcategory: ${item}`);
+      console.warn(`[DesktopSubcategoryDropdown] No route mapping found for subcategory: ${item}`);
       closeAllDropdowns();
     }
   };
 
+  const handleDropdownOpenChange = (open: boolean) => {
+    console.log(`[DesktopSubcategoryDropdown] Dropdown state changing to: ${open}`);
+    setSubcategoryDropdownOpen(open);
+  };
+
+  const currentCategory = categories.find(cat => location.pathname === cat.path);
+
   if (!currentCategory) {
+    console.log(`[DesktopSubcategoryDropdown] No current category found for path: ${location.pathname}`);
     return null;
   }
 
+  const displayTitle = selectedSubcategory || 'Produtos';
+
   return (
-    <DropdownMenu open={subcategoryDropdownOpen} onOpenChange={setSubcategoryDropdownOpen}>
+    <DropdownMenu open={subcategoryDropdownOpen} onOpenChange={handleDropdownOpenChange}>
       <DropdownMenuTrigger asChild>
-        <button className="flex items-center gap-2 bg-secondary text-secondary-foreground py-2 px-4 rounded-lg font-medium hover:bg-secondary/80 transition-colors">
-          <Menu size={18} />
-          {selectedSubcategory || 'Produtos'}
-          <ChevronDown size={16} className={`transition-transform ${subcategoryDropdownOpen ? 'rotate-180' : ''}`} />
+        <button 
+          className="flex items-center gap-2 bg-secondary text-secondary-foreground py-2 px-4 rounded-lg font-medium hover:bg-secondary/80 transition-colors focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:ring-offset-2"
+          aria-label="Selecionar produto"
+          type="button"
+        >
+          <Menu size={18} aria-hidden="true" />
+          <span className="truncate max-w-[200px]">{displayTitle}</span>
+          <ChevronDown 
+            size={16} 
+            className={`transition-transform duration-200 ${subcategoryDropdownOpen ? 'rotate-180' : ''}`}
+            aria-hidden="true"
+          />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-80 bg-popover border shadow-lg z-50">
@@ -296,7 +312,9 @@ const DesktopSubcategoryDropdown: React.FC = () => {
                 <DropdownMenuItem
                   key={index}
                   onClick={() => handleSubcategoryClick(item)}
-                  className="text-sm cursor-pointer hover:bg-accent px-2 py-1.5"
+                  className={`text-sm cursor-pointer hover:bg-accent focus:bg-accent px-2 py-1.5 transition-colors ${
+                    selectedSubcategory === item ? 'bg-accent/50 font-medium' : ''
+                  }`}
                 >
                   {item}
                 </DropdownMenuItem>

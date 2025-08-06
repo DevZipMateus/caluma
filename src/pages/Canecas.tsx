@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FloatingButton from '../components/FloatingButton';
@@ -9,10 +9,18 @@ import MobileButtonRow from '../components/MobileButtonRow';
 import DesktopButtonRow from '../components/DesktopButtonRow';
 import { useSelectedSubcategory } from '../hooks/useSelectedSubcategory';
 import { useIsDesktop } from '../hooks/useIsDesktop';
+import { useDesktopDropdownState } from '../hooks/useDesktopDropdownState';
 
 const Canecas = () => {
   const { selectedSubcategory } = useSelectedSubcategory();
+  const { closeAllDropdowns } = useDesktopDropdownState();
   const isDesktop = useIsDesktop();
+
+  // Close dropdowns when component mounts (page navigation)
+  useEffect(() => {
+    console.log('[Canecas] Page mounted, closing all dropdowns');
+    closeAllDropdowns();
+  }, [closeAllDropdowns]);
 
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden w-full">
@@ -31,6 +39,11 @@ const Canecas = () => {
               <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold">
                 Canecas
               </h1>
+              {selectedSubcategory && (
+                <p className="text-sm opacity-90 mt-2">
+                  Produto selecionado: {selectedSubcategory}
+                </p>
+              )}
             </div>
           </div>
 
@@ -40,6 +53,12 @@ const Canecas = () => {
           <div className="max-w-6xl mx-auto">
             <div className="bg-white rounded-lg p-3 sm:p-4 shadow-sm">
               <SubcategoryImage subcategory={selectedSubcategory} />
+              {!selectedSubcategory && (
+                <div className="text-center py-12 text-muted-foreground">
+                  <p className="text-lg mb-2">Selecione um produto</p>
+                  <p className="text-sm">Use os botões acima para escolher uma categoria e produto específico</p>
+                </div>
+              )}
             </div>
           </div>
         </main>
