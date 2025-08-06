@@ -41,13 +41,13 @@ const Header = () => {
       isScrolled ? 'bg-primary/95 backdrop-blur-md shadow-lg' : 'bg-primary/90 backdrop-blur-sm'
     } border-b border-white/10`}>
       <div className="container mx-auto px-3 sm:px-4 lg:px-6 xl:px-8">
-        <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
-          {/* Logo */}
+        <div className="flex items-center justify-between h-16 sm:h-18 lg:h-22">
+          {/* Logo Maior */}
           <div className="flex-shrink-0">
             <img 
               src="/lovable-uploads/8d3c539b-e71e-45f5-bc79-6f4f9b1a47f2.png" 
               alt="Caluma Variedades e Personalizados" 
-              className="h-8 sm:h-10 lg:h-12 w-auto transition-all duration-300"
+              className="h-12 sm:h-14 lg:h-16 xl:h-18 w-auto transition-all duration-300"
             />
           </div>
 

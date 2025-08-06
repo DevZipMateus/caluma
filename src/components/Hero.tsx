@@ -13,12 +13,12 @@ const Hero = () => {
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
         <div className="max-w-full mx-auto">
-          {/* Logo Gigante */}
+          {/* Logo Ainda Maior */}
           <div className="animate-fade-in">
             <img 
               src="/lovable-uploads/855dbbc1-ae89-4024-a478-1b7d2781b8ac.png" 
               alt="Caluma Variedades e Personalizados" 
-              className="h-[60vh] sm:h-[70vh] md:h-[75vh] lg:h-[80vh] xl:h-[85vh] 2xl:h-[90vh] w-auto mx-auto drop-shadow-2xl"
+              className="h-[70vh] sm:h-[80vh] md:h-[85vh] lg:h-[90vh] xl:h-[95vh] 2xl:h-[98vh] w-auto mx-auto drop-shadow-2xl"
             />
           </div>
         </div>
