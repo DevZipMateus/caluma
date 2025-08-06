@@ -152,7 +152,6 @@ const Categories = () => {
 
   const subcategoriasSublimacaoTintas = [
     'TEFLON',
-    'TINTAS',
     'TIRANTE',
     'TOALHA DE BANHO',
     'TOALHA DE ROSTO'
