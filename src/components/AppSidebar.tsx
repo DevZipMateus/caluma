@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Shirt, FileText, Settings, Coffee, Paintbrush, Palette, ChevronDown } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
@@ -11,9 +10,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
   SidebarHeader,
   useSidebar,
 } from '@/components/ui/sidebar';
@@ -260,7 +256,7 @@ export function AppSidebar() {
   }
 
   return (
-    <Sidebar className="w-80 border-r">
+    <Sidebar className="w-80 border-r relative" collapsible="none">
       <SidebarHeader className="p-4 border-b">
         <div className="flex items-center gap-2">
           <currentCategory.icon className="h-5 w-5 text-primary" />
@@ -268,7 +264,7 @@ export function AppSidebar() {
         </div>
       </SidebarHeader>
       
-      <SidebarContent>
+      <SidebarContent className="overflow-y-auto">
         {Object.entries(currentCategory.subcategories).map(([groupName, items]) => (
           <SidebarGroup key={groupName}>
             <Collapsible defaultOpen>
