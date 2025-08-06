@@ -20,11 +20,11 @@ const Serigrafia = () => {
       <Header />
       <CategoryMenu />
       
-      {/* Espaçamento responsivo ajustado para header + CategoryMenu */}
+      {/* Reduced padding for better spacing */}
       <div className={`${
         isDesktop 
-          ? 'pt-44 lg:pt-48 xl:pt-52 2xl:pt-56' 
-          : 'pt-14 sm:pt-16 md:pt-20 lg:pt-24'
+          ? 'pt-4 lg:pt-6 xl:pt-8' 
+          : 'pt-4 sm:pt-6'
       } flex-1 flex flex-col min-h-0`}>
         {isDesktop ? (
           <SidebarProvider>
