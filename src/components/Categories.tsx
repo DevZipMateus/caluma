@@ -6,7 +6,7 @@ const Categories = () => {
 
   const subcategoriasCamisas = [
     'Body Infantil',
-    'Body Infantil Colorido',
+    'Body Infantil Colorido', 
     'Camisa Polo Feminina',
     'Camisa Polo Feminina Dry',
     'Camisa Polo Masculina',
@@ -95,9 +95,72 @@ const Categories = () => {
     'CANECA WHISKY'
   ];
 
+  const subcategoriasSublimacaoSqueezes = [
+    'ALUMÍNIO BIG MOUTH',
+    'ALUMÍNIO LONG NECK',
+    'BOLINHA',
+    'COELHINHO',
+    'COPO TÉRMICO',
+    'CRAZY CAT',
+    'CRAZY DOG',
+    'GATINHO',
+    'INOX COM GLITTER',
+    'INOX COROA',
+    'INOX TÉRMICA',
+    'LATINHA INOX',
+    'MOSQUETÃO',
+    'NIKE',
+    'POLÍMERO',
+    'TAMPA BAMBU',
+    'TÉRMICA CAFÉ',
+    'TÉRMICA DIGITAL'
+  ];
+
+  const subcategoriasSublimacaoInsumos = [
+    'ALMOCHAVEIRO',
+    'AZULEJO',
+    'BASE GIRATÓRIA',
+    'BOLSA ECOBAG',
+    'BONÉ DEKO',
+    'BONÉ TACTEL',
+    'CANETA',
+    'CAPA DE ALMOFADA',
+    'CAPA DE ALMOFADA LANTEJOULA',
+    'CAVALETES',
+    'CHAVEIRO ACRÍLICO',
+    'CHAVEIRO POLÍMERO',
+    'CHINELO',
+    'COLOCADOR DE TIRAS CHINELO',
+    'FITA TÉRMICA',
+    'LAVABINHO',
+    'LAVABO',
+    'MANTA SILICONE',
+    'MDF',
+    'MDF TEMÁTICO',
+    'MOTOR RELÓGIO',
+    'MOUSE PAD',
+    'PLACA ACRÍLICA',
+    'QUEBRA CABEÇA',
+    'RELÓGIO DE VIDRO',
+    'RELÓGIO MDF',
+    'SACOLA KRAFT'
+  ];
+
+  const subcategoriasSublimacaoSuportes = [
+    'SUPORTES'
+  ];
+
+  const subcategoriasSublimacaoTintas = [
+    'TEFLON',
+    'TINTAS',
+    'TIRANTE',
+    'TOALHA DE BANHO',
+    'TOALHA DE ROSTO'
+  ];
+
   const subcategoriasSublimacaoMaquinas = [
     'CAMEO SILHOUETTE',
-    'DIAMOND 360° TRANSFER',
+    'DIAMOND 360º TRANSFER',
     'IMPRESSORA EPSON',
     'PLOTTER DE RECORTE',
     'PRENSA 8 EM 1',
@@ -108,63 +171,8 @@ const Categories = () => {
   ];
 
   const subcategoriasSublimacaoKitEmpreendedor = [
-    'KIT CILÍNDRICO',
+    'KIT CILINDRICO',
     'KIT PLANO'
-  ];
-
-  const subcategoriasSublimacaoInsumos = [
-    'ALMOFADRO',
-    'AZULEJO',
-    'BASE GRADUATORIA',
-    'BOLSA ECOLÓGICA',
-    'BONÉ DE ABA CURVA',
-    'BONÉ DE ABA RETA',
-    'CAMISETAS',
-    'CANETA',
-    'CAPA DE ALMOFADA',
-    'CAPA DE ALMOFADA PA',
-    'CHAVEIROS',
-    'CHAVEIRO MOSQUETÃO',
-    'GRAVATAS'
-  ];
-
-  const subcategoriasSublimacaoSuportes = [
-    'HOMEN',
-    'INFANTIL',
-    'TITANIC',
-    'TITANS'
-  ];
-
-  const subcategoriasSublimacaoToalha = [
-    'TOALHA DE ROSTO',
-    'TOALHA DE BANHO'
-  ];
-
-  const subcategoriasSublimacaoSqueezes = [
-    'ALUMÍNIO BIG MOUTH',
-    'ALUMÍNIO LONG NECK',
-    'BOLINHA',
-    'COPO TÉRMICO',
-    'COPO TÉRMICO CAT',
-    'COPO TÉRMICO DOG',
-    'CRAZY CAT',
-    'CRAZY DOG',
-    'GLITTER',
-    'GIFT LONG GLITTER',
-    'GIFT LONG NECK',
-    'INOX LONG NECK',
-    'INOX LONG NECK ALÇA',
-    'INOX LONG NECK ROSCA',
-    'INOX LUXO',
-    'INOX LUXO ALÇA',
-    'INOX LUXO ROSCA',
-    'KIDS',
-    'POLÍMERO',
-    'POLÍMERO ALÇA',
-    'POLÍMERO ROSCA',
-    'PET',
-    'TÉRMICA 4 EM 1',
-    'TÉRMICA 4 EM 1 ALÇA'
   ];
 
   const subcategoriasSerigrafiaInsumos = [
@@ -239,12 +247,12 @@ const Categories = () => {
       icon: Paintbrush,
       href: '#sublimacao',
       subcategories: {
-        'MÁQUINAS': subcategoriasSublimacaoMaquinas,
-        'KIT EMPREENDEDOR': subcategoriasSublimacaoKitEmpreendedor,
+        'SQUEEZES': subcategoriasSublimacaoSqueezes,
         'INSUMOS': subcategoriasSublimacaoInsumos,
         'SUPORTES': subcategoriasSublimacaoSuportes,
-        'TOALHA': subcategoriasSublimacaoToalha,
-        'SQUEEZES': subcategoriasSublimacaoSqueezes
+        'TINTAS': subcategoriasSublimacaoTintas,
+        'MÁQUINAS': subcategoriasSublimacaoMaquinas,
+        'KIT EMPREENDEDOR': subcategoriasSublimacaoKitEmpreendedor
       }
     },
     {
