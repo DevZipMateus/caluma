@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
@@ -11,6 +12,7 @@ const Header = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,6 +33,11 @@ const Header = () => {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
+
+  const handleInicioClick = () => {
+    navigate('/');
+    setIsMenuOpen(false);
+  };
 
   const scrollToSection = (href: string) => {
     const element = document.getElementById(href.substring(1));
@@ -61,7 +68,7 @@ const Header = () => {
           {/* Desktop Navigation - apenas Início */}
           <nav className="hidden lg:flex items-center flex-shrink-0">
             <button
-              onClick={() => scrollToSection('#inicio')}
+              onClick={handleInicioClick}
               className="text-primary-foreground hover:text-accent transition-colors duration-200 font-medium text-sm lg:text-base xl:text-lg whitespace-nowrap px-3 lg:px-4"
             >
               Início
@@ -91,7 +98,7 @@ const Header = () => {
             <SheetContent side="right" className="w-[280px] sm:w-[300px] z-50">
               <nav className="flex flex-col space-y-4 mt-8">
                 <button
-                  onClick={() => scrollToSection('#inicio')}
+                  onClick={handleInicioClick}
                   className="text-left py-3 text-base font-medium hover:text-primary transition-colors border-b border-muted/20"
                 >
                   Início
