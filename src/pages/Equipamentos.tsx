@@ -21,10 +21,10 @@ const Equipamentos = () => {
       <Header />
       <CategoryMenu />
       
-      {/* Espaçamento responsivo ajustado */}
+      {/* Espaçamento responsivo ajustado para header + CategoryMenu */}
       <div className={`${
         isDesktop 
-          ? 'pt-28 lg:pt-32 xl:pt-36 2xl:pt-40' 
+          ? 'pt-44 lg:pt-48 xl:pt-52 2xl:pt-56' 
           : 'pt-14 sm:pt-16 md:pt-20 lg:pt-24'
       } flex-1 flex flex-col min-h-0`}>
         {isDesktop ? (

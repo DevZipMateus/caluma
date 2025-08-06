@@ -27,7 +27,7 @@ const CategoryMenu: React.FC = () => {
   };
 
   return (
-    <nav className="bg-white border-b border-gray-200 shadow-sm">
+    <nav className="sticky top-14 sm:top-16 md:top-18 lg:top-20 xl:top-24 z-30 bg-white border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-center space-x-8">
           {categories.map((category) => {
