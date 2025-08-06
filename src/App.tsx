@@ -4,8 +4,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Categories from './components/Categories';
+import ProductGallery from './components/ProductGallery';
+import Contact from './components/Contact';
 import Footer from './components/Footer';
 import FloatingButton from './components/FloatingButton';
+import FloatingCart from './components/FloatingCart';
 import NotFound from './pages/NotFound';
 import CamisasUniformes from './pages/CamisasUniformes';
 import Papelaria from './pages/Papelaria';
@@ -28,10 +31,13 @@ function MainPage() {
       <main className="flex-grow">
         <Hero />
         <Categories />
+        <ProductGallery />
+        <Contact />
       </main>
       
       <Footer />
       <FloatingButton />
+      <FloatingCart />
     </div>
   );
 }

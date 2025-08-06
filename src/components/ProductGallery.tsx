@@ -1,11 +1,16 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { MessageCircle } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
+import { MessageCircle, ShoppingCart } from 'lucide-react';
+import { useProductSelection } from '../hooks/useProductSelection';
+import SelectedProductsList from './SelectedProductsList';
 
 const ProductGallery = () => {
+  const { addProduct, removeProduct, isProductSelected, selectedProducts } = useProductSelection();
+  const [isListOpen, setIsListOpen] = useState(false);
+
   const products = [
     {
       id: 1,
@@ -100,6 +105,14 @@ const ProductGallery = () => {
     window.open(whatsappURL, '_blank');
   };
 
+  const handleProductSelection = (product: typeof products[0], checked: boolean) => {
+    if (checked) {
+      addProduct(product);
+    } else {
+      removeProduct(product.id);
+    }
+  };
+
   return (
     <section id="produtos" className="py-16 lg:py-24 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -111,41 +124,78 @@ const ProductGallery = () => {
             <span className="block text-accent mt-2">produtos</span>
           </h2>
           <p className="text-lg text-muted-foreground">
-            Conheça alguns dos produtos e serviços que oferecemos. Entre em contato para mais informações!
+            Conheça alguns dos produtos e serviços que oferecemos. Selecione múltiplos produtos para solicitar orçamento em lote!
           </p>
         </div>
 
+        {/* Selection Controls */}
+        {selectedProducts.length > 0 && (
+          <div className="flex justify-center mb-8">
+            <Button
+              onClick={() => setIsListOpen(true)}
+              variant="outline"
+              size="lg"
+              className="relative"
+            >
+              <ShoppingCart size={20} className="mr-2" />
+              Ver Selecionados ({selectedProducts.length})
+            </Button>
+          </div>
+        )}
+
         {/* Products Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {products.map((product) => (
-            <Card key={product.id} className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-              <CardContent className="p-0">
-                <div className="aspect-square overflow-hidden rounded-t-lg">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <div className="p-4">
-                  <h3 className="font-semibold text-foreground mb-2 line-clamp-1">
-                    {product.name}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                    {product.description}
-                  </p>
-                  <Button
-                    onClick={() => handleWhatsAppContact(product.name)}
-                    className="w-full"
-                    size="sm"
-                  >
-                    <MessageCircle size={16} className="mr-2" />
-                    Mais Informações
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+          {products.map((product) => {
+            const isSelected = isProductSelected(product.id);
+            return (
+              <Card 
+                key={product.id} 
+                className={`group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 ${
+                  isSelected ? 'ring-2 ring-primary ring-offset-2' : ''
+                }`}
+              >
+                <CardContent className="p-0">
+                  <div className="relative">
+                    <div className="aspect-square overflow-hidden rounded-t-lg">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="absolute top-3 left-3">
+                      <div className="bg-background/80 backdrop-blur-sm rounded-md p-2">
+                        <Checkbox
+                          id={`product-${product.id}`}
+                          checked={isSelected}
+                          onCheckedChange={(checked) => 
+                            handleProductSelection(product, checked as boolean)
+                          }
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-semibold text-foreground mb-2 line-clamp-1">
+                      {product.name}
+                    </h3>
+                    <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                      {product.description}
+                    </p>
+                    <Button
+                      onClick={() => handleWhatsAppContact(product.name)}
+                      className="w-full"
+                      size="sm"
+                      variant={isSelected ? "secondary" : "default"}
+                    >
+                      <MessageCircle size={16} className="mr-2" />
+                      Mais Informações
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
 
         {/* Call to Action */}
@@ -170,6 +220,11 @@ const ProductGallery = () => {
           </Button>
         </div>
       </div>
+
+      <SelectedProductsList 
+        isOpen={isListOpen}
+        onClose={() => setIsListOpen(false)}
+      />
     </section>
   );
 };
