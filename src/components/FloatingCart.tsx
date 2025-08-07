@@ -14,9 +14,14 @@ const FloatingCart: React.FC = () => {
   const totalItems = selectedProducts.reduce((sum, product) => sum + product.quantity, 0);
   const isEmpty = selectedProducts.length === 0;
 
+  // Don't render the cart if it's empty
+  if (isEmpty) {
+    return null;
+  }
+
   return (
     <>
-      <div className="fixed bottom-6 right-6 z-40">
+      <div className="fixed bottom-6 left-6 z-40">
         <div className={`bg-white rounded-2xl shadow-2xl border border-gray-100 transition-all duration-500 ease-out ${
           isExpanded ? 'w-96 max-w-[calc(100vw-3rem)]' : 'w-auto'
         } ${isExpanded ? 'scale-100' : 'hover:scale-105'}`}>
@@ -40,22 +45,17 @@ const FloatingCart: React.FC = () => {
                   <div className="bg-white/20 backdrop-blur-sm rounded-xl p-3 transition-all duration-300 hover:bg-white/30">
                     <ShoppingCart size={24} className="text-white" />
                   </div>
-                  {!isEmpty && (
-                    <Badge 
-                      variant="default" 
-                      className="absolute -top-1 -right-1 h-6 w-6 p-0 flex items-center justify-center text-xs bg-accent hover:bg-accent text-accent-foreground font-bold animate-pulse"
-                    >
-                      {totalItems}
-                    </Badge>
-                  )}
+                  <Badge 
+                    variant="default" 
+                    className="absolute -top-1 -right-1 h-6 w-6 p-0 flex items-center justify-center text-xs bg-accent hover:bg-accent text-accent-foreground font-bold animate-pulse"
+                  >
+                    {totalItems}
+                  </Badge>
                 </div>
                 <div className="flex flex-col items-start text-left">
                   <span className="font-bold text-lg text-white">Carrinho</span>
                   <span className="text-sm text-white/90 font-medium">
-                    {isEmpty 
-                      ? 'Vazio' 
-                      : `${totalItems} ${totalItems === 1 ? 'item' : 'itens'}`
-                    }
+                    {`${totalItems} ${totalItems === 1 ? 'item' : 'itens'}`}
                   </span>
                 </div>
               </Button>
@@ -77,77 +77,67 @@ const FloatingCart: React.FC = () => {
           {isExpanded && (
             <>
               <div className="max-h-80 overflow-y-auto">
-                {isEmpty ? (
-                  <div className="p-8 text-center">
-                    <div className="bg-gray-50 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
-                      <Package size={32} className="text-gray-400" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-gray-700 mb-2">Carrinho Vazio</h3>
-                    <p className="text-sm text-gray-500">Adicione produtos para fazer seu orçamento</p>
-                  </div>
-                ) : (
-                  <div className="p-4 space-y-3">
-                    {selectedProducts.map((product, index) => (
-                      <div key={product.id} className={`bg-gray-50 rounded-xl p-4 border border-gray-100 hover:shadow-md transition-all duration-300 animate-fade-in`} style={{ animationDelay: `${index * 0.1}s` }}>
-                        <div className="flex items-start gap-3">
-                          <div className="relative">
-                            <img
-                              src={product.image}
-                              alt={product.name}
-                              className="w-16 h-16 object-cover rounded-lg border-2 border-white shadow-sm"
-                            />
-                            <div className="absolute -top-1 -right-1 bg-primary text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
-                              {product.quantity}
-                            </div>
+                <div className="p-4 space-y-3">
+                  {selectedProducts.map((product, index) => (
+                    <div key={product.id} className={`bg-gray-50 rounded-xl p-4 border border-gray-100 hover:shadow-md transition-all duration-300 animate-fade-in`} style={{ animationDelay: `${index * 0.1}s` }}>
+                      <div className="flex items-start gap-3">
+                        <div className="relative">
+                          <img
+                            src={product.image}
+                            alt={product.name}
+                            className="w-16 h-16 object-cover rounded-lg border-2 border-white shadow-sm"
+                          />
+                          <div className="absolute -top-1 -right-1 bg-primary text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                            {product.quantity}
                           </div>
+                        </div>
+                        
+                        <div className="flex-1 min-w-0">
+                          <h4 className="text-sm font-semibold text-gray-800 line-clamp-2 mb-2">{product.name}</h4>
                           
-                          <div className="flex-1 min-w-0">
-                            <h4 className="text-sm font-semibold text-gray-800 line-clamp-2 mb-2">{product.name}</h4>
-                            
-                            <div className="flex items-center justify-between">
-                              <div className="flex items-center gap-2 bg-white rounded-lg p-1 border">
-                                <Button
-                                  size="sm"
-                                  variant="ghost"
-                                  className="h-7 w-7 p-0 hover:bg-red-50 hover:text-red-600 transition-colors"
-                                  onClick={() => {
-                                    if (product.quantity === 1) {
-                                      removeProduct(product.id);
-                                    } else {
-                                      updateQuantity(product.id, product.quantity - 1);
-                                    }
-                                  }}
-                                >
-                                  <Minus size={12} />
-                                </Button>
-                                <span className="text-sm font-bold min-w-[24px] text-center text-primary">
-                                  {product.quantity}
-                                </span>
-                                <Button
-                                  size="sm"
-                                  variant="ghost"
-                                  className="h-7 w-7 p-0 hover:bg-green-50 hover:text-green-600 transition-colors"
-                                  onClick={() => updateQuantity(product.id, product.quantity + 1)}
-                                >
-                                  <Plus size={12} />
-                                </Button>
-                              </div>
-                              
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2 bg-white rounded-lg p-1 border">
                               <Button
                                 size="sm"
                                 variant="ghost"
-                                className="h-8 w-8 p-0 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all duration-300"
-                                onClick={() => removeProduct(product.id)}
+                                className="h-7 w-7 p-0 hover:bg-red-50 hover:text-red-600 transition-colors"
+                                onClick={() => {
+                                  if (product.quantity === 1) {
+                                    removeProduct(product.id);
+                                  } else {
+                                    updateQuantity(product.id, product.quantity - 1);
+                                  }
+                                }}
                               >
-                                <X size={14} />
+                                <Minus size={12} />
+                              </Button>
+                              <span className="text-sm font-bold min-w-[24px] text-center text-primary">
+                                {product.quantity}
+                              </span>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                className="h-7 w-7 p-0 hover:bg-green-50 hover:text-green-600 transition-colors"
+                                onClick={() => updateQuantity(product.id, product.quantity + 1)}
+                              >
+                                <Plus size={12} />
                               </Button>
                             </div>
+                            
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              className="h-8 w-8 p-0 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all duration-300"
+                              onClick={() => removeProduct(product.id)}
+                            >
+                              <X size={14} />
+                            </Button>
                           </div>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                )}
+                    </div>
+                  ))}
+                </div>
               </div>
 
               {/* Cart Footer with Gradient */}
@@ -156,13 +146,9 @@ const FloatingCart: React.FC = () => {
                   onClick={() => setIsQuoteModalOpen(true)}
                   className="w-full bg-gradient-to-r from-accent to-accent/90 hover:from-accent/90 hover:to-accent/80 text-accent-foreground font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]"
                   size="lg"
-                  disabled={isEmpty}
                 >
                   <MessageSquare size={18} className="mr-2" />
-                  {isEmpty 
-                    ? 'Adicione itens para orçar' 
-                    : `Solicitar Orçamento • ${totalItems} ${totalItems === 1 ? 'item' : 'itens'}`
-                  }
+                  {`Solicitar Orçamento • ${totalItems} ${totalItems === 1 ? 'item' : 'itens'}`}
                 </Button>
               </div>
             </>
@@ -175,10 +161,9 @@ const FloatingCart: React.FC = () => {
                 onClick={() => setIsQuoteModalOpen(true)}
                 className="w-full bg-gradient-to-r from-accent to-accent/90 hover:from-accent/90 hover:to-accent/80 text-accent-foreground font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]"
                 size="sm"
-                disabled={isEmpty}
               >
                 <MessageSquare size={16} className="mr-2" />
-                {isEmpty ? 'Carrinho Vazio' : 'Solicitar Orçamento'}
+                Solicitar Orçamento
               </Button>
             </div>
           )}
