@@ -5,6 +5,7 @@ import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useProductSelection } from '../contexts/ProductSelectionContext';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,6 +14,10 @@ const Header = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const isMobile = useIsMobile();
   const navigate = useNavigate();
+  const { selectedProducts } = useProductSelection();
+
+  // Check if cart has items
+  const hasCartItems = selectedProducts.length > 0;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -82,18 +87,20 @@ const Header = () => {
             </button>
           </nav>
 
-          {/* Desktop CTA Button */}
-          <div className="hidden md:block flex-shrink-0">
-            <Button 
-              onClick={() => scrollToSection('#contato')}
-              variant="secondary"
-              size={isMobile ? "sm" : "default"}
-              className="bg-accent hover:bg-accent/90 text-accent-foreground text-xs sm:text-sm lg:text-base px-2 sm:px-3 lg:px-4 xl:px-6 py-1.5 sm:py-2 whitespace-nowrap min-w-fit"
-            >
-              <span className="hidden lg:inline">Solicitar </span>
-              <span>Orçamento</span>
-            </Button>
-          </div>
+          {/* Desktop CTA Button - Hide when cart has items */}
+          {!hasCartItems && (
+            <div className="hidden md:block flex-shrink-0">
+              <Button 
+                onClick={() => scrollToSection('#contato')}
+                variant="secondary"
+                size={isMobile ? "sm" : "default"}
+                className="bg-accent hover:bg-accent/90 text-accent-foreground text-xs sm:text-sm lg:text-base px-2 sm:px-3 lg:px-4 xl:px-6 py-1.5 sm:py-2 whitespace-nowrap min-w-fit"
+              >
+                <span className="hidden lg:inline">Solicitar </span>
+                <span>Orçamento</span>
+              </Button>
+            </div>
+          )}
 
           {/* Mobile Menu */}
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>

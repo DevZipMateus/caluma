@@ -21,9 +21,9 @@ const FloatingCart: React.FC = () => {
 
   return (
     <>
-      <div className="fixed bottom-6 left-6 z-40">
+      <div className="fixed top-4 right-4 z-50">
         <div className={`bg-white rounded-2xl shadow-2xl border border-gray-100 transition-all duration-500 ease-out ${
-          isExpanded ? 'w-96 max-w-[calc(100vw-3rem)]' : 'w-auto'
+          isExpanded ? 'w-96 max-w-[calc(100vw-2rem)]' : 'w-auto'
         } ${isExpanded ? 'scale-100' : 'hover:scale-105'}`}>
           
           {/* Cart Header with Gradient Background */}
@@ -43,21 +43,23 @@ const FloatingCart: React.FC = () => {
               >
                 <div className="relative">
                   <div className="bg-white/20 backdrop-blur-sm rounded-xl p-3 transition-all duration-300 hover:bg-white/30">
-                    <ShoppingCart size={24} className="text-white" />
+                    <ShoppingCart size={20} className="text-white" />
                   </div>
                   <Badge 
                     variant="default" 
-                    className="absolute -top-1 -right-1 h-6 w-6 p-0 flex items-center justify-center text-xs bg-accent hover:bg-accent text-accent-foreground font-bold animate-pulse"
+                    className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center text-xs bg-accent hover:bg-accent text-accent-foreground font-bold animate-pulse"
                   >
                     {totalItems}
                   </Badge>
                 </div>
-                <div className="flex flex-col items-start text-left">
-                  <span className="font-bold text-lg text-white">Carrinho</span>
-                  <span className="text-sm text-white/90 font-medium">
-                    {`${totalItems} ${totalItems === 1 ? 'item' : 'itens'}`}
-                  </span>
-                </div>
+                {isExpanded && (
+                  <div className="flex flex-col items-start text-left">
+                    <span className="font-bold text-base text-white">Carrinho</span>
+                    <span className="text-sm text-white/90 font-medium">
+                      {`${totalItems} ${totalItems === 1 ? 'item' : 'itens'}`}
+                    </span>
+                  </div>
+                )}
               </Button>
               
               {isExpanded && (
@@ -156,14 +158,14 @@ const FloatingCart: React.FC = () => {
 
           {/* Compact Finalize Button - Show when collapsed */}
           {!isExpanded && (
-            <div className="p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-b-2xl">
+            <div className="p-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-b-2xl">
               <Button
                 onClick={() => setIsQuoteModalOpen(true)}
                 className="w-full bg-gradient-to-r from-accent to-accent/90 hover:from-accent/90 hover:to-accent/80 text-accent-foreground font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]"
                 size="sm"
               >
-                <MessageSquare size={16} className="mr-2" />
-                Solicitar Orçamento
+                <MessageSquare size={14} className="mr-1" />
+                <span className="text-xs">Orçamento</span>
               </Button>
             </div>
           )}
