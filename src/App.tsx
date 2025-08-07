@@ -14,10 +14,10 @@ import Canecas from './pages/Canecas';
 import Sublimacao from './pages/Sublimacao';
 import Serigrafia from './pages/Serigrafia';
 import { useScrollToTop } from './hooks/useScrollToTop';
-import { useIsMobile } from './hooks/use-mobile';
+import { useIsDesktop } from './hooks/useIsDesktop';
 
 function MainPage() {
-  const isMobile = useIsMobile();
+  const isDesktop = useIsDesktop();
 
   // Scroll to top on page load
   useEffect(() => {
@@ -30,7 +30,7 @@ function MainPage() {
       <Categories />
       
       {/* Show Hero only on desktop */}
-      {!isMobile && (
+      {isDesktop && (
         <main className="flex-grow">
           <Hero />
         </main>
