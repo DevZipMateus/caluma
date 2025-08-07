@@ -1,0 +1,377 @@
+
+{
+  "siteName": "Gráfica e Serigrafia",
+  "description": "Site de produtos gráficos, serigrafia, sublimação e equipamentos",
+  "categories": [
+    {
+      "id": "camisas-uniformes",
+      "name": "Camisas e Uniformes",
+      "slug": "camisas-uniformes",
+      "description": "Camisas personalizadas e uniformes profissionais",
+      "route": "/camisas-uniformes",
+      "subcategories": [
+        {
+          "name": "Camisa Polo Feminina",
+          "image": "/lovable-uploads/galeria/camisa polo feminina.jpg",
+          "products": [
+            {
+              "id": 1,
+              "name": "Camisa Polo Feminina",
+              "image": "/lovable-uploads/galeria/camisa polo feminina.jpg",
+              "description": "Polo feminina de alta qualidade"
+            }
+          ]
+        },
+        {
+          "name": "Camisa Polo Masculina",
+          "image": "/lovable-uploads/galeria/camisa polo.jpg",
+          "products": [
+            {
+              "id": 2,
+              "name": "Camisa Polo",
+              "image": "/lovable-uploads/galeria/camisa polo.jpg",
+              "description": "Polo masculina clássica"
+            }
+          ]
+        },
+        {
+          "name": "Masculina Algodão",
+          "image": "/lovable-uploads/galeria/masculina algodão.jpg",
+          "products": [
+            {
+              "id": 7,
+              "name": "Camiseta Masculina Algodão",
+              "image": "/lovable-uploads/galeria/masculina algodão.jpg",
+              "description": "Camiseta 100% algodão masculina"
+            }
+          ]
+        },
+        {
+          "name": "Masculina Reglan",
+          "image": "/lovable-uploads/galeria/masculina reglan.jpg",
+          "products": [
+            {
+              "id": 8,
+              "name": "Camiseta Masculina Raglan",
+              "image": "/lovable-uploads/galeria/masculina reglan.jpg",
+              "description": "Camiseta raglan masculina"
+            }
+          ]
+        },
+        {
+          "name": "Regata Feminina Branca",
+          "image": "/lovable-uploads/galeria/regata feminina.jpg",
+          "products": [
+            {
+              "id": 13,
+              "name": "Regata Feminina",
+              "image": "/lovable-uploads/galeria/regata feminina.jpg",
+              "description": "Regata feminina personalizada"
+            }
+          ]
+        },
+        {
+          "name": "Regata Masculina Branca",
+          "image": "/lovable-uploads/galeria/regata masculina.jpg",
+          "products": [
+            {
+              "id": 14,
+              "name": "Regata Masculina",
+              "image": "/lovable-uploads/galeria/regata masculina.jpg",
+              "description": "Regata masculina de qualidade"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "canecas",
+      "name": "Canecas",
+      "slug": "canecas",
+      "description": "Canecas personalizadas em diversos materiais",
+      "route": "/canecas",
+      "subcategories": [
+        {
+          "name": "CANECA ALUMÍNIO",
+          "image": "/lovable-uploads/galeria/caneca aluminio.jpg",
+          "products": [
+            {
+              "id": 3,
+              "name": "Caneca Alumínio",
+              "image": "/lovable-uploads/galeria/caneca aluminio.jpg",
+              "description": "Caneca personalizada em alumínio"
+            }
+          ]
+        },
+        {
+          "name": "CANECA INOX",
+          "image": "/lovable-uploads/galeria/caneca inox.jpg",
+          "products": [
+            {
+              "id": 4,
+              "name": "Caneca Inox",
+              "image": "/lovable-uploads/galeria/caneca inox.jpg",
+              "description": "Caneca térmica em inox"
+            }
+          ]
+        },
+        {
+          "name": "CANECA CHOPP",
+          "image": "/lovable-uploads/galeria/canecas chopp.jpg",
+          "products": [
+            {
+              "id": 5,
+              "name": "Canecas Chopp",
+              "image": "/lovable-uploads/galeria/canecas chopp.jpg",
+              "description": "Canecas para chopp personalizadas"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "papelaria",
+      "name": "Papelaria",
+      "slug": "papelaria",
+      "description": "Produtos para papelaria e impressão",
+      "route": "/papelaria",
+      "subcategories": [
+        {
+          "name": "ADESIVO 30 FOLHAS",
+          "image": "/lovable-uploads/galeria/papeis adesivos.jpg",
+          "products": [
+            {
+              "id": 9,
+              "name": "Papéis Adesivos",
+              "image": "/lovable-uploads/galeria/papeis adesivos.jpg",
+              "description": "Variedade de papéis adesivos"
+            }
+          ]
+        },
+        {
+          "name": "FOTOGRÁFICO A4 20 FOLHAS",
+          "image": "/lovable-uploads/galeria/papel fotografico.jpg",
+          "products": [
+            {
+              "id": 10,
+              "name": "Papel Fotográfico",
+              "image": "/lovable-uploads/galeria/papel fotografico.jpg",
+              "description": "Papel fotográfico de qualidade"
+            }
+          ]
+        },
+        {
+          "name": "FOTOGRÁFICO A4 50 FOLHAS",
+          "image": "/lovable-uploads/galeria/papel fotografico.jpg",
+          "products": [
+            {
+              "id": 10,
+              "name": "Papel Fotográfico",
+              "image": "/lovable-uploads/galeria/papel fotografico.jpg",
+              "description": "Papel fotográfico de qualidade"
+            }
+          ]
+        },
+        {
+          "name": "FOTOGRÁFICO A4 ESPECIAL",
+          "image": "/lovable-uploads/galeria/papel fotografico.jpg",
+          "products": [
+            {
+              "id": 10,
+              "name": "Papel Fotográfico",
+              "image": "/lovable-uploads/galeria/papel fotografico.jpg",
+              "description": "Papel fotográfico de qualidade"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "equipamentos",
+      "name": "Equipamentos",
+      "slug": "equipamentos",
+      "description": "Equipamentos profissionais para gráfica",
+      "route": "/equipamentos",
+      "subcategories": [
+        {
+          "name": "PRENSA PLANA",
+          "image": "/lovable-uploads/galeria/prensa plana.jpg",
+          "products": [
+            {
+              "id": 11,
+              "name": "Prensa Plana",
+              "image": "/lovable-uploads/galeria/prensa plana.jpg",
+              "description": "Prensa térmica plana profissional"
+            }
+          ]
+        },
+        {
+          "name": "DIAMOND 360º TRANSFER",
+          "image": "/lovable-uploads/galeria/prensa transfer.jpg",
+          "products": [
+            {
+              "id": 12,
+              "name": "Prensa Transfer",
+              "image": "/lovable-uploads/galeria/prensa transfer.jpg",
+              "description": "Prensa para transfer e sublimação"
+            }
+          ]
+        },
+        {
+          "name": "PLOTTER DE RECORTE",
+          "image": "/lovable-uploads/galeria/maquina de corte.jpg",
+          "products": [
+            {
+              "id": 6,
+              "name": "Máquina de Corte",
+              "image": "/lovable-uploads/galeria/maquina de corte.jpg",
+              "description": "Equipamento profissional de corte"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sublimacao",
+      "name": "Sublimação",
+      "slug": "sublimacao",
+      "description": "Produtos e serviços de sublimação",
+      "route": "/sublimacao",
+      "subcategories": [
+        {
+          "name": "CANECA ALUMÍNIO",
+          "image": "/lovable-uploads/galeria/caneca aluminio.jpg",
+          "products": [
+            {
+              "id": 3,
+              "name": "Caneca Alumínio",
+              "image": "/lovable-uploads/galeria/caneca aluminio.jpg",
+              "description": "Caneca personalizada em alumínio"
+            }
+          ]
+        },
+        {
+          "name": "FOTOGRÁFICO A4 20 FOLHAS",
+          "image": "/lovable-uploads/galeria/papel fotografico.jpg",
+          "products": [
+            {
+              "id": 10,
+              "name": "Papel Fotográfico",
+              "image": "/lovable-uploads/galeria/papel fotografico.jpg",
+              "description": "Papel fotográfico de qualidade"
+            }
+          ]
+        },
+        {
+          "name": "DIAMOND 360º TRANSFER",
+          "image": "/lovable-uploads/galeria/prensa transfer.jpg",
+          "products": [
+            {
+              "id": 12,
+              "name": "Prensa Transfer",
+              "image": "/lovable-uploads/galeria/prensa transfer.jpg",
+              "description": "Prensa para transfer e sublimação"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "serigrafia",
+      "name": "Serigrafia",
+      "slug": "serigrafia",
+      "description": "Serviços de serigrafia personalizada",
+      "route": "/serigrafia",
+      "subcategories": [
+        {
+          "name": "CANECA ALUMÍNIO",
+          "image": "/lovable-uploads/galeria/caneca aluminio.jpg",
+          "products": [
+            {
+              "id": 3,
+              "name": "Caneca Alumínio",
+              "image": "/lovable-uploads/galeria/caneca aluminio.jpg",
+              "description": "Caneca personalizada em alumínio"
+            }
+          ]
+        },
+        {
+          "name": "Camisa Polo Masculina",
+          "image": "/lovable-uploads/galeria/camisa polo.jpg",
+          "products": [
+            {
+              "id": 2,
+              "name": "Camisa Polo",
+              "image": "/lovable-uploads/galeria/camisa polo.jpg",
+              "description": "Polo masculina clássica"
+            }
+          ]
+        },
+        {
+          "name": "Masculina Algodão",
+          "image": "/lovable-uploads/galeria/masculina algodão.jpg",
+          "products": [
+            {
+              "id": 7,
+              "name": "Camiseta Masculina Algodão",
+              "image": "/lovable-uploads/galeria/masculina algodão.jpg",
+              "description": "Camiseta 100% algodão masculina"
+            }
+          ]
+        },
+        {
+          "name": "Regata Masculina Branca",
+          "image": "/lovable-uploads/galeria/regata masculina.jpg",
+          "products": [
+            {
+              "id": 14,
+              "name": "Regata Masculina",
+              "image": "/lovable-uploads/galeria/regata masculina.jpg",
+              "description": "Regata masculina de qualidade"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "defaultSubcategories": {
+    "camisas-uniformes": "Camisa Polo Masculina",
+    "sublimacao": "CANECA ALUMÍNIO",
+    "serigrafia": "CANECA ALUMÍNIO",
+    "papelaria": "ADESIVO 30 FOLHAS",
+    "canecas": "CANECA ALUMÍNIO",
+    "equipamentos": "PRENSA PLANA"
+  },
+  "navigation": {
+    "mainPages": [
+      { "name": "Home", "route": "/" },
+      { "name": "Camisas e Uniformes", "route": "/camisas-uniformes" },
+      { "name": "Canecas", "route": "/canecas" },
+      { "name": "Papelaria", "route": "/papelaria" },
+      { "name": "Equipamentos", "route": "/equipamentos" },
+      { "name": "Sublimação", "route": "/sublimacao" },
+      { "name": "Serigrafia", "route": "/serigrafia" }
+    ]
+  },
+  "features": {
+    "productSelection": true,
+    "shoppingCart": true,
+    "quoteModal": true,
+    "mobileResponsive": true,
+    "desktopSidebar": true,
+    "subcategoryNavigation": true
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2025-01-07",
+    "totalProducts": 14,
+    "totalCategories": 6,
+    "technology": {
+      "frontend": "React + TypeScript",
+      "styling": "Tailwind CSS",
+      "routing": "React Router",
+      "stateManagement": "Context API + Zustand",
+      "backend": "Supabase"
+    }
+  }
+}
