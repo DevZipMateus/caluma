@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { MessageCircle, ShoppingCart, Plus, Minus, Check } from 'lucide-react';
+import { ShoppingCart, Plus, Minus, Check } from 'lucide-react';
 import { useProductSelection } from '../hooks/useProductSelection';
 import { getSubcategoryProducts } from '../utils/subcategoryProducts';
 
@@ -18,13 +18,6 @@ const SubcategoryProducts: React.FC<SubcategoryProductsProps> = ({ subcategory }
   const products = getSubcategoryProducts(subcategory);
   
   if (products.length === 0) return null;
-
-  const handleWhatsAppContact = (productName: string) => {
-    const message = `Olá! Gostaria de mais informações sobre: ${productName}`;
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappURL = `https://wa.me/5573998503370?text=${encodedMessage}`;
-    window.open(whatsappURL, '_blank');
-  };
 
   const handleSelectProduct = (product: typeof products[0]) => {
     const selectedProduct = selectedProducts.find(p => p.id === product.id);
@@ -92,7 +85,7 @@ const SubcategoryProducts: React.FC<SubcategoryProductsProps> = ({ subcategory }
                         className={`w-full ${isSelected ? 'bg-primary hover:bg-primary/90' : 'bg-secondary hover:bg-secondary/80'}`}
                         size="sm"
                       >
-                        <ShoppingCart size={14} className="mr-2" />
+                        {isSelected ? <Check size={14} className="mr-2" /> : <ShoppingCart size={14} className="mr-2" />}
                         {isSelected ? `Selecionado (${quantity})` : 'Selecionar Produto'}
                       </Button>
 
@@ -129,17 +122,6 @@ const SubcategoryProducts: React.FC<SubcategoryProductsProps> = ({ subcategory }
                           </div>
                         </div>
                       )}
-
-                      {/* WhatsApp Contact Button */}
-                      <Button
-                        onClick={() => handleWhatsAppContact(product.name)}
-                        size="sm"
-                        variant="ghost"
-                        className="w-full"
-                      >
-                        <MessageCircle size={14} className="mr-2" />
-                        Mais Informações
-                      </Button>
                     </div>
                   </CardContent>
                 </Card>
