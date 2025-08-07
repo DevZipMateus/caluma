@@ -1,9 +1,9 @@
-import React from 'react';
+
+import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FloatingButton from '../components/FloatingButton';
 import CategoryMenu from '../components/CategoryMenu';
-import SubcategoryImage from '../components/SubcategoryImage';
 import CategoryCarousel from '../components/CategoryCarousel';
 import MobileButtonRow from '../components/MobileButtonRow';
 import { AppSidebar } from '../components/AppSidebar';
@@ -14,8 +14,14 @@ import SubcategoryProducts from '../components/SubcategoryProducts';
 import FloatingCart from '../components/FloatingCart';
 
 const Sublimacao = () => {
-  const { selectedSubcategory } = useSelectedSubcategory();
+  const { selectedSubcategory, setSelectedSubcategory } = useSelectedSubcategory();
   const isDesktop = useIsDesktop();
+
+  // Reset subcategory state when entering this page
+  useEffect(() => {
+    console.log('[Sublimacao] Page mounted, resetting subcategory state');
+    setSelectedSubcategory(null);
+  }, [setSelectedSubcategory]);
 
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden w-full">

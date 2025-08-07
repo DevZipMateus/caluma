@@ -1,11 +1,11 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 interface UseAutoCarouselProps {
   items: string[];
   interval?: number;
   enabled?: boolean;
-  categorySlug?: string; // Add categorySlug to help with transitions
+  categorySlug?: string;
 }
 
 export const useAutoCarousel = ({ 
@@ -15,23 +15,57 @@ export const useAutoCarousel = ({
   categorySlug 
 }: UseAutoCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const timerRef = useRef<NodeJS.Timeout>();
+  const previousCategoryRef = useRef<string>();
 
-  // Reset currentIndex immediately when category changes
+  // Função para limpar timer
+  const clearTimer = useCallback(() => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = undefined;
+    }
+  }, []);
+
+  // Reset imediato e agressivo quando categoria muda
   useEffect(() => {
-    console.log(`[useAutoCarousel] Category changed to: ${categorySlug}, resetting to index 0`);
-    setCurrentIndex(0);
-  }, [categorySlug]);
+    if (categorySlug && categorySlug !== previousCategoryRef.current) {
+      console.log(`[useAutoCarousel] Category change detected: ${previousCategoryRef.current} -> ${categorySlug}`);
+      
+      // Limpar timer imediatamente
+      clearTimer();
+      
+      // Reset imediato do estado
+      setCurrentIndex(0);
+      setIsTransitioning(true);
+      
+      // Atualizar referência da categoria anterior
+      previousCategoryRef.current = categorySlug;
+      
+      // Pequeno delay para garantir que a transição seja visível
+      setTimeout(() => {
+        setIsTransitioning(false);
+      }, 150);
+    }
+  }, [categorySlug, clearTimer]);
 
-  // Reset currentIndex when items array changes
+  // Reset quando items mudam
   useEffect(() => {
     console.log(`[useAutoCarousel] Items changed, count: ${items.length}, resetting to index 0`);
+    clearTimer();
     setCurrentIndex(0);
-  }, [items]);
+    setIsTransitioning(true);
+    
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 100);
+  }, [items.length, clearTimer]);
 
+  // Timer para auto-advance
   useEffect(() => {
-    if (!enabled || items.length <= 1) return;
+    if (!enabled || items.length <= 1 || isTransitioning) return;
 
-    const timer = setInterval(() => {
+    timerRef.current = setInterval(() => {
       setCurrentIndex((prevIndex) => {
         const nextIndex = prevIndex === items.length - 1 ? 0 : prevIndex + 1;
         console.log(`[useAutoCarousel] Auto-advancing from ${prevIndex} to ${nextIndex}`);
@@ -39,28 +73,34 @@ export const useAutoCarousel = ({
       });
     }, interval);
 
-    return () => clearInterval(timer);
-  }, [items.length, interval, enabled]);
+    return () => clearTimer();
+  }, [items.length, interval, enabled, isTransitioning, clearTimer]);
 
-  const goToSlide = (index: number) => {
+  // Cleanup ao desmontar
+  useEffect(() => {
+    return () => clearTimer();
+  }, [clearTimer]);
+
+  const goToSlide = useCallback((index: number) => {
     console.log(`[useAutoCarousel] Manual navigation to slide ${index}`);
     setCurrentIndex(index);
-  };
+  }, []);
 
-  const goToPrevious = () => {
+  const goToPrevious = useCallback(() => {
     const newIndex = currentIndex === 0 ? items.length - 1 : currentIndex - 1;
     console.log(`[useAutoCarousel] Previous: ${currentIndex} -> ${newIndex}`);
     setCurrentIndex(newIndex);
-  };
+  }, [currentIndex, items.length]);
 
-  const goToNext = () => {
+  const goToNext = useCallback(() => {
     const newIndex = currentIndex === items.length - 1 ? 0 : currentIndex + 1;
     console.log(`[useAutoCarousel] Next: ${currentIndex} -> ${newIndex}`);
     setCurrentIndex(newIndex);
-  };
+  }, [currentIndex, items.length]);
 
   return {
     currentIndex,
+    isTransitioning,
     goToSlide,
     goToPrevious,
     goToNext

@@ -1,7 +1,8 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { useAutoCarousel } from '../hooks/useAutoCarousel';
+import { useImagePreloader } from '../hooks/useImagePreloader';
 import { getCategoryImages } from '../utils/categoryImages';
 import { getFirstSubcategoryForCategory } from '../hooks/useSelectedSubcategory';
 import { getSubcategoryCarouselImages } from '../utils/subcategoryCarouselImages';
@@ -12,6 +13,8 @@ interface CategoryCarouselProps {
 }
 
 const CategoryCarousel: React.FC<CategoryCarouselProps> = ({ categorySlug, categoryName }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  
   // Sempre usar imagens da primeira subcategoria para o carrossel
   const firstSubcategory = getFirstSubcategoryForCategory(categorySlug);
   const subcategoryImages = firstSubcategory ? getSubcategoryCarouselImages(firstSubcategory) : [];
@@ -20,16 +23,33 @@ const CategoryCarousel: React.FC<CategoryCarouselProps> = ({ categorySlug, categ
   const fallbackImages = getCategoryImages(categorySlug);
   const images = subcategoryImages.length > 0 ? subcategoryImages : fallbackImages;
   
-  const { currentIndex, goToSlide } = useAutoCarousel({ 
+  // Memoizar para evitar recalculos desnecessários
+  const firstImage = useMemo(() => images[0], [images]);
+  const displayName = useMemo(() => firstSubcategory || categoryName, [firstSubcategory, categoryName]);
+  
+  // Pré-carregar primeira imagem
+  const { isLoaded: firstImageLoaded } = useImagePreloader(firstImage);
+  
+  const { currentIndex, isTransitioning, goToSlide } = useAutoCarousel({ 
     items: images, 
     interval: 3000, 
-    enabled: true,
-    categorySlug // Pass categorySlug to help with transitions
+    enabled: !isTransitioning && isVisible,
+    categorySlug
   });
 
-  // Force re-render when categorySlug changes to ensure correct images display immediately
+  // Controle de visibilidade com delay para garantir transição suave
   useEffect(() => {
     console.log(`[CategoryCarousel] Loading category: ${categorySlug} with first subcategory: ${firstSubcategory}, ${images.length} images`);
+    
+    // Reset visibility imediatamente
+    setIsVisible(false);
+    
+    // Pequeno delay para garantir que o componente seja re-renderizado
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, [categorySlug, firstSubcategory, images.length]);
 
   if (images.length === 0) {
@@ -37,28 +57,54 @@ const CategoryCarousel: React.FC<CategoryCarouselProps> = ({ categorySlug, categ
     return null;
   }
 
-  const displayName = firstSubcategory || categoryName;
-
   return (
-    <div className="w-full mb-4 sm:mb-6 animate-fade-in" key={categorySlug}>
+    <div 
+      key={`carousel-${categorySlug}-${Date.now()}`} // Key único para forçar re-montagem completa
+      className={`w-full mb-4 sm:mb-6 transition-opacity duration-500 ${
+        isVisible && firstImageLoaded ? 'opacity-100 animate-fade-in' : 'opacity-0'
+      }`}
+    >
       <div className="bg-white rounded-lg shadow-lg overflow-hidden">
         <div className="relative">
+          {/* Loading overlay */}
+          {(!firstImageLoaded || isTransitioning) && (
+            <div className="absolute inset-0 z-10 bg-gray-100 flex items-center justify-center">
+              <div className="animate-pulse text-gray-500">
+                Carregando imagens...
+              </div>
+            </div>
+          )}
+          
           <Carousel className="w-full">
             <CarouselContent>
               {images.map((image, index) => (
-                <CarouselItem key={`${categorySlug}-${index}`} className={index === currentIndex ? 'block' : 'hidden'}>
+                <CarouselItem 
+                  key={`${categorySlug}-${index}-${image}`} // Key único por categoria e imagem
+                  className={index === currentIndex ? 'block' : 'hidden'}
+                >
                   <div className="w-full h-[600px]">
                     <img
-                      src={image}
+                      src={`${image}?t=${Date.now()}`} // Cache busting
                       alt={`Produto ${index + 1} - ${displayName}`}
-                      className="w-full h-full object-contain transition-opacity duration-500"
+                      className={`w-full h-full object-contain transition-all duration-500 ${
+                        isTransitioning ? 'opacity-50 scale-95' : 'opacity-100 scale-100'
+                      }`}
                       loading={index === 0 ? 'eager' : 'lazy'}
+                      onLoad={() => {
+                        if (index === 0) {
+                          console.log(`[CategoryCarousel] First image loaded for ${categorySlug}`);
+                        }
+                      }}
+                      onError={() => {
+                        console.error(`[CategoryCarousel] Failed to load image: ${image}`);
+                      }}
                     />
                   </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
-            {images.length > 1 && (
+            
+            {images.length > 1 && !isTransitioning && (
               <>
                 <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2" />
                 <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2" />
@@ -67,7 +113,7 @@ const CategoryCarousel: React.FC<CategoryCarouselProps> = ({ categorySlug, categ
           </Carousel>
           
           {/* Indicadores de slides */}
-          {images.length > 1 && (
+          {images.length > 1 && !isTransitioning && (
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
               {images.map((_, index) => (
                 <button

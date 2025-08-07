@@ -1,9 +1,9 @@
+
 import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FloatingButton from '../components/FloatingButton';
 import CategoryMenu from '../components/CategoryMenu';
-import SubcategoryImage from '../components/SubcategoryImage';
 import CategoryCarousel from '../components/CategoryCarousel';
 import MobileButtonRow from '../components/MobileButtonRow';
 import { AppSidebar } from '../components/AppSidebar';
@@ -15,16 +15,17 @@ import SubcategoryProducts from '../components/SubcategoryProducts';
 import FloatingCart from '../components/FloatingCart';
 
 const Canecas = () => {
-  const { selectedSubcategory, setDefaultSubcategory } = useSelectedSubcategory();
+  const { selectedSubcategory, setSelectedSubcategory, setDefaultSubcategory } = useSelectedSubcategory();
   const { closeAllDropdowns } = useDesktopDropdownState();
   const isDesktop = useIsDesktop();
 
   // Close dropdowns and set default subcategory when component mounts
   useEffect(() => {
-    console.log('[Canecas] Page mounted, closing all dropdowns and setting default subcategory');
+    console.log('[Canecas] Page mounted, closing all dropdowns and resetting subcategory state');
     closeAllDropdowns();
+    setSelectedSubcategory(null); // Reset first, then set default
     setDefaultSubcategory('canecas');
-  }, [closeAllDropdowns, setDefaultSubcategory]);
+  }, [closeAllDropdowns, setSelectedSubcategory, setDefaultSubcategory]);
 
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden w-full">
