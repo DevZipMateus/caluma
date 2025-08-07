@@ -14,8 +14,11 @@ import Canecas from './pages/Canecas';
 import Sublimacao from './pages/Sublimacao';
 import Serigrafia from './pages/Serigrafia';
 import { useScrollToTop } from './hooks/useScrollToTop';
+import { useIsMobile } from './hooks/use-mobile';
 
 function MainPage() {
+  const isMobile = useIsMobile();
+
   // Scroll to top on page load
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -26,9 +29,12 @@ function MainPage() {
       <Header />
       <Categories />
       
-      <main className="flex-grow">
-        <Hero />
-      </main>
+      {/* Show Hero only on desktop */}
+      {!isMobile && (
+        <main className="flex-grow">
+          <Hero />
+        </main>
+      )}
       
       <Footer />
       <FloatingButton />
