@@ -1,38 +1,47 @@
+
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ShoppingCart, Plus, Minus, Check } from 'lucide-react';
+import { ShoppingCart, Plus, Minus, Check, CheckCircle } from 'lucide-react';
 import { useProductSelection } from '../hooks/useProductSelection';
 import { getSubcategoryProducts } from '../utils/subcategoryProducts';
+
 interface SubcategoryProductsProps {
   subcategory: string | null;
 }
+
 const SubcategoryProducts: React.FC<SubcategoryProductsProps> = ({
   subcategory
 }) => {
   const {
     selectedProducts,
-    addProduct,
+    productsInSelection,
+    selectProduct,
+    updateSelectionQuantity,
+    removeFromSelection,
+    addToCart,
     removeProduct,
-    updateQuantity
+    updateQuantity,
+    getProductInSelection,
+    getProductInCart
   } = useProductSelection();
+
   if (!subcategory) return null;
+
   const products = getSubcategoryProducts(subcategory);
   if (products.length === 0) return null;
+
   const handleSelectProduct = (product: typeof products[0]) => {
-    addProduct({
+    selectProduct({
       id: product.id,
       name: product.name,
       image: product.image,
-      description: product.description,
-      quantity: 1
+      description: product.description
     });
   };
-  const getProductQuantity = (productId: number) => {
-    const product = selectedProducts.find(p => p.id === productId);
-    return product ? product.quantity : 0;
-  };
-  return <div className="w-full mb-4 sm:mb-6 animate-fade-in">
+
+  return (
+    <div className="w-full mb-4 sm:mb-6 animate-fade-in">
       <div className="bg-white rounded-lg shadow-lg overflow-hidden">
         <div className="p-3 sm:p-4">
           <h3 className="text-base sm:text-lg lg:text-xl font-semibold text-primary mb-4">
@@ -41,15 +50,30 @@ const SubcategoryProducts: React.FC<SubcategoryProductsProps> = ({
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {products.map(product => {
-            const quantity = getProductQuantity(product.id);
-            const isSelected = quantity > 0;
-            return <Card key={product.id} className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              const productInSelection = getProductInSelection(product.id);
+              const productInCart = getProductInCart(product.id);
+              const isSelected = !!productInSelection;
+              const isInCart = !!productInCart;
+              
+              return (
+                <Card key={product.id} className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                   <CardContent className="p-0">
                     <div className="aspect-square overflow-hidden rounded-t-lg relative">
-                      <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                      {isSelected && <div className="absolute top-2 right-2 bg-primary text-primary-foreground rounded-full p-1">
+                      <img 
+                        src={product.image} 
+                        alt={product.name} 
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                      />
+                      {isInCart && (
+                        <div className="absolute top-2 right-2 bg-green-600 text-white rounded-full p-1">
+                          <CheckCircle size={16} />
+                        </div>
+                      )}
+                      {isSelected && !isInCart && (
+                        <div className="absolute top-2 right-2 bg-primary text-primary-foreground rounded-full p-1">
                           <Check size={16} />
-                        </div>}
+                        </div>
+                      )}
                     </div>
                     
                     <div className="p-3 space-y-3">
@@ -63,14 +87,21 @@ const SubcategoryProducts: React.FC<SubcategoryProductsProps> = ({
                         </p>
                       </div>
 
-                      {/* Selection Button - Show when not selected */}
-                      {!isSelected && <Button onClick={() => handleSelectProduct(product)} size="sm" className="w-full bg-gray-950 hover:bg-gray-800">
+                      {/* Not Selected State */}
+                      {!isSelected && !isInCart && (
+                        <Button 
+                          onClick={() => handleSelectProduct(product)} 
+                          size="sm" 
+                          className="w-full bg-gray-950 hover:bg-gray-800"
+                        >
                           <ShoppingCart size={14} className="mr-2" />
                           Selecionar Produto
-                        </Button>}
+                        </Button>
+                      )}
 
-                      {/* Quantity Controls - Show when selected */}
-                      {isSelected && <div className="space-y-2">
+                      {/* Selected State - Configure Quantity */}
+                      {isSelected && !isInCart && productInSelection && (
+                        <div className="space-y-2">
                           {/* Selected Status */}
                           <div className="flex items-center justify-center bg-primary/10 rounded-lg p-2">
                             <Check size={16} className="mr-2 text-primary" />
@@ -81,31 +112,109 @@ const SubcategoryProducts: React.FC<SubcategoryProductsProps> = ({
                           <div className="flex items-center justify-between bg-primary/10 rounded-lg p-2">
                             <span className="text-sm font-medium text-primary">Quantidade:</span>
                             <div className="flex items-center gap-2">
-                              <Button size="sm" variant="outline" className="h-7 w-7 p-0" onClick={() => {
-                          if (quantity === 1) {
-                            removeProduct(product.id);
-                          } else {
-                            updateQuantity(product.id, quantity - 1);
-                          }
-                        }}>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="h-7 w-7 p-0"
+                                onClick={() => {
+                                  if (productInSelection.quantity === 1) {
+                                    removeFromSelection(product.id);
+                                  } else {
+                                    updateSelectionQuantity(product.id, productInSelection.quantity - 1);
+                                  }
+                                }}
+                              >
                                 <Minus size={12} />
                               </Button>
                               <span className="text-sm font-bold min-w-[24px] text-center bg-white px-2 py-1 rounded">
-                                {quantity}
+                                {productInSelection.quantity}
                               </span>
-                              <Button size="sm" variant="outline" className="h-7 w-7 p-0" onClick={() => updateQuantity(product.id, quantity + 1)}>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="h-7 w-7 p-0"
+                                onClick={() => updateSelectionQuantity(product.id, productInSelection.quantity + 1)}
+                              >
                                 <Plus size={12} />
                               </Button>
                             </div>
                           </div>
-                        </div>}
+
+                          {/* Add to Cart Button */}
+                          <Button
+                            onClick={() => addToCart(product.id)}
+                            size="sm"
+                            className="w-full bg-green-600 hover:bg-green-700 text-white"
+                          >
+                            <ShoppingCart size={14} className="mr-2" />
+                            Adicionar ao Carrinho
+                          </Button>
+                        </div>
+                      )}
+
+                      {/* In Cart State */}
+                      {isInCart && productInCart && (
+                        <div className="space-y-2">
+                          {/* In Cart Status */}
+                          <div className="flex items-center justify-center bg-green-50 rounded-lg p-2">
+                            <CheckCircle size={16} className="mr-2 text-green-600" />
+                            <span className="text-sm font-medium text-green-600">No Carrinho</span>
+                          </div>
+                          
+                          {/* Quantity Controls */}
+                          <div className="flex items-center justify-between bg-green-50 rounded-lg p-2">
+                            <span className="text-sm font-medium text-green-600">Quantidade:</span>
+                            <div className="flex items-center gap-2">
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="h-7 w-7 p-0 border-green-200 hover:bg-green-100"
+                                onClick={() => {
+                                  if (productInCart.quantity === 1) {
+                                    removeProduct(product.id);
+                                  } else {
+                                    updateQuantity(product.id, productInCart.quantity - 1);
+                                  }
+                                }}
+                              >
+                                <Minus size={12} />
+                              </Button>
+                              <span className="text-sm font-bold min-w-[24px] text-center bg-white px-2 py-1 rounded border border-green-200">
+                                {productInCart.quantity}
+                              </span>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="h-7 w-7 p-0 border-green-200 hover:bg-green-100"
+                                onClick={() => updateQuantity(product.id, productInCart.quantity + 1)}
+                              >
+                                <Plus size={12} />
+                              </Button>
+                            </div>
+                          </div>
+
+                          {/* Add More Button */}
+                          <Button
+                            onClick={() => handleSelectProduct(product)}
+                            size="sm"
+                            variant="outline"
+                            className="w-full border-green-200 text-green-600 hover:bg-green-50"
+                          >
+                            <Plus size={14} className="mr-2" />
+                            Adicionar Mais
+                          </Button>
+                        </div>
+                      )}
                     </div>
                   </CardContent>
-                </Card>;
-          })}
+                </Card>
+              );
+            })}
           </div>
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
+
 export default SubcategoryProducts;
