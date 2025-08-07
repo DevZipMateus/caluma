@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ShoppingCart, Plus, Minus, Check, CheckCircle } from 'lucide-react';
+import { ShoppingCart, Plus, Minus, CheckCircle } from 'lucide-react';
 import { useProductSelection } from '../hooks/useProductSelection';
 import { getSubcategoryProducts } from '../utils/subcategoryProducts';
 
@@ -15,14 +15,9 @@ const SubcategoryProducts: React.FC<SubcategoryProductsProps> = ({
 }) => {
   const {
     selectedProducts,
-    productsInSelection,
-    selectProduct,
-    updateSelectionQuantity,
-    removeFromSelection,
-    addToCart,
+    addProductDirectly,
     removeProduct,
     updateQuantity,
-    getProductInSelection,
     getProductInCart
   } = useProductSelection();
 
@@ -31,8 +26,8 @@ const SubcategoryProducts: React.FC<SubcategoryProductsProps> = ({
   const products = getSubcategoryProducts(subcategory);
   if (products.length === 0) return null;
 
-  const handleSelectProduct = (product: typeof products[0]) => {
-    selectProduct({
+  const handleAddProduct = (product: typeof products[0]) => {
+    addProductDirectly({
       id: product.id,
       name: product.name,
       image: product.image,
@@ -50,9 +45,7 @@ const SubcategoryProducts: React.FC<SubcategoryProductsProps> = ({
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {products.map(product => {
-              const productInSelection = getProductInSelection(product.id);
               const productInCart = getProductInCart(product.id);
-              const isSelected = !!productInSelection;
               const isInCart = !!productInCart;
               
               return (
@@ -69,11 +62,6 @@ const SubcategoryProducts: React.FC<SubcategoryProductsProps> = ({
                           <CheckCircle size={16} />
                         </div>
                       )}
-                      {isSelected && !isInCart && (
-                        <div className="absolute top-2 right-2 bg-primary text-primary-foreground rounded-full p-1">
-                          <Check size={16} />
-                        </div>
-                      )}
                     </div>
                     
                     <div className="p-3 space-y-3">
@@ -87,69 +75,16 @@ const SubcategoryProducts: React.FC<SubcategoryProductsProps> = ({
                         </p>
                       </div>
 
-                      {/* Not Selected State */}
-                      {!isSelected && !isInCart && (
+                      {/* Not in Cart State - Direct Add */}
+                      {!isInCart && (
                         <Button 
-                          onClick={() => handleSelectProduct(product)} 
+                          onClick={() => handleAddProduct(product)} 
                           size="sm" 
-                          className="w-full bg-gray-950 hover:bg-gray-800"
+                          className="w-full bg-green-600 hover:bg-green-700 text-white"
                         >
                           <ShoppingCart size={14} className="mr-2" />
-                          Selecionar Produto
+                          Adicionar ao Carrinho
                         </Button>
-                      )}
-
-                      {/* Selected State - Configure Quantity */}
-                      {isSelected && !isInCart && productInSelection && (
-                        <div className="space-y-2">
-                          {/* Selected Status */}
-                          <div className="flex items-center justify-center bg-primary/10 rounded-lg p-2">
-                            <Check size={16} className="mr-2 text-primary" />
-                            <span className="text-sm font-medium text-primary">Produto Selecionado</span>
-                          </div>
-                          
-                          {/* Quantity Controls */}
-                          <div className="flex items-center justify-between bg-primary/10 rounded-lg p-2">
-                            <span className="text-sm font-medium text-primary">Quantidade:</span>
-                            <div className="flex items-center gap-2">
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                className="h-7 w-7 p-0"
-                                onClick={() => {
-                                  if (productInSelection.quantity === 1) {
-                                    removeFromSelection(product.id);
-                                  } else {
-                                    updateSelectionQuantity(product.id, productInSelection.quantity - 1);
-                                  }
-                                }}
-                              >
-                                <Minus size={12} />
-                              </Button>
-                              <span className="text-sm font-bold min-w-[24px] text-center bg-white px-2 py-1 rounded">
-                                {productInSelection.quantity}
-                              </span>
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                className="h-7 w-7 p-0"
-                                onClick={() => updateSelectionQuantity(product.id, productInSelection.quantity + 1)}
-                              >
-                                <Plus size={12} />
-                              </Button>
-                            </div>
-                          </div>
-
-                          {/* Add to Cart Button */}
-                          <Button
-                            onClick={() => addToCart(product.id)}
-                            size="sm"
-                            className="w-full bg-green-600 hover:bg-green-700 text-white"
-                          >
-                            <ShoppingCart size={14} className="mr-2" />
-                            Adicionar ao Carrinho
-                          </Button>
-                        </div>
                       )}
 
                       {/* In Cart State */}
@@ -195,7 +130,7 @@ const SubcategoryProducts: React.FC<SubcategoryProductsProps> = ({
 
                           {/* Add More Button */}
                           <Button
-                            onClick={() => handleSelectProduct(product)}
+                            onClick={() => handleAddProduct(product)}
                             size="sm"
                             variant="outline"
                             className="w-full border-green-200 text-green-600 hover:bg-green-50"

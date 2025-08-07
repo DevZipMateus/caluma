@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 
 export interface SelectedProduct {
@@ -27,6 +26,22 @@ export const useProductSelection = () => {
       if (existing) {
         return prev; // Already selected
       }
+      return [...prev, { ...product, quantity: 1 }];
+    });
+  };
+
+  const addProductDirectly = (product: Omit<SelectedProduct, 'quantity'>) => {
+    setSelectedProducts(prev => {
+      const existingProduct = prev.find(p => p.id === product.id);
+      if (existingProduct) {
+        // If product already exists in cart, increment quantity
+        return prev.map(p => 
+          p.id === product.id 
+            ? { ...p, quantity: p.quantity + 1 }
+            : p
+        );
+      }
+      // Add new product to cart with quantity 1
       return [...prev, { ...product, quantity: 1 }];
     });
   };
@@ -119,6 +134,7 @@ export const useProductSelection = () => {
     selectedProducts,
     productsInSelection,
     selectProduct,
+    addProductDirectly,
     updateSelectionQuantity,
     removeFromSelection,
     addToCart,
