@@ -18,15 +18,15 @@ const FloatingCart: React.FC = () => {
   return (
     <>
       <div className="fixed bottom-20 right-4 z-40">
-        <div className={`bg-white rounded-lg shadow-xl border-2 border-primary/20 transition-all duration-300 ${
+        <div className={`bg-white rounded-lg shadow-2xl border-2 border-primary/20 transition-all duration-300 ${
           isExpanded ? 'w-80 max-w-[calc(100vw-2rem)]' : 'w-auto'
         }`}>
           {/* Cart Header */}
           <div className="flex items-center justify-between p-4 border-b bg-primary/5">
             <Button
-              variant="ghost"
+              variant="secondary"
               onClick={() => setIsExpanded(!isExpanded)}
-              className="flex items-center gap-2 flex-1 justify-start p-0 hover:bg-transparent"
+              className="flex items-center gap-2 flex-1 justify-start p-0 bg-white hover:bg-gray-50 border border-gray-200"
             >
               <div className="relative">
                 <ShoppingCart size={20} className="text-primary" />
@@ -47,7 +47,7 @@ const FloatingCart: React.FC = () => {
             
             {isExpanded && (
               <Button
-                variant="ghost"
+                variant="outline"
                 size="sm"
                 onClick={() => setIsExpanded(false)}
                 className="p-1 hover:bg-primary/10"
@@ -100,8 +100,8 @@ const FloatingCart: React.FC = () => {
                         </div>
                         <Button
                           size="sm"
-                          variant="ghost"
-                          className="h-6 w-6 p-0 text-destructive hover:text-destructive hover:bg-destructive/10"
+                          variant="outline"
+                          className="h-6 w-6 p-0 text-destructive hover:text-destructive hover:bg-destructive/10 border-destructive/20"
                           onClick={() => removeProduct(product.id)}
                         >
                           <X size={10} />
