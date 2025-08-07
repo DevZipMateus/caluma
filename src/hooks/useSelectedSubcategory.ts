@@ -7,6 +7,20 @@ interface SelectedSubcategoryState {
   setDefaultSubcategory: (categorySlug: string) => Promise<void>;
 }
 
+// Primeira subcategoria de cada categoria para exibição no carrossel
+const getFirstSubcategoryForCategory = (categorySlug: string): string | null => {
+  const firstSubcategories: Record<string, string> = {
+    'camisas-uniformes': 'Body Infantil',
+    'sublimacao': 'ALUMÍNIO BIG MOUTH',
+    'serigrafia': 'AUX PLÁSTICOS',
+    'papelaria': 'ADESIVO 30 FOLHAS',
+    'canecas': 'CANECA AÇO INOX',
+    'equipamentos': 'CAMEO SILHOUETTE',
+  };
+
+  return firstSubcategories[categorySlug] || null;
+};
+
 export const useSelectedSubcategory = create<SelectedSubcategoryState>((set) => ({
   selectedSubcategory: null,
   setSelectedSubcategory: (subcategory) => set({ selectedSubcategory: subcategory }),
@@ -21,3 +35,6 @@ export const useSelectedSubcategory = create<SelectedSubcategoryState>((set) => 
     }
   },
 }));
+
+// Função para obter a primeira subcategoria para carrossel
+export const getFirstSubcategoryForCategory = getFirstSubcategoryForCategory;

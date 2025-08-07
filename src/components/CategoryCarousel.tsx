@@ -3,6 +3,8 @@ import React, { useEffect } from 'react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { useAutoCarousel } from '../hooks/useAutoCarousel';
 import { getCategoryImages } from '../utils/categoryImages';
+import { getFirstSubcategoryForCategory } from '../hooks/useSelectedSubcategory';
+import { getSubcategoryCarouselImages } from '../utils/subcategoryCarouselImages';
 
 interface CategoryCarouselProps {
   categorySlug: string;
@@ -10,7 +12,14 @@ interface CategoryCarouselProps {
 }
 
 const CategoryCarousel: React.FC<CategoryCarouselProps> = ({ categorySlug, categoryName }) => {
-  const images = getCategoryImages(categorySlug);
+  // Sempre usar imagens da primeira subcategoria para o carrossel
+  const firstSubcategory = getFirstSubcategoryForCategory(categorySlug);
+  const subcategoryImages = firstSubcategory ? getSubcategoryCarouselImages(firstSubcategory) : [];
+  
+  // Fallback para imagens gerais da categoria se não houver imagens específicas da subcategoria
+  const fallbackImages = getCategoryImages(categorySlug);
+  const images = subcategoryImages.length > 0 ? subcategoryImages : fallbackImages;
+  
   const { currentIndex, goToSlide } = useAutoCarousel({ 
     items: images, 
     interval: 3000, 
@@ -20,13 +29,15 @@ const CategoryCarousel: React.FC<CategoryCarouselProps> = ({ categorySlug, categ
 
   // Force re-render when categorySlug changes to ensure correct images display immediately
   useEffect(() => {
-    console.log(`[CategoryCarousel] Loading category: ${categorySlug} with ${images.length} images`);
-  }, [categorySlug, images.length]);
+    console.log(`[CategoryCarousel] Loading category: ${categorySlug} with first subcategory: ${firstSubcategory}, ${images.length} images`);
+  }, [categorySlug, firstSubcategory, images.length]);
 
   if (images.length === 0) {
     console.warn(`[CategoryCarousel] No images found for category: ${categorySlug}`);
     return null;
   }
+
+  const displayName = firstSubcategory || categoryName;
 
   return (
     <div className="w-full mb-4 sm:mb-6 animate-fade-in" key={categorySlug}>
@@ -39,7 +50,7 @@ const CategoryCarousel: React.FC<CategoryCarouselProps> = ({ categorySlug, categ
                   <div className="w-full h-[600px]">
                     <img
                       src={image}
-                      alt={`Produto ${index + 1} - ${categoryName}`}
+                      alt={`Produto ${index + 1} - ${displayName}`}
                       className="w-full h-full object-contain transition-opacity duration-500"
                       loading={index === 0 ? 'eager' : 'lazy'}
                     />
@@ -76,10 +87,10 @@ const CategoryCarousel: React.FC<CategoryCarouselProps> = ({ categorySlug, categ
         
         <div className="p-3 sm:p-4">
           <h3 className="text-base sm:text-lg lg:text-xl font-semibold text-primary">
-            {categoryName}
+            {displayName}
           </h3>
           <p className="text-xs sm:text-sm text-gray-600 mt-1">
-            Produtos disponíveis - Selecione um produto específico nos botões acima
+            {firstSubcategory ? 'Primeira subcategoria - ' : ''}Produtos disponíveis - Selecione um produto específico nos botões acima
           </p>
         </div>
       </div>
