@@ -20,18 +20,13 @@ const SubcategoryProducts: React.FC<SubcategoryProductsProps> = ({ subcategory }
   if (products.length === 0) return null;
 
   const handleSelectProduct = (product: typeof products[0]) => {
-    const selectedProduct = selectedProducts.find(p => p.id === product.id);
-    if (selectedProduct) {
-      updateQuantity(product.id, selectedProduct.quantity + 1);
-    } else {
-      addProduct({
-        id: product.id,
-        name: product.name,
-        image: product.image,
-        description: product.description,
-        quantity: 1
-      });
-    }
+    addProduct({
+      id: product.id,
+      name: product.name,
+      image: product.image,
+      description: product.description,
+      quantity: 1
+    });
   };
 
   const getProductQuantity = (productId: number) => {
@@ -79,46 +74,57 @@ const SubcategoryProducts: React.FC<SubcategoryProductsProps> = ({ subcategory }
                         </p>
                       </div>
 
-                      {/* Main Selection Button */}
-                      <Button
-                        onClick={() => handleSelectProduct(product)}
-                        className={`w-full ${isSelected ? 'bg-primary hover:bg-primary/90' : 'bg-secondary hover:bg-secondary/80'}`}
-                        size="sm"
-                      >
-                        {isSelected ? <Check size={14} className="mr-2" /> : <ShoppingCart size={14} className="mr-2" />}
-                        {isSelected ? `Selecionado (${quantity})` : 'Selecionar Produto'}
-                      </Button>
+                      {/* Selection Button - Show when not selected */}
+                      {!isSelected && (
+                        <Button
+                          onClick={() => handleSelectProduct(product)}
+                          className="w-full bg-secondary hover:bg-secondary/80"
+                          size="sm"
+                        >
+                          <ShoppingCart size={14} className="mr-2" />
+                          Selecionar Produto
+                        </Button>
+                      )}
 
                       {/* Quantity Controls - Show when selected */}
                       {isSelected && (
-                        <div className="flex items-center justify-between bg-primary/10 rounded-lg p-2">
-                          <span className="text-sm font-medium text-primary">Quantidade:</span>
-                          <div className="flex items-center gap-2">
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="h-7 w-7 p-0"
-                              onClick={() => {
-                                if (quantity === 1) {
-                                  removeProduct(product.id);
-                                } else {
-                                  updateQuantity(product.id, quantity - 1);
-                                }
-                              }}
-                            >
-                              <Minus size={12} />
-                            </Button>
-                            <span className="text-sm font-bold min-w-[24px] text-center bg-white px-2 py-1 rounded">
-                              {quantity}
-                            </span>
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="h-7 w-7 p-0"
-                              onClick={() => updateQuantity(product.id, quantity + 1)}
-                            >
-                              <Plus size={12} />
-                            </Button>
+                        <div className="space-y-2">
+                          {/* Selected Status */}
+                          <div className="flex items-center justify-center bg-primary/10 rounded-lg p-2">
+                            <Check size={16} className="mr-2 text-primary" />
+                            <span className="text-sm font-medium text-primary">Produto Selecionado</span>
+                          </div>
+                          
+                          {/* Quantity Controls */}
+                          <div className="flex items-center justify-between bg-primary/10 rounded-lg p-2">
+                            <span className="text-sm font-medium text-primary">Quantidade:</span>
+                            <div className="flex items-center gap-2">
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="h-7 w-7 p-0"
+                                onClick={() => {
+                                  if (quantity === 1) {
+                                    removeProduct(product.id);
+                                  } else {
+                                    updateQuantity(product.id, quantity - 1);
+                                  }
+                                }}
+                              >
+                                <Minus size={12} />
+                              </Button>
+                              <span className="text-sm font-bold min-w-[24px] text-center bg-white px-2 py-1 rounded">
+                                {quantity}
+                              </span>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="h-7 w-7 p-0"
+                                onClick={() => updateQuantity(product.id, quantity + 1)}
+                              >
+                                <Plus size={12} />
+                              </Button>
+                            </div>
                           </div>
                         </div>
                       )}
