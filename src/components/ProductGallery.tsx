@@ -1,11 +1,13 @@
-
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { MessageCircle } from 'lucide-react';
+import { MessageCircle, ShoppingCart, Plus, Minus } from 'lucide-react';
+import { useProductSelection } from '../hooks/useProductSelection';
 
 const ProductGallery = () => {
+  const { selectedProducts, addProduct, removeProduct, updateQuantity } = useProductSelection();
+
   const products = [
     {
       id: 1,
@@ -100,6 +102,28 @@ const ProductGallery = () => {
     window.open(whatsappURL, '_blank');
   };
 
+  const handleQuoteRequest = (product: typeof products[0]) => {
+    const selectedProduct = selectedProducts.find(p => p.id === product.id);
+    if (selectedProduct) {
+      // Se já está selecionado, aumenta a quantidade
+      updateQuantity(product.id, selectedProduct.quantity + 1);
+    } else {
+      // Se não está selecionado, adiciona com quantidade 1
+      addProduct({
+        id: product.id,
+        name: product.name,
+        image: product.image,
+        description: product.description,
+        quantity: 1
+      });
+    }
+  };
+
+  const getProductQuantity = (productId: number) => {
+    const product = selectedProducts.find(p => p.id === productId);
+    return product ? product.quantity : 0;
+  };
+
   return (
     <section id="produtos" className="py-16 lg:py-24 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -117,35 +141,81 @@ const ProductGallery = () => {
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {products.map((product) => (
-            <Card key={product.id} className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-              <CardContent className="p-0">
-                <div className="aspect-square overflow-hidden rounded-t-lg">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <div className="p-4">
-                  <h3 className="font-semibold text-foreground mb-2 line-clamp-1">
-                    {product.name}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                    {product.description}
-                  </p>
-                  <Button
-                    onClick={() => handleWhatsAppContact(product.name)}
-                    className="w-full"
-                    size="sm"
-                  >
-                    <MessageCircle size={16} className="mr-2" />
-                    Mais Informações
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+          {products.map((product) => {
+            const quantity = getProductQuantity(product.id);
+            return (
+              <Card key={product.id} className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                <CardContent className="p-0">
+                  <div className="aspect-square overflow-hidden rounded-t-lg">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-semibold text-foreground mb-2 line-clamp-1">
+                      {product.name}
+                    </h3>
+                    <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                      {product.description}
+                    </p>
+                    
+                    {/* Quantity Controls - Show only if product is selected */}
+                    {quantity > 0 && (
+                      <div className="flex items-center justify-center gap-2 mb-3 p-2 bg-primary/10 rounded-lg">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="h-6 w-6 p-0"
+                          onClick={() => {
+                            if (quantity === 1) {
+                              removeProduct(product.id);
+                            } else {
+                              updateQuantity(product.id, quantity - 1);
+                            }
+                          }}
+                        >
+                          <Minus size={12} />
+                        </Button>
+                        <span className="text-sm font-medium min-w-[20px] text-center">
+                          {quantity}
+                        </span>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="h-6 w-6 p-0"
+                          onClick={() => updateQuantity(product.id, quantity + 1)}
+                        >
+                          <Plus size={12} />
+                        </Button>
+                      </div>
+                    )}
+
+                    <div className="flex gap-2">
+                      <Button
+                        onClick={() => handleQuoteRequest(product)}
+                        className="flex-1"
+                        size="sm"
+                        variant={quantity > 0 ? "default" : "outline"}
+                      >
+                        <ShoppingCart size={16} className="mr-2" />
+                        {quantity > 0 ? "Adicionado" : "Solicitar Orçamento"}
+                      </Button>
+                      <Button
+                        onClick={() => handleWhatsAppContact(product.name)}
+                        size="sm"
+                        variant="ghost"
+                        className="px-3"
+                      >
+                        <MessageCircle size={16} />
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
 
         {/* Call to Action */}
