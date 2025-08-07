@@ -1,5 +1,5 @@
-import React from 'react';
-import { ChevronDown, Menu } from 'lucide-react';
+import React, { useState } from 'react';
+import { ChevronDown, Menu, MessageSquare } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
   DropdownMenu,
@@ -10,19 +10,27 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { useSelectedSubcategory } from '../hooks/useSelectedSubcategory';
 import { useDesktopDropdownState } from '../hooks/useDesktopDropdownState';
+import { useProductSelection } from '../hooks/useProductSelection';
 import { subcategoryToCategoryMapping } from '../utils/subcategoryMapping';
+import DropdownProductItem from './DropdownProductItem';
+import QuoteModal from './QuoteModal';
 
 const DesktopSubcategoryDropdown: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { selectedSubcategory, setSelectedSubcategory } = useSelectedSubcategory();
+  const { selectedProducts } = useProductSelection();
   const { 
     subcategoryDropdownOpen, 
     setSubcategoryDropdownOpen,
     closeAllDropdowns 
   } = useDesktopDropdownState();
+
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 
   const categories = [
     {
@@ -283,50 +291,89 @@ const DesktopSubcategoryDropdown: React.FC = () => {
   }
 
   const displayTitle = selectedSubcategory || 'Produtos';
+  const totalItems = selectedProducts.reduce((sum, product) => sum + product.quantity, 0);
 
   return (
-    <DropdownMenu open={subcategoryDropdownOpen} onOpenChange={handleDropdownOpenChange}>
-      <DropdownMenuTrigger asChild>
-        <button 
-          className="flex items-center gap-2 bg-secondary text-secondary-foreground py-2 px-4 rounded-lg font-medium hover:bg-secondary/80 transition-colors focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:ring-offset-2"
-          aria-label="Selecionar produto"
-          type="button"
-        >
-          <Menu size={18} aria-hidden="true" />
-          <span className="truncate max-w-[200px]">{displayTitle}</span>
-          <ChevronDown 
-            size={16} 
-            className={`transition-transform duration-200 ${subcategoryDropdownOpen ? 'rotate-180' : ''}`}
-            aria-hidden="true"
-          />
-        </button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-80 bg-popover border shadow-lg z-50">
-        <ScrollArea className="h-96">
-          {Object.entries(currentCategory.subcategories).map(([groupName, items]) => (
-            <div key={groupName} className="p-2">
-              <DropdownMenuLabel className="px-2 py-1.5 text-sm font-semibold">
-                {groupName}
-              </DropdownMenuLabel>
-              {items.map((item, index) => (
-                <DropdownMenuItem
-                  key={index}
-                  onClick={() => handleSubcategoryClick(item)}
-                  className={`text-sm cursor-pointer hover:bg-accent focus:bg-accent px-2 py-1.5 transition-colors ${
-                    selectedSubcategory === item ? 'bg-accent/50 font-medium' : ''
-                  }`}
+    <>
+      <DropdownMenu open={subcategoryDropdownOpen} onOpenChange={handleDropdownOpenChange}>
+        <DropdownMenuTrigger asChild>
+          <button 
+            className="flex items-center gap-2 bg-secondary text-secondary-foreground py-2 px-4 rounded-lg font-medium hover:bg-secondary/80 transition-colors focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:ring-offset-2 relative"
+            aria-label="Selecionar produto"
+            type="button"
+          >
+            <Menu size={18} aria-hidden="true" />
+            <span className="truncate max-w-[200px]">{displayTitle}</span>
+            {totalItems > 0 && (
+              <Badge variant="default" className="ml-2">
+                {totalItems}
+              </Badge>
+            )}
+            <ChevronDown 
+              size={16} 
+              className={`transition-transform duration-200 ${subcategoryDropdownOpen ? 'rotate-180' : ''}`}
+              aria-hidden="true"
+            />
+          </button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-96 bg-popover border shadow-lg z-50">
+          <ScrollArea className="h-96">
+            {Object.entries(currentCategory.subcategories).map(([groupName, items]) => (
+              <div key={groupName} className="p-2">
+                <DropdownMenuLabel className="px-2 py-1.5 text-sm font-semibold">
+                  {groupName}
+                </DropdownMenuLabel>
+                {items.map((item, index) => (
+                  <div key={index} className="space-y-2">
+                    <DropdownMenuItem
+                      onClick={() => handleSubcategoryClick(item)}
+                      className={`text-sm cursor-pointer hover:bg-accent focus:bg-accent px-2 py-1.5 transition-colors ${
+                        selectedSubcategory === item ? 'bg-accent/50 font-medium' : ''
+                      }`}
+                    >
+                      {item}
+                    </DropdownMenuItem>
+                    
+                    {/* Show products for selected subcategory */}
+                    {selectedSubcategory === item && (
+                      <div className="ml-4 mr-2 mb-3">
+                        <DropdownProductItem subcategory={item} />
+                      </div>
+                    )}
+                  </div>
+                ))}
+                {Object.keys(currentCategory.subcategories).indexOf(groupName) < Object.keys(currentCategory.subcategories).length - 1 && (
+                  <DropdownMenuSeparator />
+                )}
+              </div>
+            ))}
+            
+            {/* Quote Button - Show when products are selected */}
+            {totalItems > 0 && (
+              <div className="p-4 border-t bg-primary/5">
+                <Button
+                  onClick={() => {
+                    setIsQuoteModalOpen(true);
+                    closeAllDropdowns();
+                  }}
+                  className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
+                  size="sm"
                 >
-                  {item}
-                </DropdownMenuItem>
-              ))}
-              {Object.keys(currentCategory.subcategories).indexOf(groupName) < Object.keys(currentCategory.subcategories).length - 1 && (
-                <DropdownMenuSeparator />
-              )}
-            </div>
-          ))}
-        </ScrollArea>
-      </DropdownMenuContent>
-    </DropdownMenu>
+                  <MessageSquare size={16} className="mr-2" />
+                  Solicitar Orçamento ({totalItems} {totalItems === 1 ? 'item' : 'itens'})
+                </Button>
+              </div>
+            )}
+          </ScrollArea>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      <QuoteModal
+        isOpen={isQuoteModalOpen}
+        onClose={() => setIsQuoteModalOpen(false)}
+        products={selectedProducts}
+      />
+    </>
   );
 };
 
