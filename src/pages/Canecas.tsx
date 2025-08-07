@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -12,6 +11,8 @@ import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import { useSelectedSubcategory } from '../hooks/useSelectedSubcategory';
 import { useIsDesktop } from '../hooks/useIsDesktop';
 import { useDesktopDropdownState } from '../hooks/useDesktopDropdownState';
+import SubcategoryProducts from '../components/SubcategoryProducts';
+import FloatingCart from '../components/FloatingCart';
 
 const Canecas = () => {
   const { selectedSubcategory, setDefaultSubcategory } = useSelectedSubcategory();
@@ -53,7 +54,7 @@ const Canecas = () => {
 
                   <div className="max-w-6xl mx-auto">
                     {selectedSubcategory ? (
-                      <SubcategoryImage subcategory={selectedSubcategory} />
+                      <SubcategoryProducts subcategory={selectedSubcategory} />
                     ) : (
                       <CategoryCarousel categorySlug="canecas" categoryName="Canecas" />
                     )}
@@ -75,7 +76,7 @@ const Canecas = () => {
             <div className="space-y-4 sm:space-y-6">
               <div className="bg-white rounded-lg p-3 sm:p-4 shadow-sm">
                 {selectedSubcategory ? (
-                  <SubcategoryImage subcategory={selectedSubcategory} />
+                  <SubcategoryProducts subcategory={selectedSubcategory} />
                 ) : (
                   <CategoryCarousel categorySlug="canecas" categoryName="Canecas" />
                 )}
@@ -87,6 +88,7 @@ const Canecas = () => {
       
       <Footer />
       <FloatingButton />
+      <FloatingCart />
     </div>
   );
 };

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -11,6 +10,8 @@ import { AppSidebar } from '../components/AppSidebar';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import { useSelectedSubcategory } from '../hooks/useSelectedSubcategory';
 import { useIsDesktop } from '../hooks/useIsDesktop';
+import SubcategoryProducts from '../components/SubcategoryProducts';
+import FloatingCart from '../components/FloatingCart';
 
 const Equipamentos = () => {
   const { selectedSubcategory } = useSelectedSubcategory();
@@ -44,7 +45,7 @@ const Equipamentos = () => {
 
                   <div className="max-w-6xl mx-auto">
                     {selectedSubcategory ? (
-                      <SubcategoryImage subcategory={selectedSubcategory} />
+                      <SubcategoryProducts subcategory={selectedSubcategory} />
                     ) : (
                       <CategoryCarousel categorySlug="equipamentos" categoryName="Equipamentos" />
                     )}
@@ -66,7 +67,7 @@ const Equipamentos = () => {
             <div className="space-y-4 sm:space-y-6">
               <div className="bg-white rounded-lg p-3 sm:p-4 shadow-sm">
                 {selectedSubcategory ? (
-                  <SubcategoryImage subcategory={selectedSubcategory} />
+                  <SubcategoryProducts subcategory={selectedSubcategory} />
                 ) : (
                   <CategoryCarousel categorySlug="equipamentos" categoryName="Equipamentos" />
                 )}
@@ -78,6 +79,7 @@ const Equipamentos = () => {
       
       <Footer />
       <FloatingButton />
+      <FloatingCart />
     </div>
   );
 };
