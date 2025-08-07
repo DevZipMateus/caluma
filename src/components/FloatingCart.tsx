@@ -26,10 +26,11 @@ const FloatingCart: React.FC = () => {
             <Button
               variant="secondary"
               onClick={() => setIsExpanded(!isExpanded)}
-              className="flex items-center gap-2 flex-1 justify-start p-0 bg-white hover:bg-gray-50 border border-gray-200"
+              className="flex items-center gap-2 flex-1 justify-start p-0 border border-gray-200"
+              style={{ backgroundColor: '#05038c', color: 'white' }}
             >
               <div className="relative">
-                <ShoppingCart size={20} className="text-primary" />
+                <ShoppingCart size={20} className="text-white" />
                 <Badge 
                   variant="default" 
                   className="absolute -top-2 -right-2 h-5 w-5 p-0 flex items-center justify-center text-xs bg-accent hover:bg-accent"
@@ -38,8 +39,8 @@ const FloatingCart: React.FC = () => {
                 </Badge>
               </div>
               <div className="flex flex-col items-start">
-                <span className="font-semibold text-primary">Carrinho</span>
-                <span className="text-xs text-muted-foreground">
+                <span className="font-semibold text-white">Carrinho</span>
+                <span className="text-xs text-white/80">
                   {totalItems} {totalItems === 1 ? 'item selecionado' : 'itens selecionados'}
                 </span>
               </div>
