@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { useAutoCarousel } from '../hooks/useAutoCarousel';
 import { getCategoryImages } from '../utils/categoryImages';
@@ -14,24 +14,34 @@ const CategoryCarousel: React.FC<CategoryCarouselProps> = ({ categorySlug, categ
   const { currentIndex, goToSlide } = useAutoCarousel({ 
     items: images, 
     interval: 3000, 
-    enabled: true 
+    enabled: true,
+    categorySlug // Pass categorySlug to help with transitions
   });
 
-  if (images.length === 0) return null;
+  // Force re-render when categorySlug changes to ensure correct images display immediately
+  useEffect(() => {
+    console.log(`[CategoryCarousel] Loading category: ${categorySlug} with ${images.length} images`);
+  }, [categorySlug, images.length]);
+
+  if (images.length === 0) {
+    console.warn(`[CategoryCarousel] No images found for category: ${categorySlug}`);
+    return null;
+  }
 
   return (
-    <div className="w-full mb-4 sm:mb-6 animate-fade-in">
+    <div className="w-full mb-4 sm:mb-6 animate-fade-in" key={categorySlug}>
       <div className="bg-white rounded-lg shadow-lg overflow-hidden">
         <div className="relative">
           <Carousel className="w-full">
             <CarouselContent>
               {images.map((image, index) => (
-                <CarouselItem key={index} className={index === currentIndex ? 'block' : 'hidden'}>
+                <CarouselItem key={`${categorySlug}-${index}`} className={index === currentIndex ? 'block' : 'hidden'}>
                   <div className="w-full h-[600px]">
                     <img
                       src={image}
                       alt={`Produto ${index + 1} - ${categoryName}`}
                       className="w-full h-full object-contain transition-opacity duration-500"
+                      loading={index === 0 ? 'eager' : 'lazy'}
                     />
                   </div>
                 </CarouselItem>
@@ -50,7 +60,7 @@ const CategoryCarousel: React.FC<CategoryCarouselProps> = ({ categorySlug, categ
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
               {images.map((_, index) => (
                 <button
-                  key={index}
+                  key={`${categorySlug}-indicator-${index}`}
                   onClick={() => goToSlide(index)}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
                     index === currentIndex 
