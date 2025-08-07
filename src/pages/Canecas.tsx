@@ -4,28 +4,24 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FloatingButton from '../components/FloatingButton';
 import CategoryMenu from '../components/CategoryMenu';
-import CategoryCarousel from '../components/CategoryCarousel';
+import CategoryProducts from '../components/CategoryProducts';
 import MobileButtonRow from '../components/MobileButtonRow';
 import { AppSidebar } from '../components/AppSidebar';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import { useSelectedSubcategory } from '../hooks/useSelectedSubcategory';
 import { useIsDesktop } from '../hooks/useIsDesktop';
-import { useDesktopDropdownState } from '../hooks/useDesktopDropdownState';
 import SubcategoryProducts from '../components/SubcategoryProducts';
 import FloatingCart from '../components/FloatingCart';
 
 const Canecas = () => {
-  const { selectedSubcategory, setSelectedSubcategory, setDefaultSubcategory } = useSelectedSubcategory();
-  const { closeAllDropdowns } = useDesktopDropdownState();
+  const { selectedSubcategory, setSelectedSubcategory } = useSelectedSubcategory();
   const isDesktop = useIsDesktop();
 
-  // Close dropdowns and set default subcategory when component mounts
+  // Reset subcategory state when entering this page
   useEffect(() => {
-    console.log('[Canecas] Page mounted, closing all dropdowns and resetting subcategory state');
-    closeAllDropdowns();
-    setSelectedSubcategory(null); // Reset first, then set default
-    setDefaultSubcategory('canecas');
-  }, [closeAllDropdowns, setSelectedSubcategory, setDefaultSubcategory]);
+    console.log('[Canecas] Page mounted, resetting subcategory state');
+    setSelectedSubcategory(null);
+  }, [setSelectedSubcategory]);
 
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden w-full">
@@ -57,7 +53,7 @@ const Canecas = () => {
                     {selectedSubcategory ? (
                       <SubcategoryProducts subcategory={selectedSubcategory} />
                     ) : (
-                      <CategoryCarousel categorySlug="canecas" categoryName="Canecas" />
+                      <CategoryProducts categorySlug="canecas" categoryName="Canecas" />
                     )}
                   </div>
                 </main>
@@ -79,7 +75,7 @@ const Canecas = () => {
                 {selectedSubcategory ? (
                   <SubcategoryProducts subcategory={selectedSubcategory} />
                 ) : (
-                  <CategoryCarousel categorySlug="canecas" categoryName="Canecas" />
+                  <CategoryProducts categorySlug="canecas" categoryName="Canecas" />
                 )}
               </div>
             </div>

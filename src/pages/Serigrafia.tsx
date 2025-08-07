@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FloatingButton from '../components/FloatingButton';
 import CategoryMenu from '../components/CategoryMenu';
-import CategoryCarousel from '../components/CategoryCarousel';
+import CategoryProducts from '../components/CategoryProducts';
 import MobileButtonRow from '../components/MobileButtonRow';
 import { AppSidebar } from '../components/AppSidebar';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
@@ -53,7 +53,7 @@ const Serigrafia = () => {
                     {selectedSubcategory ? (
                       <SubcategoryProducts subcategory={selectedSubcategory} />
                     ) : (
-                      <CategoryCarousel categorySlug="serigrafia" categoryName="Serigrafia" />
+                      <CategoryProducts categorySlug="serigrafia" categoryName="Serigrafia" />
                     )}
                   </div>
                 </main>
@@ -75,7 +75,7 @@ const Serigrafia = () => {
                 {selectedSubcategory ? (
                   <SubcategoryProducts subcategory={selectedSubcategory} />
                 ) : (
-                  <CategoryCarousel categorySlug="serigrafia" categoryName="Serigrafia" />
+                  <CategoryProducts categorySlug="serigrafia" categoryName="Serigrafia" />
                 )}
               </div>
             </div>
