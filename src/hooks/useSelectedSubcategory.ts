@@ -36,5 +36,5 @@ export const useSelectedSubcategory = create<SelectedSubcategoryState>((set) => 
   },
 }));
 
-// Função para obter a primeira subcategoria para carrossel
-export const getFirstSubcategoryForCategory = getFirstSubcategoryForCategory;
+// Export the function (removing the duplicate declaration)
+export { getFirstSubcategoryForCategory };
