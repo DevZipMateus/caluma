@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ShoppingCart, X, Plus, Minus, MessageSquare } from 'lucide-react';
-import { useProductSelection } from '../hooks/useProductSelection';
+import { useProductSelection } from '../contexts/ProductSelectionContext';
 import QuoteModal from './QuoteModal';
 
 const FloatingCart: React.FC = () => {

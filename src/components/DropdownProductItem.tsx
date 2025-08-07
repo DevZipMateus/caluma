@@ -2,7 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Plus, Minus, ShoppingCart, CheckCircle } from 'lucide-react';
-import { useProductSelection } from '../hooks/useProductSelection';
+import { useProductSelection } from '../contexts/ProductSelectionContext';
 import { getSubcategoryProducts } from '../utils/subcategoryProducts';
 
 interface DropdownProductItemProps {

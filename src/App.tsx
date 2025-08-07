@@ -15,6 +15,7 @@ import Sublimacao from './pages/Sublimacao';
 import Serigrafia from './pages/Serigrafia';
 import { useScrollToTop } from './hooks/useScrollToTop';
 import { useIsMobile } from './hooks/use-mobile';
+import { ProductSelectionProvider } from './contexts/ProductSelectionContext';
 
 function MainPage() {
   const isMobile = useIsMobile();
@@ -62,9 +63,11 @@ function AppContent() {
 
 function App() {
   return (
-    <Router>
-      <AppContent />
-    </Router>
+    <ProductSelectionProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </ProductSelectionProvider>
   );
 }
 
