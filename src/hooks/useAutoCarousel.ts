@@ -14,6 +14,11 @@ export const useAutoCarousel = ({
 }: UseAutoCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  // Reset currentIndex when items array changes
+  useEffect(() => {
+    setCurrentIndex(0);
+  }, [items]);
+
   useEffect(() => {
     if (!enabled || items.length <= 1) return;
 
