@@ -30,10 +30,11 @@ const CategoryCarousel: React.FC<CategoryCarouselProps> = ({ categorySlug, categ
   // Pré-carregar primeira imagem
   const { isLoaded: firstImageLoaded } = useImagePreloader(firstImage);
   
+  // Fix: Declare the hook without using isTransitioning in the enabled parameter
   const { currentIndex, isTransitioning, goToSlide } = useAutoCarousel({ 
     items: images, 
     interval: 3000, 
-    enabled: !isTransitioning && isVisible,
+    enabled: isVisible, // Remove isTransitioning dependency to avoid temporal dead zone
     categorySlug
   });
 
